@@ -15,7 +15,7 @@ import { Card } from '@/components/ui/card'
 
 import BlogSection from './_components.tsx/blogs'
 import ServiceCarousel from './_components.tsx/services'
-import TeamSection from './_components.tsx/team'
+// import TeamSection from './_components.tsx/team'
 import ContactSection from './_components.tsx/contact'
 
 function Page() {
@@ -174,102 +174,107 @@ function Page() {
 					</div>
 				</div>
 			</div>
-		<div className='bg-[#0B192C] py-12 shadow-md text-white'>
-  <div className='container mx-auto px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-20'>
-    <div className='grid grid-cols-2 gap-4 lg:w-[700px] h-[600px]'>
-      <Card className='relative overflow-hidden cursor-pointer col-span-2 h-[350px]'>
-        <Link href={'/about'}>
-          <Image
-            src='/assets/about.png'
-            alt='SifatDev jamoasi'
-            fill
-            className='object-cover hover:scale-105 transition-transform duration-500'
-          />
-        </Link>
-      </Card>
-      <Card className='relative overflow-hidden cursor-pointer h-[230px]'>
-        <Link href={'/about'}>
-          <Image
-            src='/assets/about-one-img-1.jpg'
-            alt='SifatDev ish jarayoni'
-            fill
-            className='object-cover hover:scale-105 transition-transform duration-500'
-          />
-        </Link>
-      </Card>
-      <Card className='relative overflow-hidden cursor-pointer h-[230px]'>
-        <Link href={'/about'}>
-          <Image
-            src='/assets/about-two-img-2.jpg'
-            alt='Jamoa uchrashuvi'
-            fill
-            className='object-cover hover:scale-105 transition-transform duration-500'
-          />
-        </Link>
-      </Card>
-    </div>
+			<div className='bg-[#0B192C] py-12 shadow-md text-white'>
+				<div className='container mx-auto px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-20'>
+					<div className='grid grid-cols-2 gap-4 lg:w-[700px] h-[600px]'>
+						<Card className='relative overflow-hidden cursor-pointer col-span-2 h-[350px]'>
+							<Link href={'/about'}>
+								<Image
+									src='/assets/about.png'
+									alt='SifatDev jamoasi'
+									fill
+									className='object-cover hover:scale-105 transition-transform duration-500'
+								/>
+							</Link>
+						</Card>
+						<Card className='relative overflow-hidden cursor-pointer h-[230px]'>
+							<Link href={'/about'}>
+								<Image
+									src='/assets/about-one-img-1.jpg'
+									alt='SifatDev ish jarayoni'
+									fill
+									className='object-cover hover:scale-105 transition-transform duration-500'
+								/>
+							</Link>
+						</Card>
+						<Card className='relative overflow-hidden cursor-pointer h-[230px]'>
+							<Link href={'/about'}>
+								<Image
+									src='/assets/about-two-img-2.jpg'
+									alt='Jamoa uchrashuvi'
+									fill
+									className='object-cover hover:scale-105 transition-transform duration-500'
+								/>
+							</Link>
+						</Card>
+					</div>
 
-    {/* O'ng tomondagi text qismi */}
-    <div className='flex-1 h-[600px] flex items-start justify-center flex-col gap-3'>
-      <h1 className='text-blue-400 mb-2 tracking-wider uppercase'>
-        Biz haqimizda
-      </h1>
-      <h2 className='text-4xl font-bold leading-snug'>
-        🚀 <span className='text-blue-400'>SifatDev</span> — Kelajakni{' '}
-        <span className='text-blue-400'>Kodlaymiz</span>
-      </h2>
-      <p className='text-gray-300 mt-4 max-w-xl'>
-        SifatDev — bu turli yo‘nalishdagi iqtidorli dasturchilar, dizaynerlar va IT mutaxassislar jamlangan professional jamoa. Biz mijozlarimiz uchun zamonaviy, tezkor va sifatli raqamli yechimlar yaratib, ularning biznesini yangi bosqichga olib chiqamiz.
-      </p>
+					{/* O'ng tomondagi text qismi */}
+					<div className='flex-1 h-[600px] flex items-start justify-center flex-col gap-3'>
+						<h1 className='text-blue-400 mb-2 tracking-wider uppercase'>
+							Biz haqimizda
+						</h1>
+						<h2 className='text-4xl font-bold leading-snug'>
+							🚀 <span className='text-blue-400'>SifatDev</span> — Kelajakni{' '}
+							<span className='text-blue-400'>Kodlaymiz</span>
+						</h2>
+						<p className='text-gray-300 mt-4 max-w-xl'>
+							SifatDev — bu turli yo‘nalishdagi iqtidorli dasturchilar,
+							dizaynerlar va IT mutaxassislar jamlangan professional jamoa. Biz
+							mijozlarimiz uchun zamonaviy, tezkor va sifatli raqamli yechimlar
+							yaratib, ularning biznesini yangi bosqichga olib chiqamiz.
+						</p>
 
-      <div className='grid sm:grid-cols-2 gap-4 mt-6 text-gray-300'>
-        {[
-          'Zamonaviy texnologiyalar va frameworklar',
-          'Sifat va tezlikka asoslangan ishlab chiqish',
-          'Innovatsion va foydalanuvchiga qulay dizayn',
-          'Doimiy qo‘llab-quvvatlash va hamkorlik',
-        ].map((item, idx) => (
-          <div key={idx} className='flex items-start gap-2'>
-            <CheckCircle2 className='text-blue-400 w-5 h-5 mt-1' />
-            <span>{item}</span>
-          </div>
-        ))}
-      </div>
+						<div className='grid sm:grid-cols-2 gap-4 mt-6 text-gray-300'>
+							{[
+								'Zamonaviy texnologiyalar va frameworklar',
+								'Sifat va tezlikka asoslangan ishlab chiqish',
+								'Innovatsion va foydalanuvchiga qulay dizayn',
+								'Doimiy qo‘llab-quvvatlash va hamkorlik',
+							].map((item, idx) => (
+								<div key={idx} className='flex items-start gap-2'>
+									<CheckCircle2 className='text-blue-400 w-5 h-5 mt-1' />
+									<span>{item}</span>
+								</div>
+							))}
+						</div>
 
-      {/* Statistik ma'lumotlar */}
-      <div className='flex flex-wrap items-center gap-8 mt-8'>
-        <div>
-          <p className='text-yellow-400 text-3xl font-bold'>5+</p>
-          <p className='text-gray-400 text-sm'>Yillik Tajriba</p>
-        </div>
-        <div>
-          <p className='text-yellow-400 text-3xl font-bold'>50+</p>
-          <p className='text-gray-400 text-sm'>Muvaffaqiyatli Loyihalar</p>
-        </div>
-        <div>
-          <p className='text-yellow-400 text-3xl font-bold'>30+</p>
-          <p className='text-gray-400 text-sm'>Hamkor Mijozlar</p>
-        </div>
-      </div>
+						{/* Statistik ma'lumotlar */}
+						<div className='flex flex-wrap items-center gap-8 mt-8'>
+							<div>
+								<p className='text-yellow-400 text-3xl font-bold'>5+</p>
+								<p className='text-gray-400 text-sm'>Yillik Tajriba</p>
+							</div>
+							<div>
+								<p className='text-yellow-400 text-3xl font-bold'>50+</p>
+								<p className='text-gray-400 text-sm'>
+									Muvaffaqiyatli Loyihalar
+								</p>
+							</div>
+							<div>
+								<p className='text-yellow-400 text-3xl font-bold'>30+</p>
+								<p className='text-gray-400 text-sm'>Hamkor Mijozlar</p>
+							</div>
+						</div>
 
-      {/* Aloqa va tugma */}
-      <div className='flex flex-col sm:flex-row items-center gap-6 mt-8 justify-between'>
-        <div className='flex flex-col gap-1 text-center sm:text-left'>
-          <p className='text-blue-400 text-sm'>Bog‘lanish uchun</p>
-          <p className='font-semibold text-lg'>+998 (88) 378 08 08</p>
-        </div>
-        <div className='flex justify-center w-full sm:w-auto'>
-          <Link
-            href='/service'
-            className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 shadow-md hover:shadow-lg transition'
-          >
-            Xizmatlarimiz <ArrowRight />
-          </Link>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+						{/* Aloqa va tugma */}
+						<div className='flex flex-col sm:flex-row items-center gap-6 mt-8 justify-between'>
+							<div className='flex flex-col gap-1 text-center sm:text-left'>
+								<p className='text-blue-400 text-sm'>Bog‘lanish uchun</p>
+								<p className='font-semibold text-lg'>+998 (88) 378 08 08</p>
+							</div>
+							<div className='flex justify-center w-full sm:w-auto'>
+								<Link
+									href='/service'
+									className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 shadow-md hover:shadow-lg transition'
+								>
+									Xizmatlarimiz <ArrowRight />
+								</Link>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			{/*  */}
 			<section className='bg-gradient-to-r from-[#0a1d4d] to-[#042b70] py-12 relative overflow-hidden'>
@@ -300,16 +305,14 @@ function Page() {
 			</section>
 			{/* services */}
 			<div>
-				<ServiceCarousel/>
+				<ServiceCarousel />
+			</div>
+			<div>{/* <TeamSection/> */}</div>
+			<div>
+				<BlogSection />
 			</div>
 			<div>
-				<TeamSection/>
-			</div>
-			<div>
-				<BlogSection/>
-			</div>
-			<div>
-				<ContactSection/>
+				<ContactSection />
 			</div>
 		</div>
 	)

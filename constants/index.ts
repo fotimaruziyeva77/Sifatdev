@@ -27,3 +27,27 @@ export const stats = [
 	{ icon: MessageSquare, number: "200+", label: "Mamnun mijozlar sharhlari" },
 	{ icon: FolderOpen, number: "50+", label: "Muvaffaqiyatli yakunlangan loyihalar" },
 ];
+export interface Teams {
+  id: number;
+  full_name: string;
+  photo: string;
+  telegram: string;
+  instagram: string;
+  github: string;
+  linkedin: string;
+}
+export interface Blogs {
+  id: number;
+  category: Category;
+  date: string;
+  title: string;
+  slug: string;
+  description: string;
+  face_image: string;
+  views_count: number;
+}
+
+export interface Category {
+  id: number;
+  title: string;
+}

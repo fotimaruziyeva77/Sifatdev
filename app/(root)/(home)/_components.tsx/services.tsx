@@ -1,11 +1,14 @@
 'use client'
 
 import React from 'react'
-import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
+
+const AliceCarousel = dynamic(() => import('react-alice-carousel'), { ssr: false })
+import 'react-alice-carousel/lib/alice-carousel.css'
+import dynamic from 'next/dynamic'
 const services = [
 	{
 		id:1,
@@ -31,12 +34,7 @@ const services = [
 		id:5,
 		title: 'IT Infrastructure Management',
 		desc: 'Serverlar, tarmoqlar va tizimlarni samarali boshqarish va qo‘llab-quvvatlash.',
-	},
-	{
-		id:6,
-		title: 'AI & Machine Learning',
-		desc: 'Sunʼiy intellekt yordamida maʼlumotlardan ko‘proq foyda oling.',
-	},
+	}
 ]
 
 export default function ServiceCarousel() {
