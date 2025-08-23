@@ -44,8 +44,6 @@ function Blog() {
 		}
 		categoryData()
 	}, [])
-
-	// 🔎 filter
 	const filteredBlogs =
 		active === 'All'
 			? blogs

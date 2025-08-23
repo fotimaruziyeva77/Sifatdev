@@ -1,76 +1,92 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-
-
-const AliceCarousel = dynamic(() => import('react-alice-carousel'), { ssr: false })
-import 'react-alice-carousel/lib/alice-carousel.css'
 import dynamic from 'next/dynamic'
-const services = [
-	{
-		id:1,
-		title: 'Data Analytics Consulting',
-		desc: 'Maʼlumotlarni tahlil qilish orqali biznes qarorlaringizni optimallashtiring.',
-	},
-	{
-		id:2,
-		title: 'Cloud Solutions Provider',
-		desc: 'Bulut texnologiyalari bilan xavfsiz va tezkor IT infratuzilmani yarating.',
-	},
-	{
-		id:3,
-		title: 'Cybersecurity Services',
-		desc: 'Biznesingizni kiberxavflardan himoya qilish uchun ilg‘or xavfsizlik yechimlari.',
-	},
-	{
-		id:4,
-		title: 'Software Development',
-		desc: 'Moslashtirilgan dasturiy taʼminot orqali ish jarayonlaringizni avtomatlashtiring.',
-	},
-	{
-		id:5,
-		title: 'IT Infrastructure Management',
-		desc: 'Serverlar, tarmoqlar va tizimlarni samarali boshqarish va qo‘llab-quvvatlash.',
-	}
-]
+import { Services } from '@/constants'
+import { API_SERVICE } from '@/services/api-service'
+import axios from 'axios'
+import Image from 'next/image'
+
+const AliceCarousel = dynamic(() => import('react-alice-carousel'), {
+	ssr: false,
+})
 
 export default function ServiceCarousel() {
 	const responsive = {
 		0: { items: 1 },
+		640: { items: 1 },
 		768: { items: 2 },
-		992: { items: 3 },
-		1200: { items: 3 },
+		1024: { items: 3 },
+		1280: { items: 3 },
 	}
+
+	const [services, setServices] = useState<Services[]>([])
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await axios.get(API_SERVICE.services)
+				setServices(res.data.results)
+			} catch (err) {
+				console.error(err)
+			}
+		}
+		fetchData()
+	}, [])
 
 	const itemsList = services.map((service, i) => (
 		<div
 			key={i}
-			className='bg-gradient-to-b from-[#0B192C] to-[#11263D] text-white  p-6 rounded-2xl border border-gray-700 shadow-lg mx-2 h-56 flex flex-col justify-between hover:border-blue-500 transition-all duration-300'
+			className='bg-gradient-to-b from-[#0B192C] to-[#11263D] text-white  
+            p-6 rounded-2xl border border-gray-700 shadow-lg mx-4 
+            min-h-[180px] flex flex-col md:flex-row items-center gap-6 
+            hover:border-blue-500 transition-all duration-300'
 		>
-			<div>
-				<Link href={'/service'}>
-					<h3 className='text-xl font-semibold mb-2'>{service.title}</h3>
-					<p className='text-gray-300 text-sm'>{service.desc}</p>
+			{/* {service.logo && (
+				<Image
+					src={service.logo}
+					alt={service.title}
+					width={150}
+					height={150}
+					className='object-contain max-w-[150px] h-auto rounded-xl'
+				/>
+			)} */}
+
+			{/* O‘ng tomonda text */}
+			<div className='flex flex-col justify-between flex-1 text-center md:text-left'>
+				<Link href={'/service'} key={service.id}>
+					<h3 className='text-lg md:text-xl font-semibold mb-2'>
+						{service.title}
+					</h3>
+
+					<div
+						className='text-gray-300 text-sm md:text-base line-clamp-2 prose prose-invert max-w-none'
+						dangerouslySetInnerHTML={{ __html: service.description }}
+					/>
 				</Link>
+				<br />
+				<button className='mt-4 flex items-center justify-center md:justify-start gap-2 text-sm font-semibold text-white  hover:text-blue-400 transition'>
+					Read More <ArrowRight size={16} />
+				</button>
 			</div>
-			<button className='flex items-center gap-2 text-sm font-semibold text-white hover:text-blue-400 transition'>
-				Read More <ArrowRight size={16} />
-			</button>
 		</div>
 	))
 
 	return (
-		<div className='bg-[#0B192C] py-12'>
+		<div className='bg-[#0B192C] py-12 mt-20'>
 			<div className='container mx-auto px-6'>
 				{/* Text qismi */}
 				<div className='flex flex-col md:flex-row text-white items-center mb-14'>
 					<div>
 						<div className='flex items-center gap-2 mb-3'>
 							<span className='h-[2px] w-6 bg-blue-400'></span>
-							<span className='text-blue-400 uppercase tracking-wide text-sm'>
+							<span
+								className='from-blue-400 via-cyan-200 to-blue-400 
+						bg-clip-text text-transparent animate-gradient z-10 uppercase tracking-wide text-sm'
+							>
 								Bizning xizmatlar
 							</span>
 							<span className='h-[2px] w-6 bg-blue-400'></span>
@@ -86,8 +102,6 @@ export default function ServiceCarousel() {
 						</h2>
 					</div>
 				</div>
-
-				{/* Carousel qismi */}
 				<AliceCarousel
 					mouseTracking
 					infinite

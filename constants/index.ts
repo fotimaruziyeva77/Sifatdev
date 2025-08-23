@@ -51,3 +51,10 @@ export interface Category {
   id: number;
   title: string;
 }
+export interface Services {
+  id:number
+  title: string;
+  short_description: string;
+  description: string;
+  logo: string;
+}

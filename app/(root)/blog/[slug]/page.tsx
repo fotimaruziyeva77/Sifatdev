@@ -73,7 +73,6 @@ function Page() {
 				<div className='space-y-6'>
 					<Breadcrumb>
 						<BreadcrumbList className='flex items-center gap-2 bg-gray-800/70 px-4 py-4 rounded-xl '>
-							{/* Home */}
 							<BreadcrumbItem>
 								<BreadcrumbLink
 									href='/'

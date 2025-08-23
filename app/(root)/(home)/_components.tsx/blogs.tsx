@@ -66,6 +66,7 @@ export default function BlogSection() {
 						<div className='mt-12'>
 							<div className='bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition'>
 								<div className='relative'>
+									<Link href={`/blog/${latestBlog.slug}`}>
 									<Image
 										src={latestBlog.face_image}
 										alt={latestBlog.title}
@@ -73,6 +74,7 @@ export default function BlogSection() {
 										height={350}
 										className='rounded-xl object-cover'
 									/>
+									</Link>
 								</div>
 								<div className='mt-4'>
 									<div className='flex items-center gap-2 text-xs text-gray-300 mb-2'>
@@ -90,16 +92,18 @@ export default function BlogSection() {
 											{latestBlog.title}
 										</Link>
 									</h3>
+									<Link href={`/blog/${latestBlog.slug}`}>
 									<div
-										className='text-gray-400 mt-2 line-clamp-3'
+										className='text-gray-400 mt-2 line-clamp-3 hover:text-blue-400 transition leading-5'
 										dangerouslySetInnerHTML={{
 											__html: latestBlog.description.replace(/<img[^>]*>/g, ''),
 										}}
 									/>
+									</Link>
 
 									<Link
 										href={`/blog/${latestBlog.slug}`}
-										className='inline-block mt-4 text-blue-400 hover:underline'
+										className='inline-block mt-10 text-blue-400 hover:underline'
 									>
 										Batafsil o‘qish →
 									</Link>
@@ -109,10 +113,12 @@ export default function BlogSection() {
 					</div>
 					<div className='flex flex-col gap-7 animate-fadeInRight'>
 						{otherBlogs.slice(0, 3).map(blog => (
+						
 							<div
 								key={blog.id}
 								className='flex bg-white/5 border border-white/10 rounded-2xl p-4 hover:bg-white/10 transition'
 							>
+								<Link href={blog.slug}>
 								<Image
 									src={blog.face_image}
 									alt={blog.title}
@@ -120,6 +126,7 @@ export default function BlogSection() {
 									height={160}
 									className='rounded-xl object-cover w-[250px] h-[135px]'
 								/>
+								</Link>
 								<div className='ml-8 flex flex-col '>
 									<div>
 										<div className='flex items-center gap-10 text-xs text-gray-300 mb-2'>

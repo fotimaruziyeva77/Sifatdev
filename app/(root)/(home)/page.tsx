@@ -17,6 +17,7 @@ import BlogSection from './_components.tsx/blogs'
 import ServiceCarousel from './_components.tsx/services'
 // import TeamSection from './_components.tsx/team'
 import ContactSection from './_components.tsx/contact'
+import TeamSection from './_components.tsx/team'
 
 function Page() {
 	const slides = [
@@ -307,7 +308,7 @@ function Page() {
 			<div>
 				<ServiceCarousel />
 			</div>
-			<div>{/* <TeamSection/> */}</div>
+			<div><TeamSection/></div>
 			<div>
 				<BlogSection />
 			</div>
