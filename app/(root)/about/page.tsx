@@ -1,10 +1,9 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Code, GraduationCap, Target, BadgeCheck } from 'lucide-react'
 import StarShower from '../_components/star-shower'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -14,10 +13,15 @@ import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-const fadeUp = {
-	hidden: { opacity: 0, y: 24 },
-	show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0, 0, 0.58, 1] } 
+  }
 }
+
 
 const stagger = {
 	hidden: {},
