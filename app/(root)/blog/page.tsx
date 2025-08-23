@@ -14,12 +14,17 @@ import {
 } from '@radix-ui/react-navigation-menu'
 import { LucideLayoutGrid } from 'lucide-react'
 import { motion } from 'motion/react'
+import { useSearchParams } from 'next/navigation'
+import PaginationComponent from '../_components/pagination'
 
 function Blog() {
 	const [blogs, setBlogs] = useState<Blogs[]>([])
-	const [active, setActive] = useState<string>('All') // 👈 default All
+	const [active, setActive] = useState<string>('All')
 	const [category, setCategory] = useState<Category[]>([])
-
+	const searchParams = useSearchParams()
+	const currentPage = searchParams.get('page')
+	const [totalPages, setTotalPages] = useState<number>(0)
+	const [page, setPage] = useState<number>(Number(currentPage) ?? 1)
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -31,6 +36,20 @@ function Blog() {
 		}
 		fetchData()
 	}, [])
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await axios.get(`${API_SERVICE.blog}?page=${page}`)
+				setBlogs(res.data.results)
+				if (res.data.count && res.data.page_size) {
+					setTotalPages(Math.ceil(res.data.count / res.data.page_size))
+				}
+			} catch (err) {
+				console.error(err)
+			}
+		}
+		fetchData()
+	}, [page])
 
 	useEffect(() => {
 		const categoryData = async () => {
@@ -138,6 +157,11 @@ function Blog() {
 							Bu category bo‘yicha bloglar topilmadi
 						</p>
 					)}
+					<PaginationComponent
+						page={page}
+						setPage={setPage}
+						totalPages={totalPages}
+					/>
 				</div>
 			</div>
 		</div>
