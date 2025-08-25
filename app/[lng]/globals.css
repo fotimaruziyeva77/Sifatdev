@@ -109,22 +109,37 @@
 	body {
 		@apply bg-background text-foreground;
 		font-family: 'Space Grotesk', sans-serif;
-		background:linear-gradient(#0B192C, #0B192C  );
+		background: linear-gradient(#0B192C, #0B192C);
 	}
+
 	.ibg {
 		border: 2px solid red;
 	}
+
 	.nav-link {
 		font-family: 'Space Grotesk', sans-serif;
 	}
-@keyframes bgMove {
-  0% { background-position: center; }
-  50% { background-position: top; }
-  100% { background-position: center; }
-}
 
-.animate-bgMove {
-  animation: bgMove 8s ease-in-out infinite;
-}
+	@keyframes bgMove {
+		0% {
+			background-position: center;
+		}
+
+		50% {
+			background-position: top;
+		}
+
+		100% {
+			background-position: center;
+		}
+	}
+
+	.animate-bgMove {
+		animation: bgMove 8s ease-in-out infinite;
+	}
+
+	.react-international-phone-input-container .react-international-phone-country-selector {
+		display: none !important;
+	}
 
 }

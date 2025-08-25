@@ -27,11 +27,11 @@ export default function Team() {
 		<div className='mt-20 min-h-screen px-6 mb-10'>
 				<div className='relative flex items-center justify-center h-60 overflow-hidden'>
 					<h1 className='absolute text-[210px] font-extrabold text-gray-700/20 select-none pt-20'>
-						Aloqa
+						Jamoamiz
 					</h1>
 
 					<h1 className='relative text-4xl font-extrabold text-white z-10'>
-						Aloqa
+						Jamoamiz
 					</h1>
 
 					<div className='absolute inset-0 z-[11] pointer-events-none'>

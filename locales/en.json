@@ -1,0 +1,10 @@
+{
+  "navitem": {
+    "about": "About Us",
+    "service": "Our Services",
+    "team": "Our Team",
+    "blog": "Blog",
+    "contact": "Contact",
+    "portfolio": "Projects"
+  }
+}

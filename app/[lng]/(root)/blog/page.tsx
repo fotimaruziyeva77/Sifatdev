@@ -14,7 +14,7 @@ import {
 } from '@radix-ui/react-navigation-menu'
 import { LucideLayoutGrid } from 'lucide-react'
 import { motion } from 'motion/react'
-import { useSearchParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import PaginationComponent from '../_components/pagination'
 
 function Blog() {
@@ -25,6 +25,7 @@ function Blog() {
 	const currentPage = searchParams.get('page')
 	const [totalPages, setTotalPages] = useState<number>(0)
 	const [page, setPage] = useState<number>(Number(currentPage) ?? 1)
+	const { lng } = useParams()
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -141,12 +142,12 @@ function Blog() {
 							<BookCard
 								key={item.id}
 								id={item.id}
-								link={`/blog/${item.slug}`}
+								link={`/${lng}/blog/${item.slug}`}
 								face_image={item.face_image}
 								title={item.title}
 								category={item.category}
 								date={item.date}
-								slug={`/blog/${item.slug}`}
+								slug={`/${lng}/blog/${item.slug}`}
 								description={item.description}
 								views_count={item.views_count}
 								type='card'

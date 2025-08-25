@@ -6,16 +6,20 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import LanguageDropdown from './language-dropdown'
+import useTranslate from '@/hooks/use-translate'
+import { useParams } from 'next/navigation'
 
 export default function Navbar() {
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+	const t = useTranslate()
+	const { lng } = useParams()
 	const NavItems = [
-		{ id: 1, href: '/', label: 'Bosh sahifa' },
-		{ id: 2, href: '/about', label: 'Biz haqimizda' },
-		{ id: 3, href: '/service', label: 'Xizmatlarimiz' },
-		{ id: 4, href: '/team', label: 'Jamoamiz' },
-		{ id: 5, href: '/blog', label: 'Maqolalar' },
-		{ id: 6, href: '/contact', label: 'Aloqa' },
+		{ id: 1, href: `/${lng}/about`, label: t('navitem.about') },
+		{ id: 2, href: `/${lng}/service`, label: t('navitem.service') },
+		{ id: 6, href: `/${lng}/project`, label: t('navitem.portfolio') },
+		{ id: 3, href: `/${lng}/team`, label: t('navitem.team') },
+		{ id: 4, href: `/${lng}/blog`, label: t('navitem.blog') },
+		{ id: 5, href: `/${lng}/contact`, label: t('navitem.contact') },
 	]
 
 	return (
@@ -24,7 +28,7 @@ export default function Navbar() {
 				className='flex items-center justify-between px-6 py-4 bg-gradient-to-r from-[#0B192C] to-[#0B192C] 
     '
 			>
-				<Link href='/'>
+				<Link href={`/${lng}/`}>
 					<Image
 						src='/assets/logo.png'
 						alt='Sifatdev dark'
@@ -63,35 +67,16 @@ export default function Navbar() {
 						))}
 					</div>
 				</nav>
-				<div className='flex items-center gap-3'>
-					<LanguageDropdown />
-					<div className='hidden md:block relative max-w-xs'>
-						<input
-							type='text'
-							placeholder='Qidirish...'
-							className='w-full pl-10 pr-4 py-2 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white text-sm border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'
-						/>
-						<svg
-							className='absolute left-3 top-2.5 h-5 w-5 text-gray-400 dark:text-gray-500'
-							fill='none'
-							stroke='currentColor'
-							viewBox='0 0 24 24'
-						>
-							<path
-								strokeLinecap='round'
-								strokeLinejoin='round'
-								strokeWidth={2}
-								d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
-							/>
-						</svg>
-					</div>{' '}
-					<div className='md:hidden'>
-						<button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-							<Menu className='text-white' />
-						</button>
-					</div>
+
+				<LanguageDropdown />
+
+				<div className='md:hidden'>
+					<button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+						<Menu className='text-white' />
+					</button>
 				</div>
 			</div>
+
 			{isMobileMenuOpen && (
 				<nav className='md:hidden bg-[#0B192C] text-white flex flex-col gap-4 p-4 text-base font-medium'>
 					{NavItems.map(item => (

@@ -58,3 +58,23 @@ export interface Services {
   description: string;
   logo: string;
 }
+ export interface Technology {
+  id: number
+  name: string
+}
+
+ export interface Category {
+  id: number
+  title: string
+}
+
+ export interface Project {
+  id: number
+  title: string
+  slug: string
+  description: string
+  created_at: string
+  face_image: string
+  category: Category
+  technologies: Technology[]
+}
