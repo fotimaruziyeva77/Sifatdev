@@ -67,7 +67,7 @@ export default function BlogSection() {
 						<div className='mt-12'>
 							<div className='bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition'>
 								<div className='relative'>
-									<Link href={`/blog/${latestBlog.slug}`}>
+									<Link href={`/${lng}/blog/${latestBlog.slug}`}>
 									<Image
 										src={latestBlog.face_image}
 										alt={latestBlog.title}
