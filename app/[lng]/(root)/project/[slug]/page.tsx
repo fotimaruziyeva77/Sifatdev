@@ -17,7 +17,7 @@ import { API_SERVICE } from '@/services/api-service'
 
 function Page() {
 	const [portfolio, setPortfolio] = useState<Project[]>([])
-
+	const {lng}=useParams()
 	const params = useParams()
 
 	function slugify(text: string): string {
@@ -72,7 +72,7 @@ function Page() {
 								<BreadcrumbSeparator className='text-gray-400' />
 								<BreadcrumbItem>
 									<BreadcrumbLink
-										href='/project'
+										href={`/${lng}/project`}
 										className='flex items-center gap-2 text-blue-400 font-semibold hover:text-blue-400  transition'
 									>
 										<Blocks className='w-5 h-5' />

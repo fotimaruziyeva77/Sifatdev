@@ -26,7 +26,7 @@ import React, { useEffect, useState } from 'react'
 function Page() {
 	const [blogs, setBlogs] = useState<Blogs[]>([])
 	const params = useParams()
-
+	const {lng}=useParams()
 	function slugify(text: string): string {
 		return text
 			.toLowerCase()
@@ -86,7 +86,7 @@ function Page() {
 							<BreadcrumbSeparator className='text-gray-400' />
 							<BreadcrumbItem>
 								<BreadcrumbLink
-									href='/blog'
+									href={`/${lng}/blog`}
 									className='flex items-center gap-2 text-blue-400 font-semibold hover:text-blue-400  transition'
 								>
 									<Blocks className='w-5 h-5' />

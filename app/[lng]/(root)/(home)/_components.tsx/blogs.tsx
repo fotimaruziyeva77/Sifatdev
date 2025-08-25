@@ -6,11 +6,12 @@ import axios from 'axios'
 import { CalendarCheck, MessageCircleMore } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function BlogSection() {
 	const [blogs, setBlogs] = useState<Blogs[]>([])
-
+	const {lng}=useParams()
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -57,7 +58,7 @@ export default function BlogSection() {
 							maslahatlar hamda sohadagi so‘nggi trendlar bilan tanishing.
 						</p>
 						<Link
-							href='/blog'
+							href={`/${lng}/blog`}
 							className='inline-block bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-full font-medium transition'
 						>
 							Barcha bloglarni ko‘rish →
