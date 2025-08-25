@@ -10,7 +10,7 @@ import {
 	Linkedin,
 	Send,
 } from 'lucide-react'
-import { link, stats } from '@/constants'
+import {  stats } from '@/constants'
 import { Card } from '@/components/ui/card'
 
 import BlogSection from './_components.tsx/blogs'
