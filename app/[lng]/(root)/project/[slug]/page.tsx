@@ -14,6 +14,7 @@ import { Project } from '@/constants'
 import { useParams } from 'next/navigation'
 import axios from 'axios'
 import { API_SERVICE } from '@/services/api-service'
+import Link from 'next/link'
 
 function Page() {
 	const [portfolio, setPortfolio] = useState<Project[]>([])
@@ -144,15 +145,15 @@ function Page() {
 
 										{/* Social Icons */}
 										<div className='flex gap-4 text-gray-400'>
-											<a href='#' className='hover:text-white'>
+											<Link href='#' className='hover:text-white'>
 												<Facebook size={20} />
-											</a>
-											<a href='#' className='hover:text-white'>
+											</Link>
+											<Link href='#' className='hover:text-white'>
 												<Twitter size={20} />
-											</a>
-											<a href='#' className='hover:text-white'>
+											</Link>
+											<Link href='#' className='hover:text-white'>
 												<Linkedin size={20} />
-											</a>
+											</Link>
 										</div>
 									</div>
 								</div>

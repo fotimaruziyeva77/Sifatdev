@@ -9,16 +9,8 @@ import { toast } from 'sonner'
 import z from 'zod'
 import { PhoneInput } from 'react-international-phone'
 import 'react-international-phone/style.css'
-
-const contactSchema = z.object({
-	fullName: z.string().min(3, "Ism kamida 3 ta belgidan iborat bo'lishi kerak"),
-	phoneNumber: z
-		.string()
-		.regex(/^\+998[0-9]{9}$/, 'Telefon raqam noto‘g‘ri kiritildi'),
-	description: z
-		.string()
-		.min(5, 'Xabar kamida 5 ta belgidan iborat bo‘lishi kerak'),
-})
+import Link from 'next/link'
+import useTranslate from '@/hooks/use-translate'
 
 type ContactErrors = {
 	fullName?: string
@@ -108,7 +100,14 @@ export default function ContactSection() {
 	const [description, setDescription] = useState('')
 	const [loading, setLoading] = useState(false)
 	const [errors, setErrors] = useState<ContactErrors>({})
-
+	const t = useTranslate()
+	const contactSchema = z.object({
+		fullName: z.string().min(3, t('notification.contactwarning.fullname')),
+		phoneNumber: z
+			.string()
+			.regex(/^\+998[0-9]{9}$/, t('notification.contactwarning.phonenumber')),
+		description: z.string().min(5, t('notification.contactwarning.message')),
+	})
 	const resetData = () => {
 		setFullName('')
 		setPhoneNumber('')
@@ -146,13 +145,13 @@ export default function ContactSection() {
 				message: description,
 				phone_number: phoneNumber,
 			})
-			toast.success('Xabarigiz adminnga yuborildi!', {
+			toast.success(t('success.contactmessage'), {
 				position: 'top-center',
 				richColors: true,
 			})
 			resetData()
 		} catch (err) {
-			toast.error('Xatolik yuz berdi, qaytadan urinib ko‘ring!', {
+			toast.error(t('error.contacterror'), {
 				position: 'top-center',
 				richColors: true,
 			})
@@ -175,14 +174,14 @@ export default function ContactSection() {
 					{/* Left Form */}
 					<div className='relative bg-[#38445A] rounded-2xl shadow-xl p-8 overflow-hidden'>
 						<h3 className='text-2xl font-bold text-white mb-10'>
-							How Can We Help You?
+							{t('contact.form.title')}
 						</h3>
 
 						<form className='space-y-6' onSubmit={handleSubmit}>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 								<InputField
-									label='Full Name'
-									placeholder='Thomas Alison'
+									label={t('contact.form.fullname_label')}
+									placeholder={t('contact.form.fullname_label')}
 									icon={<User size={18} />}
 									value={fullName}
 									onChange={setFullName}
@@ -190,8 +189,8 @@ export default function ContactSection() {
 								/>
 
 								<InputField
-									label='Phone Number'
-									placeholder='+998 90 123 45 67'
+									label={t('contact.form.phone_label')}
+									placeholder={t('contact.form.phone_label')}
 									icon={<Phone size={18} />}
 									value={phoneNumber}
 									onChange={setPhoneNumber}
@@ -201,8 +200,8 @@ export default function ContactSection() {
 							</div>
 
 							<InputField
-								label='Inquiry about'
-								placeholder='Write your message'
+								label={t('contact.form.message_label')}
+								placeholder={t('contact.form.message_placeholder')}
 								icon={<Edit size={18} />}
 								value={description}
 								onChange={setDescription}
@@ -221,7 +220,9 @@ export default function ContactSection() {
 												: 'bg-gradient-to-r from-blue-500 to-blue-600 hover:opacity-90'
 										}`}
 								>
-									{loading ? 'Yuborilmoqda...' : 'Submit Now'}
+									{loading
+										? t('contact.form.submitting')
+										: t('contact.form.submit')}
 								</button>
 							</div>
 						</form>
@@ -231,16 +232,17 @@ export default function ContactSection() {
 					<div className='text-white'>
 						<div className='mb-6'>
 							<span className='text-sm uppercase tracking-wider text-blue-400'>
-								Get In Touch
+								{t('contact.info.title')}{' '}
 							</span>
 							<h2 className='text-3xl font-bold mt-2 leading-snug'>
-								Start the Conversation – <br />{' '}
-								<span className='text-blue-400'>Reach Out Anytime</span>
+							{t('contact.info.sub')}{' '}  <br />{' '}
+								<span className='text-blue-400'>
+									{t('contact.info.subtitle')}{' '}
+								</span>
 							</h2>
 						</div>
 						<p className='text-gray-400'>
-							We&apos;re here to listen! Whether you have questions, feedback,
-							or just want to say hello, feel free to reach out.
+							{t('contact.info.description')}{' '}
 						</p>
 
 						<ul className='mt-10 space-y-8'>
@@ -249,11 +251,9 @@ export default function ContactSection() {
 									<MapPin className='text-white' size={22} />
 								</div>
 								<div>
-									<h4 className='text-lg font-bold'>Location</h4>
+									<h4 className='text-lg font-bold'>{t('contact.info.address_title')}</h4>
 									<p className='text-gray-400'>
-										1629 N. Dixie Avenue,
-										<br />
-										Kentucky, 42701
+										{t('contact.info.address_value')}{' '}
 									</p>
 								</div>
 							</li>
@@ -263,22 +263,14 @@ export default function ContactSection() {
 									<Mail className='text-white' size={22} />
 								</div>
 								<div>
-									<h4 className='text-lg font-bold'>Email Us</h4>
+									<h4 className='text-lg font-bold'>{t('contact.info.email_title')}</h4>
 									<p>
-										<a
-											href='mailto:info@domain.com'
+										<Link
+											href='mailto:info@sifatdev.uz'
 											className='text-gray-400 hover:text-white'
 										>
-											info@domain.com
-										</a>
-									</p>
-									<p>
-										<a
-											href='mailto:support@domain.com'
-											className='text-gray-400 hover:text-white'
-										>
-											support@domain.com
-										</a>
+											info@sifatdev.uz
+										</Link>
 									</p>
 								</div>
 							</li>
@@ -288,31 +280,22 @@ export default function ContactSection() {
 									<Phone className='text-white' size={22} />
 								</div>
 								<div>
-									<h4 className='text-lg font-bold'>Contact</h4>
+									<h4 className='text-lg font-bold'>{t('contact.info.phone_title')}{' '}</h4>
 									<p>
-										Tel:{' '}
-										<a
-											href='tel:1200456789000'
+										{t('contact.info.phone')}{' '}:{' '}
+										<Link
+											href='tel:+998712345678'
 											className='text-gray-400 hover:text-white'
 										>
-											+12 (00) 456 7890 00
-										</a>
-									</p>
-									<p>
-										Mob:{' '}
-										<a
-											href='tel:9900567780'
-											className='text-gray-400 hover:text-white'
-										>
-											+99 (00) 567 780
-										</a>
+											+998 88 378 08 08
+										</Link>
 									</p>
 								</div>
 							</li>
 						</ul>
 					</div>
 				</div>
-			</div>
+			</div>	
 		</section>
 	)
 }

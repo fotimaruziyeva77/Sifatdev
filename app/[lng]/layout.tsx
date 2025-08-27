@@ -36,8 +36,7 @@ interface Props extends ChildrenProps {
 	params: Promise<{ lng: string }>
 }
 
-
-export default async function RootLayout({ children,params }: Props) {
+export default async function RootLayout({ children, params }: Props) {
 	const { lng } = await params
 	return (
 		<html lang={lng} dir={dir(lng)} suppressHydrationWarning>
@@ -45,7 +44,7 @@ export default async function RootLayout({ children,params }: Props) {
 				className={`${creteRound.variable} ${workSans.variable}${roboto.className} antialiased`}
 				suppressHydrationWarning
 			>
-					<div className='overflow-x-hidden max-w-screen w-full overflow-y-auto custom-scrollbar'>
+				<div className='overflow-hidden w-full'>
 					<ClientWrapper>
 						<LayoutWrapper>{children}</LayoutWrapper>
 					</ClientWrapper>

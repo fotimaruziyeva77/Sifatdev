@@ -14,38 +14,42 @@ import {
 } from '@radix-ui/react-navigation-menu'
 import { LucideLayoutGrid } from 'lucide-react'
 import { motion } from 'motion/react'
-import { useParams, } from 'next/navigation'
-import PaginationComponent from '../_components/pagination'
+import { useParams } from 'next/navigation'
+import useTranslate from '@/hooks/use-translate'
 
 function Blog() {
 	const [blogs, setBlogs] = useState<Blogs[]>([])
 	const [active, setActive] = useState<string>('All')
-	const [category, setCategory] = useState<Category[]>([])
+	const [categories, setCategories] = useState<{ id: number; title: string }[]>(
+		[]
+	)
 	const { lng } = useParams()
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const res = await axios.get(API_SERVICE.blog)
-				setBlogs(res.data.results)
-			} catch (err) {
-				console.error(err)
-			}
-		}
-		fetchData()
-	}, [])
+	const t = useTranslate()
+useEffect(() => {
+	const fetchData = async () => {
+		try {
+			const res = await axios.get(API_SERVICE.blog, {
+				headers: {
+					'Accept-Language': lng,
+				},
+			})
+			const results: Blogs[] = res.data.results
+			setBlogs(results)
+			const cats = results
+				.map(item => item.category) 
+				.filter(
+					(cat, index, self) =>
+						index === self.findIndex(c => c.id === cat.id) 
+				)
 
-	useEffect(() => {
-		const categoryData = async () => {
-			try {
-				const res = await axios.get(API_SERVICE.category)
-				const categories = res.data.results || res.data || []
-				setCategory(categories)
-			} catch (error) {
-				console.log(error)
-			}
+			setCategories(cats)
+		} catch (err) {
+			console.error(err)
 		}
-		categoryData()
-	}, [])
+	}
+	fetchData()
+}, [lng])
+
 	const filteredBlogs =
 		active === 'All'
 			? blogs
@@ -59,11 +63,11 @@ function Blog() {
 		<div className='mt-20 min-h-screen px-6 mb-10 '>
 			<div className='relative flex items-center justify-center h-60 overflow-hidden'>
 				<h1 className='absolute text-[210px] font-extrabold text-gray-700/20 select-none pt-20'>
-					BLOG
+					{t('navitem.blog')}
 				</h1>
 
 				<h1 className='relative text-4xl font-extrabold text-white z-10'>
-					BLOG
+					{t('navitem.blog')}
 				</h1>
 
 				<div className='absolute inset-0 z-[11] pointer-events-none'>
@@ -88,7 +92,7 @@ function Blog() {
 
 						<NavigationMenu className='pt-4'>
 							<NavigationMenuList className='flex flex-row gap-3'>
-								{category.map(item => (
+								{categories.map(item => (
 									<NavigationMenuItem key={item.id}>
 										<Button
 											variant='ghost'
@@ -137,10 +141,9 @@ function Blog() {
 						))
 					) : (
 						<p className='text-gray-400 col-span-full text-center'>
-							Bu category bo‘yicha bloglar topilmadi
+							{t('notfound.blog')}
 						</p>
 					)}
-				
 				</div>
 			</div>
 		</div>

@@ -7,20 +7,27 @@ import { useEffect, useState } from 'react'
 import { FaTelegram, FaInstagram, FaGithub, FaLinkedin } from 'react-icons/fa'
 import axios from 'axios'
 import { API_SERVICE } from '@/services/api-service'
+import useTranslate from '@/hooks/use-translate'
+
+import { Badge } from '@/components/ui/badge'
 
 export default function TeamSection() {
-	const [team, setTeams] = useState<Teams[]>([])
+	const [teams, setTeams] = useState<Teams[]>([])
+	const t = useTranslate()
 
 	useEffect(() => {
 		const fetchData = async () => {
-			await axios
-				.get(API_SERVICE.team)
-				.then(res => setTeams(res.data.results))
-				.catch(err => console.log(err))
+			try {
+				const res = await axios.get(API_SERVICE.team)
+				setTeams(res.data.results || [])
+			} catch (err) {
+				console.log(err)
+			}
 		}
-
 		fetchData()
 	}, [])
+
+	if (!teams || teams.length === 0) return null
 
 	return (
 		<section
@@ -30,45 +37,80 @@ export default function TeamSection() {
 			<div className='container mx-auto px-6 lg:px-12'>
 				<div className='text-center mb-12'>
 					<h2 className='text-3xl md:text-4xl font-bold'>
-						Bizning <span className='text-blue-400'>Jamoa</span>
+						{t('teams.teamtitle')}{' '}
+						<span className='text-blue-400'>{t('teams.teamsub')}</span>
 					</h2>
-					<p className='text-gray-300 mt-3'>SifatDev jamoasi bilan tanishing</p>
+					<p className='text-gray-300 mt-3'>{t('teams.desc')}</p>
 				</div>
-				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
-					{team.map(member => (
-						<div
-							key={member.id}
-							className='bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition'
-						>
-							<Image
-								src={member.photo}
-								alt={member.full_name}
-								width={170}
-								height={180}
-								className='rounded-full w-[170px] h-[180px] mx-auto object-cover shadow-xl ring-2 ring-white hover:scale-105 transition duration-300'
-							/>
 
-							<h3 className='text-xl font-semibold mt-5'>{member.full_name}</h3>
-							<div className='flex gap-4'>
-								{/* <p className='text-blue-400 text-sm'>{member.job}</p> */}
-								{/* <p>{member.phoneNumber}</p> */}
+				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
+					{teams.map(member => {
+						const socials = [
+							{
+								name: 'Telegram',
+								url: member.telegram,
+								icon: <FaTelegram className='w-4 h-4 text-blue-100' />,
+							},
+							{
+								name: 'Instagram',
+								url: member.instagram,
+								icon: <FaInstagram className='w-4 h-4 text-pink-400' />,
+							},
+							{
+								name: 'GitHub',
+								url: member.github,
+								icon: <FaGithub className='w-4 h-4 text-gray-100' />,
+							},
+							{
+								name: 'LinkedIn',
+								url: member.linkedin,
+								icon: <FaLinkedin className='w-4 h-4 text-blue-200' />,
+							},
+						]
+
+						return (
+							<div
+								key={member.id}
+								className='bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition'
+							>
+								<Image
+									src={member.photo}
+									alt={member.full_name}
+									width={170}
+									height={180}
+									className='rounded-full w-[170px] h-[180px] mx-auto object-cover shadow-xl ring-2 ring-white hover:scale-105 transition duration-300'
+								/>
+								<br />
+								<div className='flex items-center justify-between border-b border-gray-700 pb-2'>
+									<h3 className='text-lg md:text-xl font-bold text-white'>
+										{member.full_name}
+									</h3>
+									<p className='text-sm md:text-base text-gray-400 italic'>
+										{member.job}
+									</p>
+								</div>
+
+								<div className='flex justify-center gap-3 mt-4 flex-wrap'>
+									{socials
+										.filter(s => s.url)
+										.map(s => (
+											<Link key={s.name} href={s.url!} target='_blank'>
+												<Badge
+													variant='secondary'
+													className='flex items-center gap-2 px-6 py-2 rounded-full cursor-pointer 
+						bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md
+						hover:shadow-lg hover:scale-105 hover:from-blue-600 hover:to-indigo-700 
+						transition-all duration-300'
+												>
+													<span className='text-lg'>{s.icon}</span>
+													<span className='font-medium'>{s.name}</span>
+												</Badge>
+											</Link>
+										))}
+								</div>
 							</div>
-							<div className='flex justify-center gap-4 mt-4 text-gray-300'>
-								<Link href={member.telegram} target='_blank'>
-									<FaTelegram className='w-5 h-5 hover:text-blue-400 transition' />
-								</Link>
-								<Link href={member.instagram} target='_blank'>
-									<FaInstagram className='w-5 h-5 hover:text-pink-400 transition' />
-								</Link>
-								<Link href={member.github} target='_blank'>
-									<FaGithub className='w-5 h-5 hover:text-gray-100 transition' />
-								</Link>
-								<Link href={member.linkedin} target='_blank'>
-									<FaLinkedin className='w-5 h-5 hover:text-blue-500 transition' />
-								</Link>
-							</div>
-						</div>
-					))}
+						)
+					})}
 				</div>
 			</div>
 		</section>

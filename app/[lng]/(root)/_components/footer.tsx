@@ -3,17 +3,15 @@ import Link from 'next/link'
 import 'antd/dist/reset.css'
 import React from 'react'
 import Image from 'next/image'
-import {
-	FaBehance,
-	FaDribbble,
-	FaStar
-} from 'react-icons/fa'
+import { FaBehance, FaDribbble, FaStar } from 'react-icons/fa'
 import { FaTelegram, FaXTwitter } from 'react-icons/fa6'
 // import StarShower from './star-shower'
-import { Facebook, Instagram, Linkedin} from 'lucide-react'
+import { Facebook, Instagram, Linkedin } from 'lucide-react'
 import StarShower from './star-shower'
+import useTranslate from '@/hooks/use-translate'
 
 export default function Footer() {
+	const t = useTranslate()
 	return (
 		<footer className=' text-gray-300 w-full relative'>
 			<div className='container mx-auto px-6 py-10 flex flex-col gap-8'>
@@ -30,9 +28,9 @@ export default function Footer() {
 							/>{' '}
 							<br />
 							<p className='text-sm text-gray-300'>
-								SifatDev — innovatsion IT yechimlar va dasturiy ta’minot ishlab
+								{t('footer.title')}
 								<br />
-								chiqishda ishonchli hamkoringiz.
+								{t('footer.activetitle')}
 							</p>
 						</div>
 					</div>

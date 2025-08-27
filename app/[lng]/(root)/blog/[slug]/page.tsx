@@ -8,6 +8,7 @@ import {
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { Blogs } from '@/constants'
+import useTranslate from '@/hooks/use-translate'
 import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
 import {
@@ -20,6 +21,7 @@ import {
 	Twitter,
 } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
@@ -27,6 +29,7 @@ function Page() {
 	const [blogs, setBlogs] = useState<Blogs[]>([])
 	const params = useParams()
 	const {lng}=useParams()
+	const t=useTranslate()
 	function slugify(text: string): string {
 		return text
 			.toLowerCase()
@@ -79,7 +82,7 @@ function Page() {
 									className='flex items-center gap-2 text-blue-400 font-semibold hover:text-blue-400  transition'
 								>
 									<Home className='w-5 h-5' />
-									Home
+								{t('navitem.home')}
 								</BreadcrumbLink>
 							</BreadcrumbItem>
 
@@ -90,7 +93,7 @@ function Page() {
 									className='flex items-center gap-2 text-blue-400 font-semibold hover:text-blue-400  transition'
 								>
 									<Blocks className='w-5 h-5' />
-									Blog
+									{t('navitem.blog')}
 								</BreadcrumbLink>
 							</BreadcrumbItem>
 							<BreadcrumbSeparator className='text-gray-400' />
@@ -103,7 +106,7 @@ function Page() {
 					</Breadcrumb>
 				</div>
 				{blogs.length === 0 ? (
-					<p className='text-center text-gray-400'>Error</p>
+					<p className='text-center text-gray-400'>{t('error.error')}</p>
 				) : (
 					blogs.map((item, idx) => (
 						<div
@@ -149,22 +152,22 @@ function Page() {
 									<p className='text-sm text-gray-400'>
 										{' '}
 										<span className='font-semibold text-white'>
-											<span className='text-blue-400'>SifatDev</span>
+											<span className='text-blue-400'>{t('about.sifatdev')}</span>
 										</span>{' '}
-										– o‘z qadriyatlari va g‘oyalariga ega jamoa
+									{t('blog.footer')}
 									</p>
 
 									{/* Social Icons */}
 									<div className='flex gap-4 text-gray-400'>
-										<a href='#' className='hover:text-white'>
+										<Link href='#' className='hover:text-white'>
 											<Facebook size={20} />
-										</a>
-										<a href='#' className='hover:text-white'>
+										</Link>
+										<Link href='#' className='hover:text-white'>
 											<Twitter size={20} />
-										</a>
-										<a href='#' className='hover:text-white'>
+										</Link>
+										<Link href='#' className='hover:text-white'>
 											<Linkedin size={20} />
-										</a>
+										</Link>
 									</div>
 								</div>
 							</div>

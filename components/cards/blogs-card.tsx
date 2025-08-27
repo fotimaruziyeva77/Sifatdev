@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Badge } from '../ui/badge'
+import useTranslate from '@/hooks/use-translate'
 
 interface IProps {
 	id: number
@@ -19,7 +20,6 @@ interface IProps {
 }
 
 function BookCard({
-	link,
 	face_image,
 	title,
 	category,
@@ -28,6 +28,7 @@ function BookCard({
 	slug,
 }: IProps) {
 	const [imgSrc, setImgSrc] = useState(face_image)
+	const t=useTranslate()
 	return (
 		<>
 			{type === 'card' && (
@@ -46,15 +47,15 @@ function BookCard({
 								/>
 							</div>
 
-							<div className='flex flex-col justify-between gap-2'>
+							<div className='flex flex-col justify-between gap-2 mt-2'>
 								<div className='flex flex-row justify-between'>
 									<Link href={slug}>
-										<h3 className='text-base  line-clamp-2  text-white font-semibold mt-3 hover:text-blue-400 transition'>
+										<h3 className='text-base  line-clamp-2  text-white font-semibold mt-4 hover:text-blue-400 transition'>
 											{title}
 										</h3>
 									</Link>
-									<Badge asChild variant={'secondary'}>
-										<span className='text-sm text-blue-600'>
+									<Badge>
+										<span className=' rounded-xl  px-2 py-1 text-sm bg-blue-500 text-white'>
 											{Array.isArray(category)
 												? category.map(c => c.title).join(', ')
 												: category && (category as Category).title}
@@ -68,12 +69,12 @@ function BookCard({
 										__html: description.replace(/<img[^>]*>/g, ''),
 									}}
 								/>
-							</div>
+							</div> <br />
 							<Link
 								href={slug}
 								className='text-blue-400 hover:underline text-sm mt-2'
 							>
-								Batafsil o‘qish →
+								{t('blog.read_more')}
 							</Link>
 						</div>
 					</Link>

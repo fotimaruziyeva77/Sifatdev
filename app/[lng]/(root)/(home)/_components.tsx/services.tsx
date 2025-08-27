@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import { Services } from '@/constants'
 import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
-import Image from 'next/image'
+import useTranslate from '@/hooks/use-translate'
 
 const AliceCarousel = dynamic(() => import('react-alice-carousel'), {
 	ssr: false,
@@ -24,18 +24,21 @@ export default function ServiceCarousel() {
 	}
 
 	const [services, setServices] = useState<Services[]>([])
-
+	const t=useTranslate()
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const res = await axios.get(API_SERVICE.services)
-				setServices(res.data.results)
+				setServices(res.data.results || [])
 			} catch (err) {
 				console.error(err)
 			}
 		}
 		fetchData()
 	}, [])
+
+	// 🔹 Agar services bo‘sh bo‘lsa, hech narsa qaytarmaydi
+	if (!services || services.length === 0) return null
 
 	const itemsList = services.map((service, i) => (
 		<div
@@ -45,16 +48,6 @@ export default function ServiceCarousel() {
             min-h-[180px] flex flex-col md:flex-row items-center gap-6 
             hover:border-blue-500 transition-all duration-300'
 		>
-			{/* {service.logo && (
-				<Image
-					src={service.logo}
-					alt={service.title}
-					width={150}
-					height={150}
-					className='object-contain max-w-[150px] h-auto rounded-xl'
-				/>
-			)} */}
-
 			{/* O‘ng tomonda text */}
 			<div className='flex flex-col justify-between flex-1 text-center md:text-left'>
 				<Link href={'/service'} key={service.id}>
@@ -69,7 +62,7 @@ export default function ServiceCarousel() {
 				</Link>
 				<br />
 				<button className='mt-4 flex items-center justify-center md:justify-start gap-2 text-sm font-semibold text-white  hover:text-blue-400 transition'>
-					Read More <ArrowRight size={16} />
+					{t("services.read_more")} <ArrowRight size={16} />
 				</button>
 			</div>
 		</div>
@@ -85,19 +78,19 @@ export default function ServiceCarousel() {
 							<span className='h-[2px] w-6 bg-blue-400'></span>
 							<span
 								className='from-blue-400 via-cyan-200 to-blue-400 
-						bg-clip-text text-transparent animate-gradient z-10 uppercase tracking-wide text-sm'
+						bg-clip-text  text-white animate-gradient z-10 uppercase tracking-wide text-sm'
 							>
-								Bizning xizmatlar
+							{t('services.section_title')}
 							</span>
 							<span className='h-[2px] w-6 bg-blue-400'></span>
 						</div>
 						<h2 className='text-3xl md:text-4xl font-bold leading-snug'>
-							Zamonaviy IT yechimlari bilan biznesingizni rivojlantiring <br />
+							{t('services.main_title')} <br />
 							<span className='block text-blue-400'>
-								Innovatsion IT xizmatlari
+								{t('services.subtitle_innovative')}
 							</span>
 							<span className='block'>
-								Sizning muvaffaqiyatingiz uchun moslashtirilgan
+							{t('services.subtitle_success')}
 							</span>
 						</h2>
 					</div>

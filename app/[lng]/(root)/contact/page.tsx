@@ -9,15 +9,11 @@ import { z } from 'zod'
 import { Input } from '@/components/ui/input'
 import { PhoneInput } from 'react-international-phone'
 import 'react-international-phone/style.css'
-const contactSchema = z.object({
-	fullName: z.string().min(3, "Ism kamida 3 ta belgidan iborat bo'lishi kerak"),
-	phoneNumber: z
-		.string()
-		.regex(/^\+998[0-9]{9}$/, 'Telefon raqam noto‘g‘ri kiritildi'),
-	description: z
-		.string()
-		.min(5, 'Xabar kamida 5 ta belgidan iborat bo‘lishi kerak'),
-})
+import Link from 'next/link'
+import { motion } from 'motion/react'
+import useTranslate from '@/hooks/use-translate'
+
+
 
 type ContactErrors = {
 	fullName?: string
@@ -107,7 +103,14 @@ function Contact() {
 	const [description, setDescription] = useState('')
 	const [loading, setLoading] = useState(false)
 	const [errors, setErrors] = useState<ContactErrors>({})
-
+	const t=useTranslate()
+	const contactSchema = z.object({
+		fullName: z.string().min(3, t('notification.contactwarning.fullname')),
+		phoneNumber: z
+			.string()
+			.regex(/^\+998[0-9]{9}$/, t('notification.contactwarning.phonenumber')),
+		description: z.string().min(5, t('notification.contactwarning.message')),
+	})
 	const resetData = () => {
 		setFullName('')
 		setPhoneNumber('')
@@ -145,13 +148,13 @@ function Contact() {
 				message: description,
 				phone_number: phoneNumber,
 			})
-			toast.success('Xabarigiz adminnga yuborildi!', {
+			toast.success(t('success.contactmessage'), {
 				position: 'top-center',
 				richColors: true,
 			})
 			resetData()
 		} catch (err) {
-			toast.error('Xatolik yuz berdi, qaytadan urinib ko‘ring!', {
+			toast.error(t('error.contacterror'), {
 				position: 'top-center',
 				richColors: true,
 			})
@@ -163,32 +166,51 @@ function Contact() {
 
 	return (
 		<div className='mt-20 min-h-screen px-6 mb-10 text-white'>
-			<section>
-				<div className='relative flex items-center justify-center h-60 overflow-hidden'>
-					<h1 className='absolute text-[210px] font-extrabold text-gray-700/20 select-none pt-20'>
-						Aloqa
-					</h1>
-					<h1 className='relative text-4xl font-extrabold text-white z-10'>
-						Aloqa
-					</h1>
-					<div className='absolute inset-0 z-[11] pointer-events-none'>
-						<StarShower height={300} count={100} size={1.5} width={2000} />
-					</div>
+			{/* Hero Section */}
+			<div className='relative flex items-center justify-center h-40 sm:h-52 md:h-64 lg:h-72 overflow-hidden mt-16'>
+				{/* Fon yozuvi */}
+				<h1 className='absolute text-[40px] sm:text-[80px] md:text-[140px] lg:text-[180px] font-extrabold text-gray-700/10 select-none'>
+					{t('navitem.contact')}
+				</h1>
+
+				{/* Asosiy title */}
+				<motion.h1
+					initial={{ opacity: 0, y: 40 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.8 }}
+					className='relative text-xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold 
+					bg-gradient-to-r from-blue-400 via-cyan-200 to-blue-400 
+					bg-clip-text text-transparent animate-gradient z-10 text-center px-2'
+				>
+					{t('navitem.contact')}
+				</motion.h1>
+
+				{/* Yulduzcha animatsiya */}
+				<div className='absolute inset-0 z-[11] pointer-events-none'>
+					<StarShower height={300} count={120} size={1.5} width={2000} />
 				</div>
+			</div>
+
+			{/* Contact Section */}
+			<section className='relative py-20 sm:py-28 bg-[#0b192c] text-white'>
+				<div
+					className='absolute left-0 right-0 bottom-0 h-[825px] bg-cover bg-bottom bg-no-repeat -z-10'
+					style={{ backgroundImage: 'url(/images/contact-one-bg-shape.png)' }}
+				></div>
 
 				<div className='container mx-auto px-6 lg:px-8'>
 					<div className='grid lg:grid-cols-2 gap-10'>
 						{/* Left Form */}
-						<div className='relative bg-[#38445A] rounded-2xl shadow-xl p-8 overflow-hidden'>
-							<h3 className='text-2xl font-bold text-white mb-10'>
-								How Can We Help You?
+						<div className='relative bg-[#38445A] rounded-2xl shadow-xl p-6 sm:p-8 overflow-hidden'>
+							<h3 className='text-xl sm:text-2xl font-bold text-white mb-6 sm:mb-10'>
+							{t('contact.form.title')}
 							</h3>
 
 							<form className='space-y-6' onSubmit={handleSubmit}>
 								<div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 									<InputField
-										label='Full Name'
-										placeholder='Thomas Alison'
+										label={t('contact.form.fullname_label')}
+										placeholder={t('contact.form.fullname_label')}
 										icon={<User size={18} />}
 										value={fullName}
 										onChange={setFullName}
@@ -196,8 +218,8 @@ function Contact() {
 									/>
 
 									<InputField
-										label='Phone Number'
-										placeholder='+998 90 123 45 67'
+										label={t('contact.form.phone_label')}
+										placeholder={t('contact.form.phone_label')}
 										icon={<Phone size={18} />}
 										value={phoneNumber}
 										onChange={setPhoneNumber}
@@ -207,8 +229,8 @@ function Contact() {
 								</div>
 
 								<InputField
-									label='Inquiry about'
-									placeholder='Write your message'
+									label={t('contact.form.message_label')}
+									placeholder={t('contact.form.message_placeholder')}
 									icon={<Edit size={18} />}
 									value={description}
 									onChange={setDescription}
@@ -220,46 +242,46 @@ function Contact() {
 									<button
 										type='submit'
 										disabled={loading}
-										className={`px-6 py-3 rounded-xl font-semibold shadow-md transition text-white 
-														${
-															loading
-																? 'bg-gray-500 cursor-not-allowed'
-																: 'bg-gradient-to-r from-blue-500 to-blue-600 hover:opacity-90'
-														}`}
+										className={`w-full sm:w-auto px-6 py-3 rounded-xl font-semibold shadow-md transition text-white 
+										${
+											loading
+												? 'bg-gray-500 cursor-not-allowed'
+												: 'bg-gradient-to-r from-blue-500 to-blue-600 hover:opacity-90'
+										}`}
 									>
-										{loading ? 'Yuborilmoqda...' : 'Submit Now'}
+										{loading ?  t('contact.form.submitting')
+										: t('contact.form.submit')}
 									</button>
 								</div>
 							</form>
 						</div>
 
 						{/* Right Info */}
-						<div className='text-white'>
-							<div className='mb-6'>
+						<div className='text-white space-y-6 sm:space-y-8'>
+							<div>
 								<span className='text-sm uppercase tracking-wider text-blue-400'>
-									Get In Touch
+										{t('contact.info.title')}{' '}
 								</span>
-								<h2 className='text-3xl font-bold mt-2 leading-snug'>
-									Start the Conversation – <br />{' '}
-									<span className='text-blue-400'>Reach Out Anytime</span>
+								<h2 className='text-2xl sm:text-3xl font-bold mt-2 leading-snug'>
+									{t('contact.info.sub')}{' '}<br />
+									<span className='text-blue-400'>
+										{t('contact.info.subtitle')}{' '}
+									</span>
 								</h2>
 							</div>
-							<p className='text-gray-400'>
-								We&apos;re here to listen! Whether you have questions, feedback,
-								or just want to say hello, feel free to reach out.
+							<p className='text-gray-400 text-sm sm:text-base'>
+								{t('contact.info.description')}{' '}
 							</p>
 
-							<ul className='mt-10 space-y-8'>
+							<ul className='mt-6 sm:mt-10 space-y-6 sm:space-y-8'>
 								<li className='flex gap-4 items-start border-b border-gray-700 pb-6'>
 									<div className='w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-400 to-blue-600'>
 										<MapPin className='text-white' size={22} />
 									</div>
 									<div>
-										<h4 className='text-lg font-bold'>Location</h4>
+										<h4 className='text-lg font-bold'>{t('contact.info.address_title')}</h4>
 										<p className='text-gray-400'>
-											1629 N. Dixie Avenue,
-											<br />
-											Kentucky, 42701
+											{t('contact.info.address_value')}{' '}
 										</p>
 									</div>
 								</li>
@@ -269,22 +291,14 @@ function Contact() {
 										<Mail className='text-white' size={22} />
 									</div>
 									<div>
-										<h4 className='text-lg font-bold'>Email Us</h4>
+										<h4 className='text-lg font-bold'>{t('contact.info.email_title')}</h4>
 										<p>
-											<a
-												href='mailto:info@domain.com'
+											<Link
+												href='mailto:info@sifatdev.uz'
 												className='text-gray-400 hover:text-white'
 											>
-												info@domain.com
-											</a>
-										</p>
-										<p>
-											<a
-												href='mailto:support@domain.com'
-												className='text-gray-400 hover:text-white'
-											>
-												support@domain.com
-											</a>
+												info@sifatdev.uz
+											</Link>
 										</p>
 									</div>
 								</li>
@@ -294,24 +308,14 @@ function Contact() {
 										<Phone className='text-white' size={22} />
 									</div>
 									<div>
-										<h4 className='text-lg font-bold'>Contact</h4>
+										<h4 className='text-lg font-bold'>{t('navitem.contact')}</h4>
 										<p>
-											Tel:{' '}
-											<a
-												href='tel:1200456789000'
+											<Link
+												href='tel:+998883780808'
 												className='text-gray-400 hover:text-white'
 											>
-												+12 (00) 456 7890 00
-											</a>
-										</p>
-										<p>
-											Mob:{' '}
-											<a
-												href='tel:9900567780'
-												className='text-gray-400 hover:text-white'
-											>
-												+99 (00) 567 780
-											</a>
+												+998 88 378 08 08
+											</Link>
 										</p>
 									</div>
 								</li>

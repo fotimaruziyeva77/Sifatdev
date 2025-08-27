@@ -1,9 +1,10 @@
 'use client'
 
 import { Blogs } from '@/constants'
+import useTranslate from '@/hooks/use-translate'
 import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
-import { CalendarCheck, MessageCircleMore } from 'lucide-react'
+import { CalendarCheck, Eye, MessageCircleMore } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -11,7 +12,8 @@ import { useEffect, useState } from 'react'
 
 export default function BlogSection() {
 	const [blogs, setBlogs] = useState<Blogs[]>([])
-	const {lng}=useParams()
+	const { lng } = useParams()
+	const t = useTranslate()
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -24,13 +26,7 @@ export default function BlogSection() {
 		fetchData()
 	}, [])
 
-	if (blogs.length === 0) {
-		return (
-			<div className='py-24 text-center text-white'>
-				<p>Yuklanmoqda...</p>
-			</div>
-		)
-	}
+	if (!blogs || blogs.length === 0) return null
 
 	const latestBlog = blogs[0]
 	const otherBlogs = blogs.slice(1)
@@ -46,35 +42,37 @@ export default function BlogSection() {
 					<div className='animate-fadeInLeft'>
 						<div className='mb-6'>
 							<span className='text-blue-400 font-medium text-sm uppercase tracking-wide'>
-								Bizning bloglar
+								{t('blog.section_title')}
 							</span>
 							<h2 className='text-3xl md:text-4xl font-bold leading-snug mt-3'>
-								So‘nggi{' '}
-								<span className='text-blue-400'>bloglarimizni o‘qing</span>
+								{t('blog.section_sub')}
+								<span className='text-blue-400'>
+									{' '}
+									{t('blog.section_subtitle')}
+								</span>
 							</h2>
 						</div>
 						<p className='text-gray-300 mb-6'>
-							Bizning bloglarimiz orqali mutaxassis fikrlari, foydali
-							maslahatlar hamda sohadagi so‘nggi trendlar bilan tanishing.
+							{t('blog.section_description')}
 						</p>
 						<Link
 							href={`/${lng}/blog`}
 							className='inline-block bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-full font-medium transition'
 						>
-							Barcha bloglarni ko‘rish →
+							{t('blog.view_all')}
 						</Link>
 
 						<div className='mt-12'>
 							<div className='bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition'>
 								<div className='relative'>
 									<Link href={`/${lng}/blog/${latestBlog.slug}`}>
-									<Image
-										src={latestBlog.face_image}
-										alt={latestBlog.title}
-										width={600}
-										height={350}
-										className='rounded-xl object-cover'
-									/>
+										<Image
+											src={latestBlog.face_image}
+											alt={latestBlog.title}
+											width={600}
+											height={350}
+											className='rounded-xl object-cover'
+										/>
 									</Link>
 								</div>
 								<div className='mt-4'>
@@ -84,8 +82,10 @@ export default function BlogSection() {
 											<span>{latestBlog.date}</span>
 										</div>
 										<div className='flex items-center gap-1 ml-4'>
-											<MessageCircleMore className='w-4 h-4' />
-											<span>{latestBlog.views_count} ta ko‘rish</span>
+											<Eye className='w-4 h-4' />
+											<span>
+												{latestBlog.views_count} {t('blog.views_count')}
+											</span>
 										</div>
 									</div>
 									<h3 className='text-xl font-semibold mt-3 hover:text-blue-400 transition'>
@@ -94,19 +94,22 @@ export default function BlogSection() {
 										</Link>
 									</h3>
 									<Link href={`/blog/${latestBlog.slug}`}>
-									<div
-										className='text-gray-400 mt-2 line-clamp-3 hover:text-blue-400 transition leading-5'
-										dangerouslySetInnerHTML={{
-											__html: latestBlog.description.replace(/<img[^>]*>/g, ''),
-										}}
-									/>
+										<div
+											className='text-gray-400 mt-2 line-clamp-3 hover:text-blue-400 transition leading-5'
+											dangerouslySetInnerHTML={{
+												__html: latestBlog.description.replace(
+													/<img[^>]*>/g,
+													''
+												),
+											}}
+										/>
 									</Link>
 
 									<Link
 										href={`/blog/${latestBlog.slug}`}
 										className='inline-block mt-10 text-blue-400 hover:underline'
 									>
-										Batafsil o‘qish →
+										{t('blog.read_more')}
 									</Link>
 								</div>
 							</div>
@@ -114,19 +117,18 @@ export default function BlogSection() {
 					</div>
 					<div className='flex flex-col gap-7 animate-fadeInRight'>
 						{otherBlogs.slice(0, 3).map(blog => (
-						
 							<div
 								key={blog.id}
 								className='flex bg-white/5 border border-white/10 rounded-2xl p-4 hover:bg-white/10 transition'
 							>
 								<Link href={blog.slug}>
-								<Image
-									src={blog.face_image}
-									alt={blog.title}
-									width={205}
-									height={160}
-									className='rounded-xl object-cover w-[250px] h-[135px]'
-								/>
+									<Image
+										src={blog.face_image}
+										alt={blog.title}
+										width={205}
+										height={160}
+										className='rounded-xl object-cover w-[250px] h-[135px]'
+									/>
 								</Link>
 								<div className='ml-8 flex flex-col '>
 									<div>
@@ -137,7 +139,9 @@ export default function BlogSection() {
 											</div>
 											<div className='flex items-center gap-1 ml-4'>
 												<MessageCircleMore className='w-4 h-4' />
-												<span>{blog.views_count} ta ko‘rish</span>
+												<span>
+													{blog.views_count} {t('blog.views_count')}
+												</span>
 											</div>
 										</div>
 										<h3 className='text-lg font-semibold hover:text-blue-400 transition'>
@@ -148,7 +152,7 @@ export default function BlogSection() {
 										href={`/blog/${blog.slug}`}
 										className='text-blue-400 hover:underline text-sm mt-2'
 									>
-										Batafsil o‘qish →
+										{t('blog.read_more')}
 									</Link>
 								</div>
 							</div>

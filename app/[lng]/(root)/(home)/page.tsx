@@ -4,19 +4,18 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {
 	ArrowRight,
-	CheckCircle2,
-	Facebook,
-	Instagram,
-	Linkedin,
-	Send,
+	BookOpen,
+	Globe,
+	Rocket,
+	Users,
 } from 'lucide-react'
-import {  stats } from '@/constants'
-import { Card } from '@/components/ui/card'
-
 import BlogSection from './_components.tsx/blogs'
 import ServiceCarousel from './_components.tsx/services'
 import ContactSection from './_components.tsx/contact'
 import TeamSection from './_components.tsx/team'
+import { motion } from 'motion/react'
+import { useParams } from 'next/navigation'
+import useTranslate from '@/hooks/use-translate'
 
 function Page() {
 	const slides = [
@@ -25,7 +24,8 @@ function Page() {
 		'/assets/slider-2-3.jpg',
 	]
 	const [current, setCurrent] = useState(0)
-
+	const { lng } = useParams()
+	const t=useTranslate()
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrent(prev => (prev + 1) % slides.length)
@@ -52,39 +52,36 @@ function Page() {
 							{/* CONTENT */}
 							<div className='relative max-w-8xl mx-auto px-4 sm:px-6 lg:px-32 py-18 sm:py-36 md:py-48 z-30 text-center md:text-left'>
 								<div className='inline-flex items-center gap-2 bg-white/5 rounded-[17px] px-4 sm:px-5 py-2 border border-gradient-to-r from-[#6065d4] to-[#fa5674]'>
-									{/* Faqat katta ekranlarda chiqadi */}
 									<p className='hidden md:block text-xs font-bold text-white'>
-										Sizning muvaffaqiyatingiz uchun yaratilgan IT yechimlar
+										{t('hero.badge')}
 									</p>
 								</div>
 
-								<h2 className='mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-medium leading-snug text-white max-w-3xl'>
-									Sifatli IT{' '}
-									<span className='text-blue-400'>strategiyalar</span>{' '}
-									biznesingizni
+								<h2 className='mt-6 text-3xl sm:text-2xl md:text-5xl lg:text-[52px] font-medium leading-snug text-white max-w-3xl'>
+									{t('hero.herotitle')}
+									<span className='text-blue-400'>{t('hero.titlesub')}</span>{' '}
+									{t('hero.suptitle')}
 									<span className='text-blue-400'>
 										{' '}
-										yangi marralarga olib chiqish
+										{t('hero.text1')}
 									</span>
 								</h2>
 
 								<p className='mt-4 mb-8 text-sm sm:text-base md:text-lg text-gray-300 leading-7 max-w-2xl mx-auto md:mx-0'>
-									Strategik IT maslahatlaridan tortib mukammal loyiha joriy
-									etishgacha — biz sizga samaradorlikni oshiradigan yechimlar
-									taklif etamiz
+									{t('hero.description')}
 								</p>
 								<div className='flex flex-row gap-4 justify-center md:justify-start'>
 									<Link
-										href='/contact'
+										href={`${lng}/contact`}
 										className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2'
 									>
-										Bog‘lanish <ArrowRight />
+										{t('hero.contact')} <ArrowRight />
 									</Link>
 									<Link
-										href='/about'
+										href={`${lng}/about`}
 										className='border border-gradient-to-r from-[#6065d4] to-[#fa5674] text-white px-6 py-3 rounded-lg flex items-center gap-2'
 									>
-										Batafsil <ArrowRight />
+										{t('hero.about')} <ArrowRight />
 									</Link>
 								</div>
 							</div>
@@ -92,120 +89,109 @@ function Page() {
 					</div>
 				</div>
 			</div>
-
-			{/* ABOUT */}
-			<div className='bg-[#0B192C] py-12 shadow-md text-white'>
-	<div className='container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12 lg:gap-20'>
-		{/* IMAGES */}
-		<div className='flex flex-wrap gap-4 lg:w-[700px]'>
-			<Card className='relative overflow-hidden cursor-pointer w-full aspect-[16/9]'>
-				<Image
-					src='/assets/about.png'
-					alt='SifatDev jamoasi'
-					fill
-					className='object-cover hover:scale-105 transition-transform duration-500'
-				/>
-			</Card>
-			<Card className='relative overflow-hidden cursor-pointer w-full sm:w-[48%] aspect-[4/3]'>
-				<Image
-					src='/assets/about-one-img-1.jpg'
-					alt='SifatDev ish jarayoni'
-					fill
-					className='object-cover hover:scale-105 transition-transform duration-500'
-				/>
-			</Card>
-			<Card className='relative overflow-hidden cursor-pointer w-full sm:w-[48%] aspect-[4/3]'>
-				<Image
-					src='/assets/about-two-img-2.jpg'
-					alt='Jamoa uchrashuvi'
-					fill
-					className='object-cover hover:scale-105 transition-transform duration-500'
-				/>
-			</Card>
-		</div>
-
-		{/* TEXT (o‘zgarmagan qismi) */}
-		<div className='flex-1 flex flex-col gap-4 text-center lg:text-left'>
-			<h1 className='text-blue-400 tracking-wider uppercase text-sm'>
-				Biz haqimizda
-			</h1>
-			<h2 className='text-2xl sm:text-3xl md:text-4xl font-bold leading-snug'>
-				🚀 <span className='text-blue-400'>SifatDev</span> — Kelajakni{' '}
-				<span className='text-blue-400'>Kodlaymiz</span>
-			</h2>
-			<p className='text-gray-300 mt-2 text-sm sm:text-base md:text-lg max-w-xl mx-auto lg:mx-0'>
-				SifatDev — bu turli yo‘nalishdagi iqtidorli dasturchilar,
-				dizaynerlar va IT mutaxassislar jamlangan professional jamoa...
-			</p>
-
-			{/* CHECKS */}
-			<div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 text-gray-300'>
-				{[
-					'Zamonaviy texnologiyalar va frameworklar',
-					'Sifat va tezlikka asoslangan ishlab chiqish',
-					'Innovatsion va foydalanuvchiga qulay dizayn',
-					'Doimiy qo‘llab-quvvatlash va hamkorlik',
-				].map((item, idx) => (
-					<div key={idx} className='flex items-start gap-2'>
-						<CheckCircle2 className='text-blue-400 w-5 h-5 mt-1' />
-						<span className='text-sm sm:text-base'>{item}</span>
-					</div>
-				))}
-			</div>
-
-			{/* STATS */}
-			<div className='flex flex-wrap justify-center lg:justify-start items-center gap-6 mt-6'>
-				<div>
-					<p className='text-yellow-400 text-2xl sm:text-3xl font-bold'>5+</p>
-					<p className='text-gray-400 text-sm'>Yillik Tajriba</p>
-				</div>
-				<div>
-					<p className='text-yellow-400 text-2xl sm:text-3xl font-bold'>50+</p>
-					<p className='text-gray-400 text-sm'>Loyihalar</p>
-				</div>
-				<div>
-					<p className='text-yellow-400 text-2xl sm:text-3xl font-bold'>30+</p>
-					<p className='text-gray-400 text-sm'>Hamkorlar</p>
-				</div>
-			</div>
-
-			{/* CTA */}
-			<div className='flex flex-col sm:flex-row items-center justify-center lg:justify-between gap-6 mt-6'>
-				<div className='text-center sm:text-left'>
-					<p className='text-blue-400 text-sm'>Bog‘lanish uchun</p>
-					<p className='font-semibold text-lg'>+998 (88) 378 08 08</p>
-				</div>
-				<Link
-					href='/service'
-					className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 shadow-md hover:shadow-lg transition'
-				>
-					Xizmatlarimiz <ArrowRight />
-				</Link>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-			{/* STATS */}
-			<section className='bg-gradient-to-r from-[#0a1d4d] to-[#042b70] py-12 relative overflow-hidden'>
-				<div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center'>
-					{stats.map((item, idx) => {
-						const Icon = item.icon
-						return (
-							<div key={idx} className='flex flex-col items-center'>
-								<div className='bg-gradient-to-r from-pink-500 to-purple-500 p-4 rounded-full shadow-lg mb-3 text-white'>
-									<Icon size={28} strokeWidth={2} />
-								</div>
-								<h3 className='text-white text-2xl sm:text-3xl font-bold'>
-									{item.number}
-								</h3>
-								<p className='text-gray-300 text-sm sm:text-base'>
-									{item.label}
-								</p>
+{/* About */}
+			<section className='bg-[#0B192C] text-white py-16'>
+				<div className='container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-12'>
+					{/* LEFT SIDE - IMAGE */}
+					<motion.div
+						initial={{ opacity: 0, x: -50 }}
+						whileInView={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.6 }}
+						className='flex justify-center  py-10 '
+					>
+						<div className='flex flex-col gap-4'>
+							<div className='flex items-center gap-2 mb-3'>
+								<span className='h-[2px] w-6 bg-blue-400'></span>
+								<span
+									className='from-blue-400 via-cyan-200 to-blue-400 
+						bg-clip-text  text-white animate-gradient z-10 uppercase tracking-wide text-sm'
+								>
+									{t('about.section_title')}
+								</span>
+								<span className='h-[2px] w-6 bg-blue-400'></span>
 							</div>
-						)
-					})}
+							<Image
+								src='/assets/about.png'
+								alt='SifatDev jamoasi'
+								width={550}
+								height={200}
+								className='rounded-2xl shadow-lg object-cover'
+							/>
+						</div>
+					</motion.div>
+
+					{/* RIGHT SIDE - TEXT */}
+					<motion.div
+						initial={{ opacity: 0, x: 50 }}
+						whileInView={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.6 }}
+						className='text-center lg:text-left space-y-6 max-w-3xl mx-auto'
+					>
+						{/* Title */}
+						<h2 className='text-3xl md:text-4xl font-bold'>	{t('about.title')}</h2>
+
+						{/* Description */}
+						<p className='text-lg text-gray-300 leading-relaxed'>
+								{t('about.description')}
+						</p>
+						<div className='grid grid-cols-2 sm:grid-cols-4 gap-6  pt-8'>
+							<div>
+								<h3 className='text-3xl font-bold text-blue-500'>50+</h3>
+								<p className='text-gray-400'>	{t('about.stats.projects')}</p>
+							</div>
+							<div>
+								<h3 className='text-3xl font-bold text-blue-500'>200+</h3>
+								<p className='text-gray-400'>{t('about.stats.participants')}</p>
+							</div>
+							<div>
+								<h3 className='text-3xl font-bold text-blue-500'>10+</h3>
+								<p className='text-gray-400'>{t('about.stats.mentors')}</p>
+							</div>
+							<div>
+								<h3 className='text-3xl font-bold text-blue-500'>5 yil</h3>
+								<p className='text-gray-400'>{t('about.stats.experience')}</p>
+							</div>
+						</div>
+						<div className='grid grid-cols-1 sm:grid-cols-2 gap-6 text-gray-300 pt-6'>
+							<div className='flex items-center gap-3'>
+								<span className='p-2 bg-blue-600 rounded-full'>
+									<Rocket />
+								</span>
+								<span>{t('about.features.innovation')}</span>
+							</div>
+							<div className='flex items-center gap-3'>
+								<span className='p-2 bg-blue-600 rounded-full'>
+									<Users />
+								</span>
+								<span>{t('about.features.teamwork')}</span>
+							</div>
+							<div className='flex items-center gap-3'>
+								<span className='p-2 bg-blue-600 rounded-full'>
+									<BookOpen />
+								</span>
+								<span>{t('about.features.education')}</span>
+							</div>
+							<div className='flex items-center gap-3'>
+								<span className='p-2 bg-blue-600 rounded-full'>
+									<Globe />
+								</span>
+								<span>{t('about.features.social')}</span>
+							</div>
+						</div>
+						{/* CTA buttons */}
+						<div className='flex justify-center lg:justify-start gap-4'>
+							<Link href={`${lng}/about`}>
+								<button className='px-6 py-3 bg-blue-600 rounded-xl shadow hover:bg-blue-700 transition duration-300'>
+									{t('about.cta.more_info')}
+								</button>
+							</Link>
+							<Link href={`${lng}/contact`}>
+								<button className='px-6 py-3 bg-gray-700 rounded-xl shadow hover:bg-gray-600 transition duration-300'>
+										{t('about.cta.join_team')}
+								</button>
+							</Link>
+						</div>
+					</motion.div>
 				</div>
 			</section>
 

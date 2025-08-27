@@ -1,10 +1,120 @@
 {
-  "navitem": {
-    "about": "Biz haqimizda",
-    "service": "Xizmatlarimiz",
-    "team": "Jamoamiz",
-    "blog": "Maqolalar",
-    "contact": "Aloqa",
-    "portfolio": "Loyihalar"
-  }
+	"navitem": {
+    "home":"Bosh sahifa",
+		"about": "Biz haqimizda",
+		"service": "Xizmatlarimiz",
+		"team": "Jamoamiz",
+		"blog": "Blog",
+		"contact": "Aloqa",
+		"portfolio": "Loyihalar"
+	},
+
+	"hero": {
+		"badge": "Sizning muvaffaqiyatingiz uchun yaratilgan IT yechimlar",
+		"herotitle": "Sifatli IT",
+		"titlesub": "strategiyalar",
+		"suptitle": "biznesingizni",
+		"text1": "yangi marralarga olib chiqish",
+		"description": "Strategik IT maslahatlaridan tortib mukammal loyiha joriy etishgacha — biz sizga samaradorlikni oshiradigan yechimlar taklif etamiz",
+		"contact": "Bog‘lanish",
+		"about": "Batafsil"
+	},
+	"about": {
+		"section_title": "Biz haqimizda",
+		"title": "SifatDev haqida",
+    "sifatdev":"SifatDev",
+    "feature":"orzularni",
+    "code":"kodga",
+    "intro":"Sifat O‘quv Markazi loyihasi",
+    "world":"aylantiradigan makon",
+		"description": "SifatDev — yosh dasturchilar va jamoalar uchun innovatsion loyihalarni ishlab chiqadigan platforma. Bizning maqsadimiz zamonaviy texnologiyalar yordamida ijtimoiy foydali loyihalar yaratishdir.",
+		"stats": {
+			"projects": "Loyiha",
+			"participants": "Ishtirokchi",
+			"mentors": "Mentor",
+			"experience": "Tajriba"
+		},
+		"features": {
+			"innovation": "Innovatsion yechimlar",
+			"teamwork": "Hamkorlik va jamoaviylik",
+			"education": "Ta’lim va mentorlik",
+			"social": "Ijtimoiy foyda"
+		},
+		"cta": {
+			"more_info": "Batafsil ma'lumot olish",
+			"join_team": "Jamoaga qo‘shilish"
+		}
+	},
+	"blog": {
+		"section_title": "Bizning bloglar",
+		"section_sub": "So‘nggi ",
+		"section_subtitle": "bloglarimizni o‘qing",
+		"section_description": "Bizning bloglarimiz orqali mutaxassis fikrlari, foydali maslahatlar hamda sohadagi so‘nggi trendlar bilan tanishing.",
+		"view_all": "Barcha bloglarni ko‘rish →",
+		"views_count": "ta ko‘rish",
+		"read_more": "Batafsil o‘qish →",
+    "footer":"– o‘z qadriyatlari va g‘oyalariga ega jamoa"
+	},
+	"contact": {
+		"form": {
+			"title": "Sizga qanday yordam bera olamiz?",
+			"fullname_label": "Ism Familiya",
+			"phone_label": "Telefon raqam",
+			"message_label": "Xabaringiz",
+			"message_placeholder": "Xabarni kiriting...",
+			"submit": "Yuborish",
+			"submitting": "Yuborilmoqda..."
+		},
+		"info": {
+			"title": "Bog‘lanish",
+			"sub": "Suhbatni boshlang – ",
+			"subtitle": "Istalgan paytda murojaat qiling",
+			"description": "SifatDev jamoasi sizni tinglashga tayyor! Savollaringiz, takliflaringiz yoki shunchaki salomlashmoqchi bo‘lsangiz, bemalol murojaat qilishingiz mumkin.",
+			"address_title": "Manzil",
+			"address_value": "Navoiy viloyati Yoshlar texnoparki",
+			"email_title": "Email",
+			"phone_title": "Aloqa",
+			"phone": "Tel"
+		}
+	},
+	"services": {
+		"section_title": "Bizning xizmatlar",
+    "section_t":"Qanday yechim xohlaysiz?",
+		"main_title": "Zamonaviy IT yechimlari bilan biznesingizni rivojlantiring",
+		"subtitle_innovative": "Innovatsion IT xizmatlari",
+		"subtitle_success": "Sizning muvaffaqiyatingiz uchun moslashtirilgan",
+		"read_more": "Batafsil o‘qish"
+	},
+	"teams": {
+		"teamtitle": "Bizning",
+		"teamsub": "Jamoa",
+		"desc": "SifatDev jamoasi bilan tanishing"
+	},
+	"success": {
+		"contactmessage": "Xabaringiz SifatDev jamoasiga yuborildi!"
+	},
+	"notification": {
+		"contactwarning": {
+			"fullname": "Ism kamida 3 ta belgidan iborat bo'lishi kerak",
+			"phonenumber": "Telefon raqam noto‘g‘ri kiritildi",
+			"message": "Xabar kamida 5 ta belgidan iborat bo‘lishi kerak"
+		}
+	},
+  "notfound":{
+    "blog":"Bloglar topilmadi",
+    "title": "404",
+    "subtitle": "Sahifa topilmadi",
+    "description": "Kechirasiz, siz qidirgan sahifa mavjud emas yoki o‘chirib yuborilgan bo‘lishi mumkin.",
+    "btn_course": "Kursni olish",
+    "btn_home": "Bosh sahifaga qaytish"
+  },
+	"error": {
+    "error":"Xatolik",
+		"contacterror": "Xatolik yuz berdi, qaytadan urinib ko‘ring!"
+	},
+	"footer": {
+		"title": "SifatDev — innovatsion IT yechimlar va dasturiy ta’minot ishlab",
+		"activetitle": "chiqishda ishonchli hamkoringiz."
+	}
+
 }
