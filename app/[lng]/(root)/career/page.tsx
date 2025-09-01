@@ -83,7 +83,8 @@ function Page() {
                 <span>{job.salary}</span>
               </div>
               <Link
-                href={`/career/${job.slug}`}
+                // href={`/career/${job.slug}`}
+                href={'/'}
                 className="bg-teal-500 hover:bg-teal-600 p-2 rounded-full"
               >
                 <ArrowRight className="w-5 h-5 text-white" />

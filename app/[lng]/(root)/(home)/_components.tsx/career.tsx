@@ -1,7 +1,5 @@
 'use client'
 import React from 'react'
-import { ArrowRight, CalendarDays, Clock, CreditCard } from 'lucide-react'
-import Link from 'next/link'
 function Career() {
 	const roles = [
 		'#FRONT-END (VUE3)',
