@@ -23,7 +23,7 @@ export function middleware(req: NextRequest) {
 		'/:lng/team',
 		'/:lng/contact',
 		'/:lng/career',
-		'/:lng/career/:slug',
+		// '/:lng/career/:slug',
 		'/:lng/not-found',
 	]
 
