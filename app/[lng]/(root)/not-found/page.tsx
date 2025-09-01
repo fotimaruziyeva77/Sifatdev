@@ -18,7 +18,7 @@ export default function NotFoundPage() {
 				<h2 className='mt-2 text-2xl font-semibold text-gray-200'>
 					{t('notfound.subtitle')}
 				</h2>
-				<p className='mt-4 text-gray-400 max-w-lg mx-auto'>
+				<p className='mt-4 text-gray-400 max-w-lg m x-auto'>
 					{t('notfound.description')}
 				</p>
 

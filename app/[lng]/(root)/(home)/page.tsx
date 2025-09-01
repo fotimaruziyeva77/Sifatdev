@@ -1,87 +1,126 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
-import {
-	ArrowRight,
-	BookOpen,
-	Globe,
-	Rocket,
-	Users,
-} from 'lucide-react'
+import { ArrowRight, BookOpen, Globe, Rocket, Users } from 'lucide-react'
 import BlogSection from './_components.tsx/blogs'
 import ServiceCarousel from './_components.tsx/services'
-import ContactSection from './_components.tsx/contact'
-import TeamSection from './_components.tsx/team'
-import { motion } from 'motion/react'
+// import ContactSection from './_components.tsx/contact'
+// import TeamSection from './_components.tsx/team'
+import { motion, AnimatePresence } from 'motion/react'
 import { useParams } from 'next/navigation'
+import TextType from '@/constants/textype'
 import useTranslate from '@/hooks/use-translate'
+import Image from 'next/image'
+import Portfolio from './_components.tsx/portfolio'
+import ContactSection from './_components.tsx/contact'
 
 function Page() {
-	const slides = [
-		'/assets/slider-2-1.jpg',
-		'/assets/slider-2-2.jpg',
-		'/assets/slider-2-3.jpg',
-	]
-	const [current, setCurrent] = useState(0)
 	const { lng } = useParams()
-	const t=useTranslate()
+	const t = useTranslate()
+	const images = [
+		'/assets/1.jpg',
+		'/assets/3.jpg',
+		'/assets/slider-2-3.jpg',
+		'/assets/image.png',
+		'/assets/2.png',
+	]
+	const slides = [
+		{
+			subtitle: t('slide.subtitle'),
+			image: '/assets/1.jpg',
+			title: t('slide.title'),
+			description: t('slide.description'),
+		},
+		{
+			subtitle: t('slide.subtitle'),
+			image: '/assets/3.jpg',
+			title:t('slide.title1'),
+			description:  t('slide.description1'),
+		},
+		{
+			subtitle: t('slide.subtitle'),
+			image: '/assets/slider-2-3.jpg',
+			title:
+				 t('slide.title2'),
+			description:  t('slide.description2'),
+		},
+		{
+			subtitle: t('slide.subtitle'),
+			image: '/assets/image.png',
+			title:
+				t('slide.title3'),
+			description: t('slide.description3'),
+		},
+		{
+			subtitle: t('slide.subtitle'),
+			image: '/assets/2.png',
+			title: t('slide.title4'),
+			description:  t('slide.description4'),
+		},
+	]
+
+	const [current, setCurrent] = useState(0)
+
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrent(prev => (prev + 1) % slides.length)
-		}, 5000)
+		}, 6000) 
 		return () => clearInterval(interval)
 	}, [slides.length])
 
 	return (
 		<div>
-			{/* HERO */}
-			<div className='mt-16 md:mt-20'>
+			<div className='mt-16 md:mt-16'>
 				<div className='relative shadow-md z-10'>
 					<div className='relative'>
 						<div className='relative h-[500px] sm:h-[600px] lg:h-[750px]'>
-							{/* BG IMAGE */}
 							<div
 								className='absolute inset-0 bg-center bg-cover transition-all duration-1000'
-								style={{ backgroundImage: `url(${slides[current]})` }}
+								style={{ backgroundImage: `url(${images[current]})` }}
 							>
 								<div className='absolute inset-0 bg-gradient-to-l from-transparent to-[#08111fe6]' />
 								<div className='absolute inset-0 opacity-80 bg-gradient-to-tl from-transparent to-black' />
 							</div>
-
-							{/* CONTENT */}
 							<div className='relative max-w-8xl mx-auto px-4 sm:px-6 lg:px-32 py-18 sm:py-36 md:py-48 z-30 text-center md:text-left'>
-								<div className='inline-flex items-center gap-2 bg-white/5 rounded-[17px] px-4 sm:px-5 py-2 border border-gradient-to-r from-[#6065d4] to-[#fa5674]'>
-									<p className='hidden md:block text-xs font-bold text-white'>
-										{t('hero.badge')}
-									</p>
-								</div>
+								<AnimatePresence mode='wait'>
+									<motion.div
+										key={current}
+										initial={{ opacity: 0, y: 30 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -30 }}
+										transition={{ duration: 1.5 }}
+									>
+										<h2 className='mt-6 text-3xl sm:text-2xl md:text-5xl lg:text-[52px] font-medium leading-snug text-white max-w-3xl'>
+											<span className='text-blue-400'>
+												{[slides[current].subtitle]}
+											</span>
+											<TextType
+												text={[slides[current].title]}
+												typingSpeed={50}
+												deletingSpeed={30}
+												pauseDuration={5000}
+												variableSpeed={{ min: 30, max: 60 }}
+											/>
+										</h2>
 
-								<h2 className='mt-6 text-3xl sm:text-2xl md:text-5xl lg:text-[52px] font-medium leading-snug text-white max-w-3xl'>
-									{t('hero.herotitle')}
-									<span className='text-blue-400'>{t('hero.titlesub')}</span>{' '}
-									{t('hero.suptitle')}
-									<span className='text-blue-400'>
-										{' '}
-										{t('hero.text1')}
-									</span>
-								</h2>
+										<p className='mt-4 mb-8 text-sm sm:text-base md:text-lg text-gray-300 leading-7 max-w-3xl mx-auto md:mx-0'>
+											{slides[current].description}
+										</p>
+									</motion.div>
+								</AnimatePresence>
 
-								<p className='mt-4 mb-8 text-sm sm:text-base md:text-lg text-gray-300 leading-7 max-w-2xl mx-auto md:mx-0'>
-									{t('hero.description')}
-								</p>
 								<div className='flex flex-row gap-4 justify-center md:justify-start'>
 									<Link
-										href={`${lng}/contact`}
+										href={`/${lng}/contact`}
 										className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2'
 									>
 										{t('hero.contact')} <ArrowRight />
 									</Link>
 									<Link
-										href={`${lng}/about`}
+										href={`/${lng}/about`}
 										className='border border-gradient-to-r from-[#6065d4] to-[#fa5674] text-white px-6 py-3 rounded-lg flex items-center gap-2'
 									>
-										{t('hero.about')} <ArrowRight />
+										{t('navitem.about')} <ArrowRight />
 									</Link>
 								</div>
 							</div>
@@ -89,8 +128,7 @@ function Page() {
 					</div>
 				</div>
 			</div>
-{/* About */}
-			<section className='bg-[#0B192C] text-white py-16'>
+				<section className='bg-[#0B192C] text-white py-16'>
 				<div className='container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-12'>
 					{/* LEFT SIDE - IMAGE */}
 					<motion.div
@@ -134,7 +172,7 @@ function Page() {
 						<p className='text-lg text-gray-300 leading-relaxed'>
 								{t('about.description')}
 						</p>
-						<div className='grid grid-cols-2 sm:grid-cols-4 gap-6  pt-8'>
+						<div className='grid grid-cols-2 sm:grid-cols-3 gap-6  pt-8'>
 							<div>
 								<h3 className='text-3xl font-bold text-blue-500'>50+</h3>
 								<p className='text-gray-400'>	{t('about.stats.projects')}</p>
@@ -143,12 +181,9 @@ function Page() {
 								<h3 className='text-3xl font-bold text-blue-500'>200+</h3>
 								<p className='text-gray-400'>{t('about.stats.participants')}</p>
 							</div>
+							
 							<div>
-								<h3 className='text-3xl font-bold text-blue-500'>10+</h3>
-								<p className='text-gray-400'>{t('about.stats.mentors')}</p>
-							</div>
-							<div>
-								<h3 className='text-3xl font-bold text-blue-500'>5 yil</h3>
+								<h3 className='text-3xl font-bold text-blue-500'>5+</h3>
 								<p className='text-gray-400'>{t('about.stats.experience')}</p>
 							</div>
 						</div>
@@ -194,20 +229,12 @@ function Page() {
 					</motion.div>
 				</div>
 			</section>
-
-			{/* SECTIONS */}
-			<div>
-				<ServiceCarousel />
-			</div>
-			<div>
-				<TeamSection />
-			</div>
-			<div>
-				<BlogSection />
-			</div>
-			<div>
-				<ContactSection />
-			</div>
+		<div>
+				<Portfolio/>
+		</div>
+			<ServiceCarousel />
+			<BlogSection />
+			<ContactSection/>
 		</div>
 	)
 }

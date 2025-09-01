@@ -3,7 +3,7 @@ import Link from 'next/link'
 import 'antd/dist/reset.css'
 import React from 'react'
 import Image from 'next/image'
-import { FaBehance, FaDribbble, FaStar } from 'react-icons/fa'
+import { FaBehance, FaDribbble } from 'react-icons/fa'
 import { FaTelegram, FaXTwitter } from 'react-icons/fa6'
 // import StarShower from './star-shower'
 import { Facebook, Instagram, Linkedin } from 'lucide-react'
@@ -57,13 +57,13 @@ export default function Footer() {
 								<Instagram size={16} />
 							</Link>
 							<Link
-								href='#'
+								href='https://t.me/sifatedu_admin'
 								className='p-2 rounded-full border border-gray-500 hover:border-white hover:text-white'
 							>
 								<FaTelegram size={16} />
 							</Link>
 							<Link
-								href='#'
+								href='https://www.linkedin.com/company/sifatdev/'
 								className='p-2 rounded-full border border-gray-500 hover:border-white hover:text-white'
 							>
 								<Linkedin size={16} />
@@ -79,12 +79,6 @@ export default function Footer() {
 								className='p-2 rounded-full border border-gray-500 hover:border-white hover:text-white'
 							>
 								<FaDribbble size={16} />
-							</Link>
-							<Link
-								href='#'
-								className='p-2 rounded-full border border-gray-500 hover:border-white hover:text-white'
-							>
-								<FaStar size={16} />
 							</Link>
 						</div>
 					</div>

@@ -1,14 +1,25 @@
 {
 	"navitem": {
-    "home":"Bosh sahifa",
+		"home": "Bosh sahifa",
 		"about": "Biz haqimizda",
 		"service": "Xizmatlarimiz",
-		"team": "Jamoamiz",
+		"career": "Karyera",
 		"blog": "Blog",
-		"contact": "Aloqa",
 		"portfolio": "Loyihalar"
 	},
-
+	"slide": {
+		"title": " zamon bilan hamnafas dasturchilar jamoasi",
+		"subtitle": "SIFATDEV - ",
+		"description": "Biz texnologiyani rivojlantirib, kelajakka yo‘l ochamiz.",
+		"title1": "dasturchilari — kod orqali yangi dunyolarni yaratadigan ijodkor insonlardir",
+		"description1": "Har bir satrda yangi g‘oya yashiringan.",
+		"title2": " Kuchli jamoa murakkab muammolarni yengib, ulkan natijalarga erishadi",
+		"description2": "Jamoaviy ish — rivojlanishning kaliti.",
+		"title3": "texnologiyaning yuragi — kelajakni shakllantiradigan dasturchilar",
+		"description3": "Innovatsiyaning boshlanish nuqtasi bizdan.",
+		"title4": "har bir kod satri — kelajak sari tashlangan qadam",
+		"description4": "Kod orqali kelajak yaratiladi."
+	},
 	"hero": {
 		"badge": "Sizning muvaffaqiyatingiz uchun yaratilgan IT yechimlar",
 		"herotitle": "Sifatli IT",
@@ -21,13 +32,16 @@
 	},
 	"about": {
 		"section_title": "Biz haqimizda",
-		"title": "SifatDev haqida",
-    "sifatdev":"SifatDev",
-    "feature":"orzularni",
-    "code":"kodga",
-    "intro":"Sifat O‘quv Markazi loyihasi",
-    "world":"aylantiradigan makon",
-		"description": "SifatDev — yosh dasturchilar va jamoalar uchun innovatsion loyihalarni ishlab chiqadigan platforma. Bizning maqsadimiz zamonaviy texnologiyalar yordamida ijtimoiy foydali loyihalar yaratishdir.",
+		"title": "SIFATDEV haqida",
+		"sifatdev": "SIFATDEV",
+		"feature": "orzularni",
+		"code": "kodga",
+		"intro": "Sifat O‘quv Markazi loyihasi",
+		"world": "aylantiradigan makon",
+		"title1": "Hozirgi kunda kompaniyamiz ozining IT-yechimlarini",
+		"title2": "ta asosiy yonalish boyicha taklif qilmoqda",
+		"description": "SIFATDEV — yosh dasturchilar va jamoalar uchun innovatsion loyihalarni ishlab chiqadigan platforma. Bizning maqsadimiz zamonaviy texnologiyalar yordamida ijtimoiy foydali loyihalar yaratishdir.",
+		"title3": "Ayni paytda kompaniyada 50 dan ortiq xodim ishlaydi",
 		"stats": {
 			"projects": "Loyiha",
 			"participants": "Ishtirokchi",
@@ -45,6 +59,9 @@
 			"join_team": "Jamoaga qo‘shilish"
 		}
 	},
+	"portfolio":{
+		"title":"Bizning Loyihalarimiz"
+	},
 	"blog": {
 		"section_title": "Bizning bloglar",
 		"section_sub": "So‘nggi ",
@@ -53,7 +70,7 @@
 		"view_all": "Barcha bloglarni ko‘rish →",
 		"views_count": "ta ko‘rish",
 		"read_more": "Batafsil o‘qish →",
-    "footer":"– o‘z qadriyatlari va g‘oyalariga ega jamoa"
+		"footer": "– o‘z qadriyatlari va g‘oyalariga ega jamoa"
 	},
 	"contact": {
 		"form": {
@@ -69,7 +86,7 @@
 			"title": "Bog‘lanish",
 			"sub": "Suhbatni boshlang – ",
 			"subtitle": "Istalgan paytda murojaat qiling",
-			"description": "SifatDev jamoasi sizni tinglashga tayyor! Savollaringiz, takliflaringiz yoki shunchaki salomlashmoqchi bo‘lsangiz, bemalol murojaat qilishingiz mumkin.",
+			"description": "SIFATDEV jamoasi sizni tinglashga tayyor! Savollaringiz, takliflaringiz yoki shunchaki salomlashmoqchi bo‘lsangiz, bemalol murojaat qilishingiz mumkin.",
 			"address_title": "Manzil",
 			"address_value": "Navoiy viloyati Yoshlar texnoparki",
 			"email_title": "Email",
@@ -79,7 +96,7 @@
 	},
 	"services": {
 		"section_title": "Bizning xizmatlar",
-    "section_t":"Qanday yechim xohlaysiz?",
+		"section_t": "Qanday yechim xohlaysiz?",
 		"main_title": "Zamonaviy IT yechimlari bilan biznesingizni rivojlantiring",
 		"subtitle_innovative": "Innovatsion IT xizmatlari",
 		"subtitle_success": "Sizning muvaffaqiyatingiz uchun moslashtirilgan",
@@ -88,10 +105,10 @@
 	"teams": {
 		"teamtitle": "Bizning",
 		"teamsub": "Jamoa",
-		"desc": "SifatDev jamoasi bilan tanishing"
+		"desc": "SIFATDEV jamoasi bilan tanishing"
 	},
 	"success": {
-		"contactmessage": "Xabaringiz SifatDev jamoasiga yuborildi!"
+		"contactmessage": "Xabaringiz SIFATDEV jamoasiga yuborildi!"
 	},
 	"notification": {
 		"contactwarning": {
@@ -100,21 +117,20 @@
 			"message": "Xabar kamida 5 ta belgidan iborat bo‘lishi kerak"
 		}
 	},
-  "notfound":{
-    "blog":"Bloglar topilmadi",
-    "title": "404",
-    "subtitle": "Sahifa topilmadi",
-    "description": "Kechirasiz, siz qidirgan sahifa mavjud emas yoki o‘chirib yuborilgan bo‘lishi mumkin.",
-    "btn_course": "Kursni olish",
-    "btn_home": "Bosh sahifaga qaytish"
-  },
+	"notfound": {
+		"blog": "Bloglar topilmadi",
+		"title": "404",
+		"subtitle": "Sahifa topilmadi",
+		"description": "Kechirasiz, siz qidirgan sahifa mavjud emas yoki o‘chirib yuborilgan bo‘lishi mumkin.",
+		"btn_course": "Kursni olish",
+		"btn_home": "Bosh sahifaga qaytish"
+	},
 	"error": {
-    "error":"Xatolik",
+		"error": "Xatolik",
 		"contacterror": "Xatolik yuz berdi, qaytadan urinib ko‘ring!"
 	},
 	"footer": {
-		"title": "SifatDev — innovatsion IT yechimlar va dasturiy ta’minot ishlab",
+		"title": "SIFATDEV — innovatsion IT yechimlar va dasturiy ta’minot ishlab",
 		"activetitle": "chiqishda ishonchli hamkoringiz."
 	}
-
 }

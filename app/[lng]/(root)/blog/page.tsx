@@ -1,6 +1,6 @@
 'use client'
 import BookCard from '@/components/cards/blogs-card'
-import { Blogs, Category } from '@/constants'
+import { Blogs} from '@/constants'
 import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'

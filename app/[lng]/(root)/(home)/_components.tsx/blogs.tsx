@@ -17,14 +17,18 @@ export default function BlogSection() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(API_SERVICE.blog)
+				const res = await axios.get(API_SERVICE.blog,{
+						headers: {
+					'Accept-Language': lng,
+				},
+				})
 				setBlogs(res.data.results)
 			} catch (err) {
 				console.error(err)
 			}
 		}
 		fetchData()
-	}, [])
+	}, [lng])
 
 	if (!blogs || blogs.length === 0) return null
 

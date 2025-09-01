@@ -9,6 +9,7 @@ import { Services } from '@/constants'
 import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
 import useTranslate from '@/hooks/use-translate'
+import { useParams } from 'next/navigation'
 
 const AliceCarousel = dynamic(() => import('react-alice-carousel'), {
 	ssr: false,
@@ -22,22 +23,26 @@ export default function ServiceCarousel() {
 		1024: { items: 3 },
 		1280: { items: 3 },
 	}
+	const {lng}=useParams()
 
 	const [services, setServices] = useState<Services[]>([])
 	const t=useTranslate()
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(API_SERVICE.services)
+				const res = await axios.get(API_SERVICE.services,{
+					headers: {
+					'Accept-Language': lng,
+				},
+				})
 				setServices(res.data.results || [])
 			} catch (err) {
 				console.error(err)
 			}
 		}
 		fetchData()
-	}, [])
+	}, [lng])
 
-	// 🔹 Agar services bo‘sh bo‘lsa, hech narsa qaytarmaydi
 	if (!services || services.length === 0) return null
 
 	const itemsList = services.map((service, i) => (

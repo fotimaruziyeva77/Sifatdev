@@ -21,8 +21,8 @@ export default function Portfolio() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(API_SERVICE.project,{
-						headers: {
+				const res = await axios.get(API_SERVICE.project, {
+					headers: {
 						'Accept-Language': lng,
 					},
 				})
@@ -118,15 +118,15 @@ export default function Portfolio() {
 						<div
 							key={item.id}
 							className={`relative rounded-xl overflow-hidden bg-[#2a2a2a] shadow-lg cursor-pointer group 
-                ${idx === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}`}
+    ${idx === 0 ? 'lg:col-span-1 lg:row-span-2' : ''}`}
 						>
-							<Link href={`/${lng}/project/${item.slug}`}>
+							<div>
 								<Image
 									src={item.face_image}
 									alt={item.title}
-									width={600}
+									width={300}
 									height={400}
-									className='w-full h-56 sm:h-72 md:h-80 lg:h-full object-cover group-hover:scale-105 transition-transform duration-300'
+									className='w-full h-46 sm:h-72 md:h-50 lg:h-full object-cover group-hover:scale-105 transition-transform duration-300'
 								/>
 								<div className='absolute inset-0 bg-black/40 flex flex-col justify-end p-4'>
 									<h2 className='text-base sm:text-lg md:text-xl font-bold'>
@@ -136,19 +136,16 @@ export default function Portfolio() {
 										{item.category.title.toUpperCase()}
 									</p>
 									<div
-									className='text-gray-400 mt-2 line-clamp-2'
-									dangerouslySetInnerHTML={{
-										__html: item.description.replace(/<img[^>]*>/g, ''),
-									}}
-								/>
-									<Link
-								href={`${lng}/${item.slug}`}
-								className='text-blue-400 hover:underline text-sm mt-2'
-							>
-								{t('blog.read_more')}
-							</Link>
+										className='text-gray-400 mt-2 line-clamp-2'
+										dangerouslySetInnerHTML={{
+											__html: item.description.replace(/<img[^>]*>/g, ''),
+										}}
+									/>
+									<Link href={`/${lng}/project/${item.slug}`}>
+										{t('blog.read_more')}
+									</Link>
 								</div>
-							</Link>
+							</div>
 						</div>
 					))}
 				</div>

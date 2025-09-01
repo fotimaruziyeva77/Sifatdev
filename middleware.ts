@@ -1,4 +1,3 @@
-
 import createMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -23,6 +22,8 @@ export function middleware(req: NextRequest) {
 		'/:lng/blog',
 		'/:lng/team',
 		'/:lng/contact',
+		'/:lng/career',
+		'/:lng/career/:slug',
 		'/:lng/not-found',
 	]
 

@@ -7,14 +7,13 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { Home, Blocks, Facebook, Twitter, Linkedin } from 'lucide-react'
+import { Home, Blocks } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Project } from '@/constants'
 import { useParams } from 'next/navigation'
 import axios from 'axios'
 import { API_SERVICE } from '@/services/api-service'
-import Link from 'next/link'
 
 function Page() {
 	const [portfolio, setPortfolio] = useState<Project[]>([])
@@ -133,29 +132,7 @@ function Page() {
 										dangerouslySetInnerHTML={{ __html: item.description }}
 									/>
 
-									{/* Footer */}
-									<div className='pt-4 border-t border-gray-700 flex flex-col gap-3'>
-										<p className='text-sm text-gray-400'>
-											{' '}
-											<span className='font-semibold text-white'>
-												<span className='text-blue-400'>SifatDev</span>
-											</span>{' '}
-											– o‘z qadriyatlari va g‘oyalariga ega jamoa
-										</p>
-
-										{/* Social Icons */}
-										<div className='flex gap-4 text-gray-400'>
-											<Link href='#' className='hover:text-white'>
-												<Facebook size={20} />
-											</Link>
-											<Link href='#' className='hover:text-white'>
-												<Twitter size={20} />
-											</Link>
-											<Link href='#' className='hover:text-white'>
-												<Linkedin size={20} />
-											</Link>
-										</div>
-									</div>
+								
 								</div>
 							</div>
 						))
