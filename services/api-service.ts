@@ -7,5 +7,7 @@ export const API_SERVICE = {
 	services:`${baseUrl}/services/`,
 	contact:`${baseUrl}/contacts/`,
 	project:`${baseUrl}/works/`,
-	projectcategory:`${baseUrl}/work-categories/`
+	projectcategory:`${baseUrl}/work-categories/`,
+	serrequest:`${baseUrl}/service-requests/`,
+	vacancies:`${baseUrl}/vacancies/`,
 }

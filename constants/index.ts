@@ -62,10 +62,21 @@ export interface Category {
 export interface Services {
 	id: number
 	title: string
-	short_description: string
 	description: string
-	logo: string
+	face_image: string
+	slug: string
 }
+export interface Vacancy {
+  id: number;
+  title: string;
+  workday_range: string;
+  worktime_range: string;
+  pay_range: string;
+  description: string;
+  created_at: string;
+	slug: string
+}
+
 export interface Technology {
 	id: number
 	name: string

@@ -23,17 +23,17 @@ export default function ServiceCarousel() {
 		1024: { items: 3 },
 		1280: { items: 3 },
 	}
-	const {lng}=useParams()
+	const { lng } = useParams()
 
 	const [services, setServices] = useState<Services[]>([])
-	const t=useTranslate()
+	const t = useTranslate()
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(API_SERVICE.services,{
+				const res = await axios.get(API_SERVICE.services, {
 					headers: {
-					'Accept-Language': lng,
-				},
+						'Accept-Language': lng,
+					},
 				})
 				setServices(res.data.results || [])
 			} catch (err) {
@@ -66,9 +66,11 @@ export default function ServiceCarousel() {
 					/>
 				</Link>
 				<br />
-				<button className='mt-4 flex items-center justify-center md:justify-start gap-2 text-sm font-semibold text-white  hover:text-blue-400 transition'>
-					{t("services.read_more")} <ArrowRight size={16} />
-				</button>
+				<Link href={`${lng}/service/${service.slug}`}>
+					<button className='mt-4 flex items-center justify-center md:justify-start gap-2 text-sm font-semibold text-white  hover:text-blue-400 transition'>
+						{t('services.read_more')} <ArrowRight size={16} />
+					</button>
+				</Link>
 			</div>
 		</div>
 	))
@@ -85,7 +87,7 @@ export default function ServiceCarousel() {
 								className='from-blue-400 via-cyan-200 to-blue-400 
 						bg-clip-text  text-white animate-gradient z-10 uppercase tracking-wide text-sm'
 							>
-							{t('services.section_title')}
+								{t('services.section_title')}
 							</span>
 							<span className='h-[2px] w-6 bg-blue-400'></span>
 						</div>
@@ -94,9 +96,7 @@ export default function ServiceCarousel() {
 							<span className='block text-blue-400'>
 								{t('services.subtitle_innovative')}
 							</span>
-							<span className='block'>
-							{t('services.subtitle_success')}
-							</span>
+							<span className='block'>{t('services.subtitle_success')}</span>
 						</h2>
 					</div>
 				</div>

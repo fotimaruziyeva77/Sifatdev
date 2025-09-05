@@ -16,6 +16,7 @@ export function middleware(req: NextRequest) {
 		'/:lng',
 		'/:lng/about',
 		'/:lng/service',
+		'/:lng/service/:id',
 		'/:lng/project',
 		'/:lng/project/:slug',
 		'/:lng/blog/:slug',
@@ -23,7 +24,7 @@ export function middleware(req: NextRequest) {
 		'/:lng/team',
 		'/:lng/contact',
 		'/:lng/career',
-		// '/:lng/career/:slug',
+		'/:lng/career/:slug',
 		'/:lng/not-found',
 	]
 

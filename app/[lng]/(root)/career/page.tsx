@@ -1,33 +1,31 @@
 'use client'
-import React from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import StarShower from '../_components/star-shower'
 import { ArrowRight, CalendarDays, Clock, CreditCard } from 'lucide-react'
 import Link from 'next/link'
+import { Vacancy } from '@/constants'
+import axios from 'axios'
+import { API_SERVICE } from '@/services/api-service'
+import { useParams } from 'next/navigation'
 function Page() {
-	  const jobs = [
-    {
-      slug: "ui-ux-designer",
-      title: "🎇 Middle UI/UX designer",
-      days: "MONDAY - FRIDAY",
-      time: "09:00 - 18:00",
-      salary: "10 000 000 - 15 000 000",
-    },
-    {
-      slug: "backend-software-engineer",
-      title: "Middle Backend Software Engineer",
-      days: "MONDAY - FRIDAY",
-      time: "09:00 - 18:00",
-      salary: "15 000 000 - 20 000 000",
-    },
-    {
-      slug: "flutter-software-engineer",
-      title: "Middle Flutter Software Engineer",
-      days: "MONDAY - FRIDAY",
-      time: "09:00 - 18:00",
-      salary: "15 000 000 - 20 000 000",
-    },
-  ];
+  const [vacancy, setVacancy] = useState<Vacancy[]>([])
+  const{lng}=useParams()
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const res = await axios.get(API_SERVICE.vacancies, {
+            headers: {
+              'Accept-Language': lng,
+            },
+          })
+          setVacancy(res.data.results)
+        } catch (err) {
+          console.error(err)
+        }
+      }
+      fetchData()
+    }, [lng])
 	return (
 		<div className='mt-20 min-h-screen px-6 mb-10 text-white'>
 			<div className='relative flex items-center justify-center h-40 sm:h-52 md:h-64 lg:h-72 overflow-hidden mt-16'>
@@ -56,7 +54,7 @@ function Page() {
       <div className='container max-w-6xl mx-auto px-4 mt-10'>
 
 			<div className="grid md:grid-cols-3 gap-6 w-full max-w-6xl">
-        {jobs.map((job, idx) => (
+        {vacancy.map((job, idx) => (
           <div
             key={idx}
             className="bg-gray-800 rounded-xl p-6 flex flex-col justify-between shadow-lg hover:shadow-xl transition"
@@ -68,11 +66,11 @@ function Page() {
             <div className="space-y-2 text-gray-400 text-sm">
               <div className="flex items-center gap-2">
                 <CalendarDays className="w-4 h-4" />
-                <span>{job.days}</span>
+                <span>{job.workday_range}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4" />
-                <span>{job.time}</span>
+                <span>{job.worktime_range}</span>
               </div>
             </div>
 
@@ -80,11 +78,10 @@ function Page() {
             <div className="mt-6 flex items-center justify-between bg-gray-900 rounded-lg p-3">
               <div className="flex items-center gap-2 text-green-400 font-semibold">
                 <CreditCard className="w-5 h-5" />
-                <span>{job.salary}</span>
+                <span>{job.pay_range}</span>
               </div>
               <Link
-                // href={`/career/${job.slug}`}
-                href={'/'}
+                href={`/${lng}/career/${job.id}`}
                 className="bg-teal-500 hover:bg-teal-600 p-2 rounded-full"
               >
                 <ArrowRight className="w-5 h-5 text-white" />
