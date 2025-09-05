@@ -1,5 +1,5 @@
 'use client'
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import StarShower from '../_components/star-shower'
 import { ArrowRight, CalendarDays, Clock, CreditCard } from 'lucide-react'
