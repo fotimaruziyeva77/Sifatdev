@@ -24,7 +24,7 @@ export default function ServiceSlug() {
 	const [fullName, setFullName] = useState('')
 	const [description, setDescription] = useState('')
 	const [phoneNumber, setPhoneNumber] = useState('')
-	const [errors, setErrors] = useState<ServicesErrors>({})
+	const [, setErrors] = useState<ServicesErrors>({})
 	const [projectType, setProjectType] = useState<string | ''>('')
 	const { lng } = useParams()
 	const t = useTranslate()
