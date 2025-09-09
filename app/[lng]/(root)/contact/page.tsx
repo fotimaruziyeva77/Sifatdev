@@ -13,8 +13,6 @@ import Link from 'next/link'
 import { motion } from 'motion/react'
 import useTranslate from '@/hooks/use-translate'
 
-
-
 type ContactErrors = {
 	fullName?: string
 	phoneNumber?: string
@@ -103,7 +101,7 @@ function Contact() {
 	const [description, setDescription] = useState('')
 	const [loading, setLoading] = useState(false)
 	const [errors, setErrors] = useState<ContactErrors>({})
-	const t=useTranslate()
+	const t = useTranslate()
 	const contactSchema = z.object({
 		fullName: z.string().min(3, t('notification.contactwarning.fullname')),
 		phoneNumber: z
@@ -143,10 +141,10 @@ function Contact() {
 		setErrors({})
 		setLoading(true)
 		try {
-			await axios.post(`${API_SERVICE.contact}`, {
-				full_name: fullName,
+			await axios.post('/api/contact', {
+				name: fullName,
 				message: description,
-				phone_number: phoneNumber,
+				phone: phoneNumber,
 			})
 			toast.success(t('success.contactmessage'), {
 				position: 'top-center',
@@ -203,7 +201,7 @@ function Contact() {
 						{/* Left Form */}
 						<div className='relative bg-[#38445A] rounded-2xl shadow-xl p-6 sm:p-8 overflow-hidden'>
 							<h3 className='text-xl sm:text-2xl font-bold text-white mb-6 sm:mb-10'>
-							{t('contact.form.title')}
+								{t('contact.form.title')}
 							</h3>
 
 							<form className='space-y-6' onSubmit={handleSubmit}>
@@ -249,8 +247,9 @@ function Contact() {
 												: 'bg-gradient-to-r from-blue-500 to-blue-600 hover:opacity-90'
 										}`}
 									>
-										{loading ?  t('contact.form.submitting')
-										: t('contact.form.submit')}
+										{loading
+											? t('contact.form.submitting')
+											: t('contact.form.submit')}
 									</button>
 								</div>
 							</form>
@@ -260,10 +259,10 @@ function Contact() {
 						<div className='text-white space-y-6 sm:space-y-8'>
 							<div>
 								<span className='text-sm uppercase tracking-wider text-blue-400'>
-										{t('contact.info.title')}{' '}
+									{t('contact.info.title')}{' '}
 								</span>
 								<h2 className='text-2xl sm:text-3xl font-bold mt-2 leading-snug'>
-									{t('contact.info.sub')}{' '}<br />
+									{t('contact.info.sub')} <br />
 									<span className='text-blue-400'>
 										{t('contact.info.subtitle')}{' '}
 									</span>
@@ -279,7 +278,9 @@ function Contact() {
 										<MapPin className='text-white' size={22} />
 									</div>
 									<div>
-										<h4 className='text-lg font-bold'>{t('contact.info.address_title')}</h4>
+										<h4 className='text-lg font-bold'>
+											{t('contact.info.address_title')}
+										</h4>
 										<p className='text-gray-400'>
 											{t('contact.info.address_value')}{' '}
 										</p>
@@ -291,7 +292,9 @@ function Contact() {
 										<Mail className='text-white' size={22} />
 									</div>
 									<div>
-										<h4 className='text-lg font-bold'>{t('contact.info.email_title')}</h4>
+										<h4 className='text-lg font-bold'>
+											{t('contact.info.email_title')}
+										</h4>
 										<p>
 											<Link
 												href='mailto:info@sifatdev.uz'
@@ -308,7 +311,9 @@ function Contact() {
 										<Phone className='text-white' size={22} />
 									</div>
 									<div>
-										<h4 className='text-lg font-bold'>{t('navitem.contact')}</h4>
+										<h4 className='text-lg font-bold'>
+											{t('navitem.contact')}
+										</h4>
 										<p>
 											<Link
 												href='tel:+998883780808'

@@ -2,6 +2,7 @@
 
 import { Services } from '@/constants'
 import useTranslate from '@/hooks/use-translate'
+import { ServiceTypes } from '@/interfaces'
 import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
 import { LucideLoader, LucideRocket } from 'lucide-react'
@@ -18,14 +19,13 @@ type ServicesErrors = {
 
 export default function ServiceSlug() {
 	const params = useParams()
-	const [services, setServices] = useState<Services[]>([])
+	const [services, setServices] = useState<ServiceTypes | null>(null)
 	const [loading, setLoading] = useState(false)
 	const [companyName, setCompanyName] = useState('')
 	const [fullName, setFullName] = useState('')
 	const [description, setDescription] = useState('')
 	const [phoneNumber, setPhoneNumber] = useState('')
 	const [errors, setErrors] = useState<ServicesErrors>({})
-	const [projectType, setProjectType] = useState<string | ''>('')
 	const { lng } = useParams()
 	const t = useTranslate()
 
@@ -45,21 +45,16 @@ export default function ServiceSlug() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(`${API_SERVICE.services}${slug}/`, {
+				const res = await axios.get(`/api/services/${slug}`, {
 					headers: {
 						'Accept-Language': lng,
 					},
 				})
-				if (Array.isArray(res.data.results)) {
-					setServices(res.data.results)
-				} else if (res.data) {
-					setServices([res.data])
-				} else {
-					setServices([])
-				}
+
+				setServices(res.data.data)
 			} catch (err) {
 				console.error(err)
-				setServices([])
+				setServices(null)
 			}
 		}
 		fetchData()
@@ -70,7 +65,6 @@ export default function ServiceSlug() {
 		setFullName('')
 		setPhoneNumber('')
 		setDescription('')
-		setProjectType('')
 	}
 
 	const contactSchema = z.object({
@@ -107,12 +101,12 @@ export default function ServiceSlug() {
 		setErrors({})
 		setLoading(true)
 		try {
-			await axios.post(`${API_SERVICE.serrequest}`, {
-				company_name: companyName,
-				service: Number(projectType),
-				full_name: fullName,
-				description: description,
-				phone_number: phoneNumber,
+			await axios.post('/api/services-contact', {
+				companyName,
+				service: services?.title,
+				name: fullName,
+				description,
+				phoneNumber,
 			})
 			toast.success(t('success.contactmessage'), {
 				position: 'top-center',
@@ -131,18 +125,18 @@ export default function ServiceSlug() {
 	}
 
 	return (
-		<div className='min-h-screen from-[#0B192C] to-[#0B192C]/90 flex items-center justify-center px-4'>
+		<div className='min-h-screen from-[#0B192C] to-[#0B192C]/90 flex items-center justify-center px-4 md:mt-10'>
 			<div className='grid grid-cols-1 md:grid-cols-3 max-w-7xl w-full text-white gap-8'>
 				{/* Chap tarafdagi matn */}
 				<div className='md:col-span-1 flex flex-col'>
 					<h2 className='text-sm text-blue-400 font-semibold mb-2'>
 						SIZNING RAQAMLI HAMKORINGIZ
 					</h2>
-					{services.map(item => (
-						<h1 key={item.id} className='text-4xl font-bold mb-4 text-white'>
-							{item.title}
-						</h1>
-					))}
+
+					<h1 className='text-4xl font-bold mb-4 text-white'>
+						{services?.title}
+					</h1>
+
 					<p className='text-gray-400'>
 						Ushbu birlamchi malumotlarni to‘ldirganingizdan so‘ng bizning mas’ul
 						xodimlarimiz siz bilan aloqaga chiqishadi.
@@ -190,23 +184,6 @@ export default function ServiceSlug() {
 									onChange={e => setPhoneNumber(e.target.value)}
 									className='w-full px-4 py-4 rounded-md bg-[#0f172a] text-white focus:outline-none focus:ring-2 focus:ring-blue-300'
 								/>
-							</div>
-
-							<div>
-								<label className='block text-sm mb-1'>Xizmat turi</label>
-								<select
-									name='projectType'
-									value={projectType}
-									onChange={e => setProjectType(e.target.value)}
-									className='w-full px-4 py-4 rounded-md bg-[#0f172a] text-white focus:outline-none focus:ring-2 focus:ring-blue-300'
-								>
-									<option value=''>Xizmat turini tanlang</option>
-									{services.map(service => (
-										<option key={service.id} value={service.id}>
-											{service.title}
-										</option>
-									))}
-								</select>
 							</div>
 						</div>
 

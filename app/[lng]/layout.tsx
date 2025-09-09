@@ -6,6 +6,8 @@ import { languages } from '@/i18n/settings'
 import { dir } from 'i18next'
 import ClientWrapper from '@/components/client-wrapper'
 import LayoutWrapper from './(root)/_components/layout-wrapper'
+import NextTopLoader from 'nextjs-toploader'
+
 const creteRound = Crete_Round({
 	weight: ['400'],
 	variable: '--font-creteRound',
@@ -42,6 +44,7 @@ export default async function RootLayout({ children, params }: Props) {
 				suppressHydrationWarning
 			>
 				<div className='overflow-hidden w-full'>
+					<NextTopLoader />
 					<ClientWrapper>
 						<LayoutWrapper>{children}</LayoutWrapper>
 					</ClientWrapper>

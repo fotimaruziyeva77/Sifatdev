@@ -13,13 +13,16 @@ interface Props {
 export default function LayoutWrapper({ children }: Props) {
 	const pathname = usePathname()
 	const isNotFoundPage = pathname === '/not-found'
+	const isAdminPage = pathname.includes('/admin')
+
+	const hideLayout = isNotFoundPage || isAdminPage
 
 	return (
 		<>
-			{!isNotFoundPage && <Navbar />}
+			{!hideLayout && <Navbar />}
 			<Toaster />
 			<main className='overflow-x-hidden'>{children}</main>
-			{!isNotFoundPage && <Footer />}
+			{!hideLayout && <Footer />}
 		</>
 	)
 }

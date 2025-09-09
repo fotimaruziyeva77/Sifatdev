@@ -34,28 +34,26 @@ function Page() {
 		{
 			subtitle: t('slide.subtitle'),
 			image: '/assets/3.jpg',
-			title:t('slide.title1'),
-			description:  t('slide.description1'),
+			title: t('slide.title1'),
+			description: t('slide.description1'),
 		},
 		{
 			subtitle: t('slide.subtitle'),
 			image: '/assets/slider-2-3.jpg',
-			title:
-				 t('slide.title2'),
-			description:  t('slide.description2'),
+			title: t('slide.title2'),
+			description: t('slide.description2'),
 		},
 		{
 			subtitle: t('slide.subtitle'),
 			image: '/assets/image.png',
-			title:
-				t('slide.title3'),
+			title: t('slide.title3'),
 			description: t('slide.description3'),
 		},
 		{
 			subtitle: t('slide.subtitle'),
 			image: '/assets/2.png',
 			title: t('slide.title4'),
-			description:  t('slide.description4'),
+			description: t('slide.description4'),
 		},
 	]
 
@@ -64,7 +62,7 @@ function Page() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrent(prev => (prev + 1) % slides.length)
-		}, 6000) 
+		}, 6000)
 		return () => clearInterval(interval)
 	}, [slides.length])
 
@@ -128,7 +126,7 @@ function Page() {
 					</div>
 				</div>
 			</div>
-				<section className='bg-[#0B192C] text-white py-16'>
+			<section className='bg-[#0B192C] text-white py-16'>
 				<div className='container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-12'>
 					{/* LEFT SIDE - IMAGE */}
 					<motion.div
@@ -166,22 +164,25 @@ function Page() {
 						className='text-center lg:text-left space-y-6 max-w-3xl mx-auto'
 					>
 						{/* Title */}
-						<h2 className='text-3xl md:text-4xl font-bold'>	{t('about.title')}</h2>
+						<h2 className='text-3xl md:text-4xl font-bold'>
+							{' '}
+							{t('about.title')}
+						</h2>
 
 						{/* Description */}
 						<p className='text-lg text-gray-300 leading-relaxed'>
-								{t('about.description')}
+							{t('about.description')}
 						</p>
 						<div className='grid grid-cols-2 sm:grid-cols-3 gap-6  pt-8'>
 							<div>
 								<h3 className='text-3xl font-bold text-blue-500'>50+</h3>
-								<p className='text-gray-400'>	{t('about.stats.projects')}</p>
+								<p className='text-gray-400'> {t('about.stats.projects')}</p>
 							</div>
 							<div>
 								<h3 className='text-3xl font-bold text-blue-500'>200+</h3>
 								<p className='text-gray-400'>{t('about.stats.participants')}</p>
 							</div>
-							
+
 							<div>
 								<h3 className='text-3xl font-bold text-blue-500'>5+</h3>
 								<p className='text-gray-400'>{t('about.stats.experience')}</p>
@@ -222,19 +223,19 @@ function Page() {
 							</Link>
 							<Link href={`${lng}/contact`}>
 								<button className='px-6 py-3 bg-gray-700 rounded-xl shadow hover:bg-gray-600 transition duration-300'>
-										{t('about.cta.join_team')}
+									{t('about.cta.join_team')}
 								</button>
 							</Link>
 						</div>
 					</motion.div>
 				</div>
 			</section>
-		<div>
-				<Portfolio/>
-		</div>
+			<div>
+				<Portfolio />
+			</div>
 			<ServiceCarousel />
 			<BlogSection />
-			<ContactSection/>
+			<ContactSection />
 		</div>
 	)
 }

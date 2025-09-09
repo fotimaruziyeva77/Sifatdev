@@ -2,36 +2,30 @@
 
 import { useEffect, useState } from 'react'
 import StarShower from '../_components/star-shower'
-import { Services } from '@/constants'
 import axios from 'axios'
-import { API_SERVICE } from '@/services/api-service'
 import { motion } from 'motion/react'
 import useTranslate from '@/hooks/use-translate'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { useParams } from 'next/navigation'
-
-
-
+import { ServiceTypes } from '@/interfaces'
 
 export default function Service() {
-	const [services, setServices] = useState<Services[]>([])
-	
+	const [services, setServices] = useState<ServiceTypes[]>([])
 
 	const t = useTranslate()
 	const { lng } = useParams()
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(API_SERVICE.services)
-				setServices(res.data.results)
+				const res = await axios.get('/api/services')
+				setServices(res.data.data)
 			} catch (err) {
 				console.error(err)
 			}
 		}
 		fetchData()
 	}, [])
-
 
 	return (
 		<div className='mt-20 min-h-screen px-6 mb-10'>
@@ -65,7 +59,7 @@ export default function Service() {
 					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 '>
 						{services.map(item => (
 							<div
-								key={item.id}
+								key={item._id}
 								className='bg-gray-800 rounded-xl p-6 shadow hover:bg-gray-700 transition'
 							>
 								<h3 className='text-xl font-semibold mb-3'>{item.title}</h3>
@@ -74,7 +68,7 @@ export default function Service() {
 									dangerouslySetInnerHTML={{ __html: item.description }}
 								/>
 								<Link href={`/${lng}/service/${item.slug}`}>
-									<button className='mt-4 flex items-center justify-center md:justify-start gap-2 text-sm font-semibold text-white  hover:text-blue-400 transition'>
+									<button className='mt-4 flex items-center justify-center md:justify-start gap-2 text-sm font-semibold text-white  hover:text-blue-400 transition cursor-pointer'>
 										{t('services.read_more')} <ArrowRight size={16} />
 									</button>
 								</Link>

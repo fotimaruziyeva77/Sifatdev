@@ -140,10 +140,10 @@ export default function ContactSection() {
 		setErrors({})
 		setLoading(true)
 		try {
-			await axios.post(`${API_SERVICE.contact}`, {
-				full_name: fullName,
+			await axios.post('/api/contact', {
+				name: fullName,
 				message: description,
-				phone_number: phoneNumber,
+				phone: phoneNumber,
 			})
 			toast.success(t('success.contactmessage'), {
 				position: 'top-center',
@@ -235,15 +235,13 @@ export default function ContactSection() {
 								{t('contact.info.title')}{' '}
 							</span>
 							<h2 className='text-3xl font-bold mt-2 leading-snug'>
-							{t('contact.info.sub')}{' '}  <br />{' '}
+								{t('contact.info.sub')} <br />{' '}
 								<span className='text-blue-400'>
 									{t('contact.info.subtitle')}{' '}
 								</span>
 							</h2>
 						</div>
-						<p className='text-gray-400'>
-							{t('contact.info.description')}{' '}
-						</p>
+						<p className='text-gray-400'>{t('contact.info.description')} </p>
 
 						<ul className='mt-10 space-y-8'>
 							<li className='flex gap-4 items-start border-b border-gray-700 pb-6'>
@@ -251,7 +249,9 @@ export default function ContactSection() {
 									<MapPin className='text-white' size={22} />
 								</div>
 								<div>
-									<h4 className='text-lg font-bold'>{t('contact.info.address_title')}</h4>
+									<h4 className='text-lg font-bold'>
+										{t('contact.info.address_title')}
+									</h4>
 									<p className='text-gray-400'>
 										{t('contact.info.address_value')}{' '}
 									</p>
@@ -263,7 +263,9 @@ export default function ContactSection() {
 									<Mail className='text-white' size={22} />
 								</div>
 								<div>
-									<h4 className='text-lg font-bold'>{t('contact.info.email_title')}</h4>
+									<h4 className='text-lg font-bold'>
+										{t('contact.info.email_title')}
+									</h4>
 									<p>
 										<Link
 											href='mailto:info@sifatdev.uz'
@@ -280,9 +282,11 @@ export default function ContactSection() {
 									<Phone className='text-white' size={22} />
 								</div>
 								<div>
-									<h4 className='text-lg font-bold'>{t('contact.info.phone_title')}{' '}</h4>
+									<h4 className='text-lg font-bold'>
+										{t('contact.info.phone_title')}{' '}
+									</h4>
 									<p>
-										{t('contact.info.phone')}{' '}:{' '}
+										{t('contact.info.phone')} :{' '}
 										<Link
 											href='tel:+998712345678'
 											className='text-gray-400 hover:text-white'
@@ -295,7 +299,7 @@ export default function ContactSection() {
 						</ul>
 					</div>
 				</div>
-			</div>	
+			</div>
 		</section>
 	)
 }
