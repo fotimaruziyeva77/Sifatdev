@@ -20,7 +20,6 @@ function Page() {
 		try {
 			const res = await axios.get('/api/projects')
 			setProjects(res.data.data)
-			console.log(res.data.data)
 		} catch (err) {
 			console.error(err)
 		} finally {

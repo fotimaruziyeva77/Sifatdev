@@ -17,6 +17,7 @@ import {
 	BlogTypes,
 	ProjectTypes,
 	ServiceTypes,
+	SkillTypes,
 	VacancyTypes,
 } from '@/interfaces'
 import axios from 'axios'
@@ -24,12 +25,14 @@ import { Pizza } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 function Page() {
 	const [projects, setProjects] = useState<ProjectTypes[]>([])
 	const [vacancies, setVacancies] = useState<VacancyTypes[]>([])
 	const [blogs, setBlogs] = useState<BlogTypes[]>([])
 	const [services, setServices] = useState<ServiceTypes[]>([])
+	const [skills, setSkills] = useState<SkillTypes[]>([])
 	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
@@ -89,6 +92,24 @@ function Page() {
 		fetchData()
 	}, [])
 
+	useEffect(() => {
+		const fetchSkills = async () => {
+			setLoading(true)
+			try {
+				const res = await axios.get('/api/skills')
+				setSkills(res.data.data)
+			} catch (err: any) {
+				toast.error(err.response?.data?.error || 'Failed to fetch skills', {
+					position: 'top-center',
+					richColors: true,
+				})
+			} finally {
+				setLoading(false)
+			}
+		}
+		fetchSkills()
+	}, [])
+
 	const days = [
 		'Dushanba',
 		'Seshanba',
@@ -103,7 +124,7 @@ function Page() {
 
 	return (
 		<div className='w-full flex flex-col gap-3 p-5'>
-			<div className='grid grid-cols-4 gap-5 h-40'>
+			<div className='grid grid-cols-5 gap-5 h-40'>
 				<div className='relative flex flex-col gap-3 border-2 border-solid border-blue-700 p-3 rounded-lg bg-blue-500/75'>
 					<h1 className='text-3xl'>Projects</h1>
 					<span className='absolute bottom-5 right-5 text-7xl text-blue-700'>
@@ -126,6 +147,12 @@ function Page() {
 					<h1 className='text-3xl'>Services</h1>
 					<span className='absolute bottom-5 right-5 text-7xl text-fuchsia-700'>
 						{services.length}
+					</span>
+				</div>
+				<div className='relative flex flex-col gap-3 border-2 border-solid border-purple-700 p-3 rounded-lg bg-purple-500/75'>
+					<h1 className='text-3xl'>Skills</h1>
+					<span className='absolute bottom-5 right-5 text-7xl text-purple-700'>
+						{skills.length}
 					</span>
 				</div>
 			</div>
@@ -220,13 +247,13 @@ function Page() {
 							</AccordionItem>
 						))}
 					</Accordion>
-					{vacancies.length === 0 && (
-						<p className='text-center w-full text-sm text-muted-foreground flex items-center justify-center'>
-							<Pizza size={18} />
-							No data
-						</p>
-					)}
 				</div>
+				{vacancies.length === 0 && (
+					<p className='text-center w-full text-sm text-muted-foreground flex items-center justify-center'>
+						<Pizza size={18} />
+						No data
+					</p>
+				)}
 			</div>
 			<div className='w-full flex flex-col gap-3 mt-5'>
 				<div className='p-3 bg-gradient-to-r from-green-300 to-transparent flex items-center justify-between'>
@@ -315,6 +342,35 @@ function Page() {
 				</div>
 				{services.length === 0 && (
 					<p className='text-center w-full text-sm text-muted-foreground flex items-center justify-center'>
+						<Pizza size={18} />
+						No data
+					</p>
+				)}
+			</div>
+			<div className='w-full flex flex-col gap-3 mt-5'>
+				<div className='p-3 bg-gradient-to-r from-purple-300 to-transparent flex items-center justify-between'>
+					<h1 className='text-2xl !mb-0 font-semibold'>Skills</h1>
+					<Link href={'/uz/admin/utils'} className='underline text-blue-600'>
+						View All
+					</Link>
+				</div>
+
+				<div className='flex flex-col gap-3 px-3'>
+					{loading && <p>Loading...</p>}
+					<div className='flex items-center gap-5'>
+						{skills.map(item => (
+							<div
+								className='flex items-center justify-between p-2 border rounded-md gap-3'
+								key={item._id}
+							>
+								<h1 className='text-lg font-medium !mb-0'>{item.name}</h1>
+							</div>
+						))}
+					</div>
+				</div>
+
+				{!loading && skills.length === 0 && (
+					<p className='text-center w-full text-sm text-muted-foreground flex items-center justify-center gap-2'>
 						<Pizza size={18} />
 						No data
 					</p>

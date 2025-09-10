@@ -41,3 +41,9 @@ export interface BlogTypes {
 	tags: TagTypes[]
 	createdAt: string
 }
+
+export interface SkillTypes {
+	_id: string
+	name: string
+	createdAt: string
+}

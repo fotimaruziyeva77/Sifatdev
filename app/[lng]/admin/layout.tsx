@@ -9,6 +9,7 @@ import {
 	Cog,
 	FolderGit2,
 	LayoutDashboard,
+	PencilRuler,
 	Rss,
 	TicketsPlane,
 } from 'lucide-react'
@@ -27,6 +28,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 		{ href: '/uz/admin/blogs', label: 'Blogs', icon: Rss },
 		{ href: '/uz/admin/services', label: 'Services', icon: CardSim },
 		{ href: '/uz/admin/utils', label: 'Utils', icon: Cog },
+		{ href: '/uz/admin/constructor', label: 'Constructor', icon: PencilRuler },
 	]
 
 	const handleLogOut = async () => {
@@ -36,7 +38,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
 	return (
 		<div className='flex h-screen' suppressHydrationWarning>
-			<NextTopLoader />
+			<NextTopLoader showSpinner={false} />
 			<aside className='w-64 bg-gray-900 text-white flex flex-col'>
 				<div className='p-4 text-2xl font-bold border-b border-gray-700'>
 					Sifatdev Admin
