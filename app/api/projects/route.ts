@@ -2,8 +2,7 @@ import dbConnect from '@/lib/db'
 import { verifyJwt } from '@/lib/jwt'
 import Project from '@/models/project.model'
 import { NextResponse } from 'next/server'
-import Category from '@/models/category.model'
-import Technology from '@/models/technology.model'
+
 
 // GET all projects
 export async function GET() {
