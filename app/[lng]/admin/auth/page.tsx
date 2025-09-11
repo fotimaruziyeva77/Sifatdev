@@ -30,20 +30,19 @@ function Page() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
+const validation = contactSchema.safeParse({ email, password })
 
-		const validation = contactSchema.safeParse({ email, password })
+if (!validation.success) {
+	const fieldErrors: { email?: string; password?: string } = {}
 
-		if (!validation.success) {
-			const fieldErrors: { email?: string; password?: string } = {}
-			//@ts-ignore
-			validation.error.errors.forEach(err => {
-				if (err.path[0] === 'email') fieldErrors.email = err.message
-				if (err.path[0] === 'password') fieldErrors.password = err.message
-			})
-			setErrors(fieldErrors)
-			return
-		}
+	validation.error.issues.forEach(err => {
+		if (err.path[0] === 'email') fieldErrors.email = err.message
+		if (err.path[0] === 'password') fieldErrors.password = err.message
+	})
 
+	setErrors(fieldErrors)
+	return
+}
 		setErrors({})
 		setLoading(true)
 		try {

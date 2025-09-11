@@ -1,134 +1,123 @@
 'use client'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import { Home, User, Briefcase, FolderOpen, Newspaper, Rocket } from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import LanguageDropdown from './language-dropdown'
 import useTranslate from '@/hooks/use-translate'
-import { useParams } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 
 export default function Navbar() {
-	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+	const [activeTab, setActiveTab] = useState('')
 	const t = useTranslate()
 	const { lng } = useParams()
+	const pathname = usePathname()
+
+	// Set active tab based on current path
+	useEffect(() => {
+		const pathSegments = pathname.split('/')
+		const currentPage = pathSegments[pathSegments.length - 1] || 'home'
+		setActiveTab(currentPage)
+	}, [pathname])
 
 	const NavItems = [
-		{ id: 1, href: `/${lng}/about`, label: t('navitem.about') },
-		{ id: 2, href: `/${lng}/service`, label: t('navitem.service') },
-		{ id: 6, href: `/${lng}/project`, label: t('navitem.portfolio') },
-		{ id: 5, href: `/${lng}/career`, label: t('navitem.career') },
-		{ id: 4, href: `/${lng}/blog`, label: t('navitem.blog') },
+		{ id: 0, href: `/${lng}/`, label: t('navitem.home'), icon: Home },
+		{ id: 1, href: `/${lng}/about`, label: t('navitem.about'), icon: User },
+		{ id: 2, href: `/${lng}/service`, label: t('navitem.service'), icon: Rocket },
+		{ id: 6, href: `/${lng}/project`, label: t('navitem.portfolio'), icon: FolderOpen },
+		{ id: 5, href: `/${lng}/career`, label: t('navitem.career'), icon: Briefcase },
+		{ id: 4, href: `/${lng}/blog`, label: t('navitem.blog'), icon: Newspaper },
 	]
 
 	return (
-		<header className='w-full fixed top-0 left-0 z-50'>
-			<div
-				className='flex items-center justify-between md:justify-around px-8 py-4 
-				bg-gradient-to-r from-[#0B192C]/95 to-[#0E223A]/95 backdrop-blur-md shadow-md'
-			>
-				{/* Logo */}
-				<Link href={`/${lng}/`}>
-					<Image
-						src='/assets/logo.png'
-						alt='Sifatdev'
-						width={160}
-						height={50}
-						className='object-contain w-[160px] sm:w-[200px] h-auto'
-					/>
-				</Link>
-
-				{/* Desktop menu */}
-				<nav className='hidden md:flex gap-10 text-white text-[15px] font-semibold tracking-wide'>
-					{NavItems.map(item => (
-						<Link
-							key={item.href}
-							href={item.href}
-							className='relative uppercase transition duration-300 hover:text-[#00CFFF]'
-						>
-							<span
-								className="after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px]
-								after:w-0 after:transition-all after:duration-300 hover:after:w-full after:bg-[#00CFFF]"
-							>
-								{item.label}
-							</span>
-						</Link>
-					))}
-				</nav>
-
-				{/* Contact + Language (Desktop) */}
-				<div className='hidden md:flex items-center gap-6'>
-					<Link
-						href='tel:+998712007007'
-						className='text-gray-300 text-[16px] font-bold'
-					>
-						<span className='text-blue-200'>+998 88</span>{' '}
-						<span className='text-white font-extrabold'>378 08 08</span>
-					</Link>
-
-					{/* Language button */}
-					<div
-						className='border border-gray-500 rounded flex items-center gap-1 
-					text-white text-sm transition-all duration-300'
-					>
-						<LanguageDropdown />
-					</div>
-				</div>
-
-				{/* Mobile button + Language */}
-				<div className='md:hidden flex items-center gap-3'>
-					{/* LanguageDropdown mobil uchun */}
-					<div className='border border-gray-500 rounded text-white text-sm px-2 py-1'>
-						<LanguageDropdown />
-					</div>
-
-					{/* Menu button */}
-					<button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-						{isMobileMenuOpen ? (
-							<X className='text-white w-7 h-7' />
-						) : (
-							<Menu className='text-white w-7 h-7' />
-						)}
-					</button>
-				</div>
-			</div>
-
-			{/* Mobile menu */}
-			<div
-				className={`fixed top-0 right-0 h-full w-82 bg-[#0B192C] text-white p-6 flex flex-col gap-6 
-				shadow-lg transform transition-all duration-300 ease-in-out md:hidden 
-				${
-					isMobileMenuOpen
-						? 'translate-x-0 opacity-100'
-						: 'translate-x-full opacity-0'
-				}`}
-			>
-				<div className='flex justify-between items-center'>
-					<span className='text-lg font-semibold'>Sifatdev</span>
-					<button onClick={() => setIsMobileMenuOpen(false)}>
-						<X className='w-6 h-6' />
-					</button>
-				</div>
-
-				{NavItems.map(item => (
-					<Link
-						key={item.href}
-						href={item.href}
-						onClick={() => setIsMobileMenuOpen(false)}
-						className='relative inline-block uppercase font-medium transition duration-300 hover:text-[#00CFFF]'
-					>
-						{item.label}
-					</Link>
-				))}
-
-				{/* Mobile contact */}
-				<Link
-					href='tel:+998712007007'
-					className='mt-4 inline-block text-[16px] font-bold'
+		<>
+			<header className='w-full fixed top-0 left-0 z-50'>
+				<div
+					className='flex items-center justify-between lg:justify-around px-4 sm:px-6 md:px-8 py-4 
+					bg-gradient-to-r from-[#0B192C]/95 to-[#0E223A]/95 backdrop-blur-md shadow-md'
 				>
-					<span className='text-[#00CFFF]'>+998 71</span>{' '}
-					<span className='text-white font-extrabold'>200 70 07</span>
-				</Link>
-			</div>
-		</header>
+					{/* Logo */}
+					<Link href={`/${lng}/`}>
+						<Image
+							src='/assets/logo.png'
+							alt='Sifatdev'
+							width={140}
+							height={45}
+							className='object-contain w-[140px] sm:w-[160px] md:w-[180px] h-auto'
+						/>
+					</Link>
+
+					{/* Desktop menu - now hidden on tablets too */}
+					<nav className='hidden lg:flex gap-6 xl:gap-8 text-white text-[14px] xl:text-[15px] font-semibold tracking-wide'>
+						{NavItems.filter(item => item.id !== 0).map(item => (
+							<Link
+								key={item.href}
+								href={item.href}
+								className='relative uppercase transition duration-300 hover:text-[#00CFFF]'
+							>
+								<span
+									className="after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px]
+									after:w-0 after:transition-all after:duration-300 hover:after:w-full after:bg-[#00CFFF]"
+								>
+									{item.label}
+								</span>
+							</Link>
+						))}
+					</nav>
+
+					{/* Contact + Language (Desktop) */}
+					<div className='hidden lg:flex items-center gap-4 xl:gap-6'>
+						<Link
+							href='tel:+998712007007'
+							className='text-gray-300 text-[15px] xl:text-[16px] font-bold whitespace-nowrap'
+						>
+							<span className='text-blue-200'>+998 88</span>{' '}
+							<span className='text-white font-extrabold'>378 08 08</span>
+						</Link>
+
+						{/* Language button */}
+						<div
+							className='border border-gray-500 rounded flex items-center gap-1 
+							text-white text-sm transition-all duration-300'
+						>
+							<LanguageDropdown />
+						</div>
+					</div>
+
+					{/* Mobile button + Language */}
+					<div className='lg:hidden flex items-center gap-3'>
+						{/* LanguageDropdown mobil uchun */}
+						<div className='border border-gray-500 rounded text-white text-sm px-2 py-1'>
+							<LanguageDropdown />
+						</div>
+					</div>
+				</div>
+
+				{/* Tablet menu - shown only on tablets (md to lg) */}
+				<div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0B192C] border-t border-gray-700">
+					<div className="flex justify-around items-center py-2 px-1">
+						{NavItems.filter(item => item.id <= 6).map(item => {
+							const IconComponent = item.icon;
+							const isActive = activeTab === item.href.split('/').pop() || (item.id === 0 && activeTab === lng);
+							
+							return (
+								<Link
+									key={item.id}
+									href={item.href}
+									className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all min-w-[60px] ${isActive ? 'text-[#00CFFF] bg-[#0E223A]' : 'text-gray-400'}`}
+									onClick={() => setActiveTab(item.href.split('/').pop() || 'home')}
+								>
+									<IconComponent className="w-5 h-5 mb-1" />
+									<span className="text-xs text-center leading-tight">{item.label}</span>
+								</Link>
+							);
+						})}
+					</div>
+				</div>
+			</header>
+
+			{/* Add padding to content to account for fixed navbar and tab bar */}
+			<div className="pt-20 pb-16 lg:pb-0"></div>
+		</>
 	)
 }

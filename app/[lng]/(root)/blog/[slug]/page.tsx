@@ -7,9 +7,9 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { Blogs } from '@/constants'
 import useTranslate from '@/hooks/use-translate'
-import { API_SERVICE } from '@/services/api-service'
+import { BlogTypes } from '@/interfaces'
+
 import axios from 'axios'
 import {
 	Blocks,
@@ -26,10 +26,10 @@ import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 function Page() {
-	const [blogs, setBlogs] = useState<Blogs[]>([])
+	const [blogs, setBlogs] = useState<BlogTypes[]>([])
 	const params = useParams()
-	const {lng}=useParams()
-	const t=useTranslate()
+	const { lng } = useParams()
+	const t = useTranslate()
 	function slugify(text: string): string {
 		return text
 			.toLowerCase()
@@ -46,12 +46,12 @@ function Page() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(`${API_SERVICE.blog}${slug}/`)
+				const res = await axios.get(`/api/blogs/${slug}`)
 				console.log(res.data)
-				if (Array.isArray(res.data.results)) {
-					setBlogs(res.data.results)
-				} else if (res.data) {
-					setBlogs([res.data])
+				if (Array.isArray(res.data.data)) {
+					setBlogs(res.data.data)
+				} else if (res.data.data) {
+					setBlogs([res.data.data])
 				} else {
 					setBlogs([])
 				}
@@ -62,13 +62,15 @@ function Page() {
 		}
 		fetchData()
 	}, [slug])
-	function formatDate(dateStr: string): string {
-		const date = new Date(dateStr)
-		const day = String(date.getDate()).padStart(2, '0')
-		const month = String(date.getMonth() + 1).padStart(2, '0')
-		const year = date.getFullYear()
-		return `${day}.${month}.${year}`
-	}
+function formatDate(dateStr: string): string {
+	if (!dateStr) return '---'
+	const date = new Date(dateStr)
+	const day = String(date.getDate()).padStart(2, '0')
+	const month = String(date.getMonth() + 1).padStart(2, '0')
+	const year = date.getFullYear()
+	return `${day}.${month}.${year}`
+}
+
 
 	return (
 		<div className='min-h-screen bg-gray-900 text-white flex items-center justify-center p-10 mt-10'>
@@ -82,7 +84,7 @@ function Page() {
 									className='flex items-center gap-2 text-blue-400 font-semibold hover:text-blue-400  transition'
 								>
 									<Home className='w-5 h-5' />
-								{t('navitem.home')}
+									{t('navitem.home')}
 								</BreadcrumbLink>
 							</BreadcrumbItem>
 
@@ -108,24 +110,29 @@ function Page() {
 				{blogs.length === 0 ? (
 					<p className='text-center text-gray-400'>{t('error.error')}</p>
 				) : (
-					blogs.map((item, idx) => (
+					blogs.map(item => (
 						<div
-							key={idx}
+							key={item._id}
 							className='bg-gray-800 rounded-2xl shadow-lg overflow-hidden'
 						>
 							<div className='relative'>
 								<Image
-									src={item.face_image || '/fallback.jpg'}
+									src={item.image || '/fallback.jpg'}
 									alt={item.title || 'Article'}
 									width={800}
 									height={400}
 									className='w-full h-72 object-cover'
 									priority
 								/>
-								<div className='absolute bottom-4 left-4'>
-									<span className='bg-gray-900 text-sm px-3 py-1 rounded'>
-										{item.category.title}
-									</span>
+								<div className='absolute bottom-4 left-4 flex gap-2 flex-wrap'>
+									{item.tags?.map(i => (
+										<span
+											key={i._id}
+											className='bg-gray-900/80 text-sm px-3 py-1 rounded text-blue-300'
+										>
+											{i.name}
+										</span>
+									))}
 								</div>
 							</div>
 
@@ -133,12 +140,12 @@ function Page() {
 								<h1 className='text-2xl font-bold'>{item.title}</h1>
 								<div className='flex items-center gap-6 text-gray-400 text-sm'>
 									<div className='flex items-center gap-2'>
-										<Calendar size={16} />{' '}
-										{item.date ? formatDate(item.date) : '---'}
+										<Calendar size={16} /> {item.createdAt}
+										{item.createdAt ? formatDate(item.createdAt) : '---'}
 									</div>
 
 									<div className='flex items-center gap-2'>
-										<Eye size={16} /> {item.views_count || 0}
+										<Eye size={16} /> {item.viewCount || 0}
 									</div>
 								</div>
 
@@ -152,9 +159,11 @@ function Page() {
 									<p className='text-sm text-gray-400'>
 										{' '}
 										<span className='font-semibold text-white'>
-											<span className='text-blue-400'>{t('about.sifatdev')}</span>
+											<span className='text-blue-400'>
+												{t('about.sifatdev')}
+											</span>
 										</span>{' '}
-									{t('blog.footer')}
+										{t('blog.footer')}
 									</p>
 
 									{/* Social Icons */}

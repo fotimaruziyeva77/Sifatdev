@@ -1,9 +1,6 @@
 'use client'
-
-import { Services } from '@/constants'
 import useTranslate from '@/hooks/use-translate'
 import { ServiceTypes } from '@/interfaces'
-import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
 import { LucideLoader, LucideRocket } from 'lucide-react'
 import { useParams } from 'next/navigation'
@@ -27,7 +24,6 @@ export default function ServiceSlug() {
 	const [phoneNumber, setPhoneNumber] = useState('')
 
 	const [, setErrors] = useState<ServicesErrors>({})
-	const [projectType, setProjectType] = useState<string | ''>('')
 	const { lng } = useParams()
 	const t = useTranslate()
 

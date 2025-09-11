@@ -1,6 +1,5 @@
 'use client'
 import { Project } from '@/constants'
-import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,7 +16,7 @@ export default function Portfolio() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(API_SERVICE.project, {
+				const res = await axios.get('/api/projects', {
 					headers: {
 						'Accept-Language': lng,
 					},
