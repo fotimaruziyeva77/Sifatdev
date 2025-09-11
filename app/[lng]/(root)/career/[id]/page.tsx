@@ -1,5 +1,4 @@
 'use client'
-
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
 import {
@@ -8,10 +7,10 @@ import {
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+
 import useTranslate from '@/hooks/use-translate'
 import { VacancyTypes } from '@/interfaces'
 import axios from 'axios'
@@ -103,12 +102,7 @@ export default function JobPost() {
 					dangerouslySetInnerHTML={{ __html: vacancy.description }}
 				/>
 
-				<Dialog>
-					<DialogTrigger asChild>
-						<Button className='bg-green-600 hover:bg-green-700 text-white'>
-							{t('vacancy.resume')}
-						</Button>
-					</DialogTrigger>
+<Dialog>
 					<DialogContent className='sm:max-w-2xl bg-gray-900 text-white '>
 						<DialogHeader>
 							<DialogTitle className='text-white'>{t('vacancy.resume')}</DialogTitle>
@@ -168,6 +162,7 @@ export default function JobPost() {
 								</form>
 							</DialogDescription>
 						</DialogHeader>
+
 						{/* form qismi shu yerda qoladi */}
 					</DialogContent>
 				</Dialog>
