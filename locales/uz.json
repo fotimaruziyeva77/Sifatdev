@@ -126,7 +126,8 @@
 		"submit":"Ariza yuborish "
 	},
 	"success": {
-		"contactmessage": "Xabaringiz SIFATDEV jamoasiga yuborildi!"
+		"contactmessage": "Xabaringiz SIFATDEV jamoasiga yuborildi!",
+		"toast":"Sizning ma’lumotlaringiz muvaffaqiyatli tarzda qabul qilindi. Tez orada siz bilan bog‘lanamiz."
 	},
 	"notification": {
 		"contactwarning": {
