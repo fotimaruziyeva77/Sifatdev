@@ -4,6 +4,7 @@ export interface ServiceTypes {
 	_id: string
 	description: string
 	icon: string
+	createdAt: string
 }
 
 export interface ProjectTypes {

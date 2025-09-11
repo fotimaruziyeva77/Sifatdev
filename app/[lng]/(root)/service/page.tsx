@@ -28,7 +28,7 @@ export default function Service() {
 	}, [])
 
 	return (
-		<div className='mt-20 min-h-screen px-6 mb-10'>
+		<div className=' min-h-screen px-6 mb-10'>
 			<div className='relative flex items-center justify-center h-48 sm:h-60 md:h-72 overflow-hidden mt-20'>
 				<h1 className='absolute text-[60px] sm:text-[100px] md:text-[160px] lg:text-[200px] font-extrabold text-gray-700/10 select-none'>
 					{t('navitem.service')}

@@ -30,6 +30,15 @@
 		"contact": "Bog‘lanish",
 		"about": "Batafsil"
 	},
+	"days":{
+		"mon":"Dushanba",
+		"tue":"Seshanba",
+		"wed":"Chorshanba",
+		"thu":"Payshanba",
+		"fri":"Juma",
+		"sat":"Shanba",
+		"sun":"Yakshanba"	
+	},
 	"about": {
 		"section_title": "Biz haqimizda",
 		"title": "SIFATDEV haqida",
@@ -106,6 +115,15 @@
 		"teamtitle": "Bizning",
 		"teamsub": "Jamoa",
 		"desc": "SIFATDEV jamoasi bilan tanishing"
+	},
+	"vacancy":{
+		"resume":"Rezyume yuborish",
+		"fullname":"F.I.SH",
+		"phone":"Telefon raqamingiz",
+		"name":"Ismingizni kiriting",
+		"select":"Rezyumeni yuklash",
+		"email":"Email",
+		"submit":"Ariza yuborish "
 	},
 	"success": {
 		"contactmessage": "Xabaringiz SIFATDEV jamoasiga yuborildi!"
