@@ -28,8 +28,8 @@ function Blog() {
 	}, [lng])
 
 	return (
-		<div className='mt-20 min-h-screen px-6 mb-10 '>
-			{/* Header */}
+		<div className=' min-h-screen px-6 mb-10 '>
+			
 			<div className='relative flex items-center justify-center h-60 overflow-hidden'>
 				<h1 className='absolute text-[210px] font-extrabold text-gray-700/20 select-none pt-20'>
 					{t('navitem.blog')}

@@ -68,7 +68,7 @@ export default function Navbar() {
 					{/* Contact + Language (Desktop) */}
 					<div className='hidden lg:flex items-center gap-4 xl:gap-6'>
 						<Link
-							href='tel:+998712007007'
+							href='tel:+998883780808'
 							className='text-gray-300 text-[15px] xl:text-[16px] font-bold whitespace-nowrap'
 						>
 							<span className='text-blue-200'>+998 88</span>{' '}
@@ -117,7 +117,7 @@ export default function Navbar() {
 			</header>
 
 			{/* Add padding to content to account for fixed navbar and tab bar */}
-			<div className="pt-20 pb-16 lg:pb-0"></div>
+			<div className="pt-16"></div>
 		</>
 	)
 }

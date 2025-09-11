@@ -46,7 +46,11 @@ function Page() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(`/api/blogs/${slug}`)
+				const res = await axios.get(`/api/blogs/${slug}`,{
+					headers: {
+						'Accept-Language': lng,
+					}
+				})
 				console.log(res.data)
 				if (Array.isArray(res.data.data)) {
 					setBlogs(res.data.data)
@@ -61,17 +65,7 @@ function Page() {
 			}
 		}
 		fetchData()
-	}, [slug])
-function formatDate(dateStr: string): string {
-	if (!dateStr) return '---'
-	const date = new Date(dateStr)
-	const day = String(date.getDate()).padStart(2, '0')
-	const month = String(date.getMonth() + 1).padStart(2, '0')
-	const year = date.getFullYear()
-	return `${day}.${month}.${year}`
-}
-
-
+	}, [lng, slug])
 	return (
 		<div className='min-h-screen bg-gray-900 text-white flex items-center justify-center p-10 mt-10'>
 			<div className='max-w-4xl w-full '>
@@ -80,7 +74,7 @@ function formatDate(dateStr: string): string {
 						<BreadcrumbList className='flex items-center gap-2 bg-gray-800/70 px-4 py-4 rounded-xl '>
 							<BreadcrumbItem>
 								<BreadcrumbLink
-									href='/'
+									href={`/${lng}/`}
 									className='flex items-center gap-2 text-blue-400 font-semibold hover:text-blue-400  transition'
 								>
 									<Home className='w-5 h-5' />
@@ -137,17 +131,19 @@ function formatDate(dateStr: string): string {
 							</div>
 
 							<div className='p-6 space-y-4'>
-								<h1 className='text-2xl font-bold'>{item.title}</h1>
+							<div className='flex items-center justify-between'>
+									<h1 className='text-2xl font-bold'>{item.title}</h1>
 								<div className='flex items-center gap-6 text-gray-400 text-sm'>
 									<div className='flex items-center gap-2'>
-										<Calendar size={16} /> {item.createdAt}
-										{item.createdAt ? formatDate(item.createdAt) : '---'}
+										<Calendar size={16} />
+										{item.createdAt.slice(0, 10).split('-').reverse().join('.')}
 									</div>
 
 									<div className='flex items-center gap-2'>
 										<Eye size={16} /> {item.viewCount || 0}
 									</div>
 								</div>
+							</div>
 
 								<div
 									className='space-y-3 text-gray-300'

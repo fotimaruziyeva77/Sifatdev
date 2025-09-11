@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import StarShower from '../_components/star-shower'
 import { toast } from 'sonner'
 import axios from 'axios'
-import { API_SERVICE } from '@/services/api-service'
 import { z } from 'zod'
 import { Input } from '@/components/ui/input'
 import { PhoneInput } from 'react-international-phone'
@@ -163,7 +162,7 @@ function Contact() {
 	}
 
 	return (
-		<div className='mt-20 min-h-screen px-6 mb-10 text-white'>
+		<div className=' min-h-screen px-6 mb-10 text-white'>
 			{/* Hero Section */}
 			<div className='relative flex items-center justify-center h-40 sm:h-52 md:h-64 lg:h-72 overflow-hidden mt-16'>
 				{/* Fon yozuvi */}

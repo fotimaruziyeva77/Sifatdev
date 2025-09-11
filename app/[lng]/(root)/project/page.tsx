@@ -1,32 +1,30 @@
 'use client'
-import { Category, Project } from '@/constants'
-import { API_SERVICE } from '@/services/api-service'
 import axios from 'axios'
 import { motion } from 'motion/react'
 import Image from 'next/image'
-import Link from 'next/link'
+
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import StarShower from '../_components/star-shower'
 import useTranslate from '@/hooks/use-translate'
 import { LucideLayoutGrid } from 'lucide-react'
+import { ProjectTypes } from '@/interfaces'
 
 export default function Portfolio() {
 	const [active, setActive] = useState('ALL')
-	const [portfolio, setPortfolio] = useState<Project[]>([])
-	const [category, setCategory] = useState<Category[]>([])
+	const [portfolio, setPortfolio] = useState<ProjectTypes[]>([])
 	const { lng } = useParams()
 	const t = useTranslate()
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(API_SERVICE.project, {
+				const res = await axios.get('/api/projects', {
 					headers: {
 						'Accept-Language': lng,
 					},
 				})
-				setPortfolio(res.data.results)
+				setPortfolio(res.data.data)
 			} catch (err) {
 				console.error(err)
 			}
@@ -34,21 +32,6 @@ export default function Portfolio() {
 		fetchData()
 	}, [lng])
 
-	useEffect(() => {
-		const fetchCategory = async () => {
-			try {
-				const res = await axios.get(API_SERVICE.projectcategory, {
-					headers: {
-						'Accept-Language': lng,
-					},
-				})
-				setCategory(res.data.results)
-			} catch (err) {
-				console.error(err)
-			}
-		}
-		fetchCategory()
-	}, [lng])
 
 	const filtered =
 		active === 'ALL'
@@ -56,7 +39,7 @@ export default function Portfolio() {
 			: portfolio.filter(p => p.category.title.toUpperCase() === active)
 
 	return (
-		<div className='bg-gray-900 min-h-screen py-12 text-white mt-20 px-4 sm:px-6 lg:px-12 mb-10'>
+		<div className='bg-gray-900 min-h-screen py-12 text-white  px-4 sm:px-6 lg:px-12 mb-10'>
 			<div className='container mx-auto'>
 				{/* HEADER */}
 				<div className='relative flex items-center justify-center h-40 sm:h-52 md:h-64 lg:h-72 overflow-hidden mt-10 sm:mt-20'>
@@ -95,9 +78,9 @@ export default function Portfolio() {
 							<LucideLayoutGrid className='w-[30px] h-[30px]' />
 						</button>
 
-						{category.map(cat => (
+						{portfolio.map(p => p.category).map(cat => (
 							<button
-								key={cat.id}
+								key={cat._id}
 								onClick={() => setActive(cat.title.toUpperCase())}
 								className={`px-4 sm:px-5 py-2 border rounded-lg text-sm sm:text-base font-medium transition-all uppercase 
 								${
@@ -113,40 +96,31 @@ export default function Portfolio() {
 				</div>
 
 				{/* PORTFOLIO GRID */}
-				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-					{filtered.map((item, idx) => (
-						<div
-							key={item.id}
-							className={`relative rounded-xl overflow-hidden bg-[#2a2a2a] shadow-lg cursor-pointer group 
-    ${idx === 0 ? 'lg:col-span-1 lg:row-span-2' : ''}`}
-						>
-							<div>
-								<Image
-									src={item.face_image}
-									alt={item.title}
-									width={300}
-									height={400}
-									className='w-full h-46 sm:h-72 md:h-50 lg:h-full object-cover group-hover:scale-105 transition-transform duration-300'
-								/>
-								<div className='absolute inset-0 bg-black/40 flex flex-col justify-end p-4'>
-									<h2 className='text-base sm:text-lg md:text-xl font-bold'>
-										{item.title}
-									</h2>
-									<p className='text-xs sm:text-sm text-gray-300'>
-										{item.category.title.toUpperCase()}
-									</p>
-									<div
-										className='text-gray-400 mt-2 line-clamp-2'
-										dangerouslySetInnerHTML={{
-											__html: item.description.replace(/<img[^>]*>/g, ''),
-										}}
-									/>
-									<Link href={`/${lng}/project/${item.slug}`}>
-										{t('blog.read_more')}
-									</Link>
-								</div>
-							</div>
-						</div>
+				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
+					{filtered.map((item) => (
+					<div
+					key={item._id}
+	className="relative rounded-xl overflow-hidden bg-[#1f1f1f] shadow-lg group transition-all hover:shadow-2xl"
+>
+	<Image
+		src={item.image}
+		alt={item.title}
+		width={400}
+		height={300}
+		className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+	/>
+	{/* Overlay */}
+	<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-90 group-hover:opacity-100 transition-all duration-500"></div>
+	
+	{/* Text content */}
+	<div className="absolute bottom-4 left-4 right-4 flex flex-row justify-between">
+		<h2 className="text-lg sm:text-xl font-bold text-white">{item.title}</h2>
+		<span className="mt-2 inline-block px-3 py-1 text-xs font-medium bg-teal-500/80 text-white rounded-full w-fit uppercase text-center pt-2">
+			{item.category.title}
+		</span>
+	</div>
+</div>
+
 					))}
 				</div>
 			</div>

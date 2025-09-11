@@ -68,7 +68,7 @@ function Page() {
 
 	return (
 		<div>
-			<div className='mt-16 md:mt-16'>
+			<div className=''>
 				<div className='relative shadow-md z-10'>
 					<div className='relative'>
 						<div className='relative h-[500px] sm:h-[600px] lg:h-[750px]'>
@@ -110,13 +110,20 @@ function Page() {
 								<div className='flex flex-row gap-4 justify-center md:justify-start'>
 									<Link
 										href={`/${lng}/contact`}
-										className='bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2'
+										className='bg-blue-600 hover:bg-blue-700 text-white 
+               px-4 py-2 text-sm 
+               md:px-6 md:py-3 md:text-base 
+               rounded-lg flex items-center gap-2'
 									>
 										{t('hero.contact')} <ArrowRight />
 									</Link>
+
 									<Link
 										href={`/${lng}/about`}
-										className='border border-gradient-to-r from-[#6065d4] to-[#fa5674] text-white px-6 py-3 rounded-lg flex items-center gap-2'
+										className='border border-gradient-to-r from-[#6065d4] to-[#fa5674] text-white 
+               px-4 py-2 text-sm 
+               md:px-6 md:py-3 md:text-base 
+               rounded-lg flex items-center gap-2'
 									>
 										{t('navitem.about')} <ArrowRight />
 									</Link>
