@@ -7,6 +7,7 @@ import NextTopLoader from 'nextjs-toploader'
 import {
 	CardSim,
 	Cog,
+	FileUser,
 	FolderGit2,
 	LayoutDashboard,
 	PencilRuler,
@@ -27,6 +28,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 		{ href: '/uz/admin/vacancies', label: 'Vacancies', icon: TicketsPlane },
 		{ href: '/uz/admin/blogs', label: 'Blogs', icon: Rss },
 		{ href: '/uz/admin/services', label: 'Services', icon: CardSim },
+		{ href: '/uz/admin/resume', label: 'Resume', icon: FileUser },
 		{ href: '/uz/admin/utils', label: 'Utils', icon: Cog },
 		{ href: '/uz/admin/constructor', label: 'Constructor', icon: PencilRuler },
 	]

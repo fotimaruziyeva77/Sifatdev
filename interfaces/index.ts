@@ -47,3 +47,14 @@ export interface SkillTypes {
 	name: string
 	createdAt: string
 }
+
+export interface ResumeTypes {
+	_id: string
+	senderName: string
+	phoneNumber: string
+	vacancy: string
+	cv: string
+	createdAt: string
+	updatedAt: string
+	__v: number
+}
