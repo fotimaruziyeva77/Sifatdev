@@ -1,5 +1,4 @@
 'use client'
-import { Project } from '@/constants'
 import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -7,9 +6,10 @@ import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import useTranslate from '@/hooks/use-translate'
 import { MoveRight } from 'lucide-react'
+import { ProjectTypes } from '@/interfaces'
 
 export default function Portfolio() {
-	const [portfolio, setPortfolio] = useState<Project[]>([])
+	const [portfolio, setPortfolio] = useState<ProjectTypes[]>([])
 	const { lng } = useParams()
 	const t = useTranslate()
 
@@ -21,7 +21,7 @@ export default function Portfolio() {
 						'Accept-Language': lng,
 					},
 				})
-				setPortfolio(res.data.results)
+				setPortfolio(res.data.data)
 			} catch (err) {
 				console.error(err)
 			}
@@ -41,7 +41,7 @@ export default function Portfolio() {
 						className='from-blue-400 via-cyan-200 to-blue-400 
 						bg-clip-text  text-white animate-gradient z-10 uppercase tracking-wide text-sm'
 					>
-						{t('portfoilo.title')}
+						{t('portfolio.title')}
 					</span>
 					<span className='h-[2px] w-6 bg-blue-400'></span>
 				</div>
@@ -50,13 +50,13 @@ export default function Portfolio() {
 				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
 					{portfolio.map(item => (
 						<div
-							key={item.id}
+							key={item._id}
 							className='group relative rounded-2xl overflow-hidden shadow-lg bg-[#1a1a1a] transition-transform transform hover:scale-[1.02] hover:shadow-2xl'
 						>
 							<Link href={`/${lng}/project/${item.slug}`}>
 								{/* Project image */}
 								<Image
-									src={item.face_image}
+									src={item.image}
 									alt={item.title}
 									width={600}
 									height={400}

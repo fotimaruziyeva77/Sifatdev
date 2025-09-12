@@ -51,7 +51,7 @@ const router = useRouter()
 			await axios.post('/api/send-resume', {
 				senderName,
 				phoneNumber,
-				vacancy,
+				 vacancy: vacancy.title,
 				cv: fileUrl,
 			})
 
@@ -157,14 +157,14 @@ const router = useRouter()
 					</DialogTrigger>
 					<DialogContent className='sm:max-w-2xl bg-gray-900 text-white '>
 						<DialogHeader>
-							<DialogTitle>Rezyume yuboring</DialogTitle>
+							<DialogTitle>{t('vacancy.resume')}</DialogTitle>
 						</DialogHeader>
 						<form
 							onSubmit={handleSubmit}
 							className='grid grid-cols-1 md:grid-cols-2 gap-4'
 						>
 							<div className='space-y-2'>
-								<Label className='text-white'>F.I.SH.</Label>
+								<Label className='text-white'>{t('vacancy.fullname')}</Label>
 								<Input
 									value={senderName}
 									onChange={e => setSenderName(e.target.value)}
@@ -174,7 +174,7 @@ const router = useRouter()
 							</div>
 
 							<div className='space-y-2'>
-								<Label className='text-white'>Telefon raqamingiz</Label>
+								<Label className='text-white'>{t('vacancy.phone')}</Label>
 								<Input
 									type='tel'
 									value={phoneNumber}
@@ -185,15 +185,15 @@ const router = useRouter()
 							</div>
 
 							<div className='space-y-2'>
-								<Label className='text-white'>Vakansiya</Label>
-								<Input value={vacancy.title} readOnly className='text-white placeholder:text-gray-600 border-none px-4 py-6 bg-gray-800'/>
+								<Label className='text-white'>{t('vacancy.vac')}</Label>
+								<Input value={vacancy?.title || ''} readOnly className='text-white placeholder:text-gray-600 border-none px-4 py-6 bg-gray-800'/>
 							
 							</div>
 
 							<div className='space-y-2'>
-								<Label className='text-white font-medium'>Upload CV</Label>
+								<Label className='text-white font-medium'>{t('vacancy.select')}</Label>
 								<label className='flex items-center justify-between w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-md cursor-pointer hover:bg-gray-700 text-gray-300'>
-									<span>{file ? file.name : 'Upload CV'}</span>
+									<span>{file ? file.name : t('vacancy.select')}</span>
 									<span className='text-green-500 font-bold text-xl'>+</span>
 									<input
 										type='file'
@@ -212,7 +212,7 @@ const router = useRouter()
 									disabled={loading}
 									className='w-full bg-green-600 hover:bg-green-700 flex items-center justify-center gap-2'
 								>
-									{loading ? 'Yuborilmoqda...' : 'Ariza yuborish 🚀'}
+									{loading ? t('vacancy.send') : t('vacancy.send')}
 								</Button>
 							</div>
 						</form>

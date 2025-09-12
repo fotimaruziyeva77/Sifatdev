@@ -16,6 +16,7 @@ import {
 import {
 	BlogTypes,
 	ProjectTypes,
+	ResumeTypes,
 	ServiceTypes,
 	SkillTypes,
 	VacancyTypes,
@@ -26,6 +27,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
+import { DocxPreview } from './resume/_components/doc-preview'
 
 function Page() {
 	const [projects, setProjects] = useState<ProjectTypes[]>([])
@@ -34,6 +36,7 @@ function Page() {
 	const [services, setServices] = useState<ServiceTypes[]>([])
 	const [skills, setSkills] = useState<SkillTypes[]>([])
 	const [loading, setLoading] = useState(false)
+	const [resumes, setResumes] = useState<ResumeTypes[]>([])
 
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -93,6 +96,23 @@ function Page() {
 	}, [])
 
 	useEffect(() => {
+		const fetchResume = async () => {
+			setLoading(true)
+			try {
+				const res = await axios.get('/api/resume')
+				setResumes(res.data.data)
+			} catch (err: any) {
+				toast.error(err.response?.data?.error || 'Failed to fetch resumes', {
+					position: 'top-center',
+					richColors: true,
+				})
+			} finally {
+				setLoading(false)
+			}
+		}
+		fetchResume()
+	}, [])
+	useEffect(() => {
 		const fetchSkills = async () => {
 			setLoading(true)
 			try {
@@ -124,35 +144,41 @@ function Page() {
 
 	return (
 		<div className='w-full flex flex-col gap-3 p-5'>
-			<div className='grid grid-cols-5 gap-5 h-40'>
-				<div className='relative flex flex-col gap-3 border-2 border-solid border-blue-700 p-3 rounded-lg bg-blue-500/75'>
+			<div className='grid grid-cols-5 gap-5'>
+				<div className='relative flex flex-col gap-3 h-40 border-2 border-solid border-blue-700 p-3 rounded-lg bg-blue-500/75'>
 					<h1 className='text-3xl'>Projects</h1>
 					<span className='absolute bottom-5 right-5 text-7xl text-blue-700'>
 						{projects.length}
 					</span>
 				</div>
-				<div className='relative flex flex-col gap-3 border-2 border-solid border-orange-700 p-3 rounded-lg bg-orange-500/75'>
+				<div className='relative flex flex-col gap-3 h-40 border-2 border-solid border-orange-700 p-3 rounded-lg bg-orange-500/75'>
 					<h1 className='text-3xl'>Vacancies</h1>
 					<span className='absolute bottom-5 right-5 text-7xl text-orange-700'>
 						{vacancies.length}
 					</span>
 				</div>
-				<div className='relative flex flex-col gap-3 border-2 border-solid border-green-700 p-3 rounded-lg bg-green-500/75'>
+				<div className='relative flex flex-col gap-3 h-40 border-2 border-solid border-green-700 p-3 rounded-lg bg-green-500/75'>
 					<h1 className='text-3xl'>Blogs</h1>
 					<span className='absolute bottom-5 right-5 text-7xl text-green-700'>
 						{blogs.length}
 					</span>
 				</div>
-				<div className='relative flex flex-col gap-3 border-2 border-solid border-fuchsia-700 p-3 rounded-lg bg-fuchsia-500/75'>
+				<div className='relative flex flex-col gap-3 h-40 border-2 border-solid border-fuchsia-700 p-3 rounded-lg bg-fuchsia-500/75'>
 					<h1 className='text-3xl'>Services</h1>
 					<span className='absolute bottom-5 right-5 text-7xl text-fuchsia-700'>
 						{services.length}
 					</span>
 				</div>
-				<div className='relative flex flex-col gap-3 border-2 border-solid border-purple-700 p-3 rounded-lg bg-purple-500/75'>
+				<div className='relative flex flex-col gap-3 h-40 border-2 border-solid border-purple-700 p-3 rounded-lg bg-purple-500/75'>
 					<h1 className='text-3xl'>Skills</h1>
 					<span className='absolute bottom-5 right-5 text-7xl text-purple-700'>
 						{skills.length}
+					</span>
+				</div>
+				<div className='relative flex flex-col gap-3 h-40 border-2 border-solid border-teal-700 p-3 rounded-lg bg-teal-500/75'>
+					<h1 className='text-3xl'>Resumes</h1>
+					<span className='absolute bottom-5 right-5 text-7xl text-teal-700'>
+						{resumes.length}
 					</span>
 				</div>
 			</div>
@@ -371,6 +397,75 @@ function Page() {
 
 				{!loading && skills.length === 0 && (
 					<p className='text-center w-full text-sm text-muted-foreground flex items-center justify-center gap-2'>
+						<Pizza size={18} />
+						No data
+					</p>
+				)}
+			</div>
+			<div className='w-full flex flex-col gap-3 mt-5'>
+				<div className='p-3 bg-gradient-to-r from-teal-300 to-transparent flex items-center justify-between'>
+					<h1 className='text-2xl !mb-0 font-semibold'>Resumes</h1>
+					<Link href={'/uz/admin/resume'} className='underline text-blue-600'>
+						View All
+					</Link>
+				</div>
+
+				<div className='flex flex-col px-3'>
+					<Accordion type='single' collapsible>
+						{resumes.map(v => (
+							<AccordionItem key={v._id} value={v._id}>
+								<AccordionTrigger>
+									<div className='flex justify-between items-center w-full'>
+										<span>
+											{v.vacancy} —{' '}
+											<span className='text-sm text-gray-500'>
+												{`${v?.createdAt.split('T')[0]}, ${v?.createdAt
+													.split('T')[1]
+													.slice(0, 5)}`}
+											</span>
+										</span>
+									</div>
+								</AccordionTrigger>
+								<AccordionContent>
+									<div className='flex items-center gap-3'>
+										<h1 className='text-xl font-semibold'>Sender name: </h1>
+										<h2 className='text-lg'>{v.senderName}</h2>
+									</div>
+									<div className='flex items-center gap-3'>
+										<h1 className='text-xl font-semibold'>Sender phone: </h1>
+										<h2 className='text-lg'>{v.phoneNumber}</h2>
+									</div>
+									<div className='flex items-center gap-3'>
+										<h1 className='text-xl font-semibold'>Vacancy: </h1>
+										<h2 className='text-lg'>{v.vacancy}</h2>
+									</div>
+									<div className='w-full h-[50vh]'>
+										{v.cv.endsWith('.pdf') ? (
+											<iframe
+												src={v.cv}
+												className='w-full h-full border rounded'
+												title='PDF Preview'
+											/>
+										) : v.cv.endsWith('.doc') || v.cv.endsWith('.docx') ? (
+											<DocxPreview url={v.cv} />
+										) : (
+											<a
+												href={v.cv}
+												target='_blank'
+												rel='noopener noreferrer'
+												className='text-blue-500 underline'
+											>
+												Faylni yuklab oling
+											</a>
+										)}
+									</div>
+								</AccordionContent>
+							</AccordionItem>
+						))}
+					</Accordion>
+				</div>
+				{resumes.length === 0 && (
+					<p className='text-center w-full text-sm text-muted-foreground flex items-center justify-center'>
 						<Pizza size={18} />
 						No data
 					</p>

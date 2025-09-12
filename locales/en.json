@@ -1,136 +1,170 @@
 {
-	"navitem": {
-		"home": "Home",
-		"about": "About Us",
-		"service": "Our Services",
-		"career": "Career",
-		"blog": "Blog",
-		"portfolio": "Projects"
+  "navitem": {
+    "home": "Home",
+    "about": "About Us",
+    "service": "Our Services",
+    "career": "Careers",
+    "blog": "Blog",
+    "portfolio": "Projects"
+  },
+  "slide": {
+    "title": " a team of developers in sync with the times",
+    "subtitle": "SIFATDEV - ",
+    "description": "We develop technology and pave the way to the future.",
+    "title1": "developers are creative individuals who create new worlds through code",
+    "description1": "A new idea is hidden in every line.",
+    "title2": " A strong team overcomes complex problems and achieves great results",
+    "description2": "Teamwork is the key to development.",
+    "title3": "the heart of technology is the developers who shape the future",
+    "description3": "The starting point of innovation begins with us.",
+    "title4": "every line of code is a step towards the future",
+    "description4": "The future is created through code."
+  },
+  "hero": {
+    "badge": "IT solutions created for your success",
+    "herotitle": "Quality IT",
+    "titlesub": "strategies",
+    "suptitle": "to take your business",
+    "text1": "to new heights",
+    "description": "From strategic IT consulting to flawless project implementation — we offer solutions that increase your efficiency",
+    "contact": "Contact",
+    "about": "Learn More"
+  },
+  "days": {
+    "mon": "Monday",
+    "tue": "Tuesday",
+    "wed": "Wednesday",
+    "thu": "Thursday",
+    "fri": "Friday",
+    "sat": "Saturday",
+    "sun": "Sunday"
+  },
+  "about": {
+    "section_title": "About Us",
+    "title": "About SIFATDEV",
+    "sifatdev": "SIFATDEV",
+    "feature": "a space that turns",
+    "code": "dreams into code",
+    "intro": "Sifat Educational Center Project",
+    "world": "",
+    "title1": "Today, our company offers its IT solutions",
+    "title2": "in 4 main directions",
+    "description": "SIFATDEV is a platform for young developers and teams that creates innovative projects. Our goal is to use modern technologies to create socially beneficial projects.",
+    "title3": "Currently, several qualified employees work in the company.",
+    "stats": {
+      "projects": "Projects",
+      "participants": "Participants",
+      "mentors": "Mentors",
+      "experience": "Experience"
+    },
+    "features": {
+      "innovation": "Innovative Solutions",
+      "teamwork": "Partnership and Teamwork",
+      "education": "Education and Mentoring",
+      "social": "Social Benefit"
+    },
+    "cta": {
+      "more_info": "Get More Information",
+      "join_team": "Join the Team"
+    }
+  },
+  "portfolio": {
+    "title": "Our Projects",
+    "all": "All"
+  },
+  "blog": {
+    "section_title": "Our Blog",
+    "section_sub": "Read our ",
+    "section_subtitle": "latest blogs",
+    "section_description": "Through our blog, get acquainted with expert opinions, useful advice, and the latest trends in the industry.",
+    "view_all": "View All Blogs →",
+    "views_count": "views",
+    "read_more": "Read More →",
+    "footer": "– a team with its own values and ideas"
+  },
+  "contact": {
+    "form": {
+      "title": "How can we help you?",
+      "fullname_label": "Full Name",
+      "phone_label": "Phone Number",
+      "message_label": "Your Message",
+      "message_placeholder": "Enter message...",
+      "submit": "Send",
+      "submitting": "Sending..."
+    },
+    "info": {
+      "title": "Contact",
+      "sub": "Start the conversation – ",
+      "subtitle": "Reach out anytime",
+      "description": "The SIFATDEV team is ready to listen to you! If you have questions, suggestions, or just want to say hello, you can contact us freely.",
+      "address_title": "Address",
+      "address_value": "Navoi Region Youth Technopark",
+      "email_title": "Email",
+      "phone_title": "Contact",
+      "phone": "Tel"
+    }
+  },
+  "services": {
+    "section_title": "Our Services",
+    "section_t": "What solution are you looking for?",
+    "main_title": "Grow your business with modern IT solutions",
+    "subtitle_innovative": "Innovative IT Services",
+    "subtitle_success": "Tailored for your success",
+    "read_more": "Read More"
+  },
+  "servicesdetails": {
+    "tit": "YOUR DIGITAL PARTNER",
+    "des": "After filling out this primary information, our responsible staff will contact you.",
+    "res1": "Enter company name",
+    "res2": "Full Name",
+    "res3": "Your phone number",
+    "res4": "Project description",
+    "send": "Sending...",
+    "submit": "Send"
+  },
+  "teams": {
+    "teamtitle": "Our",
+    "teamsub": "Team",
+    "desc": "Meet the SIFATDEV team"
+  },
+  "vacancy": {
+    "resume": "Send Resume",
+    "fullname": "Full Name",
+    "phone": "Your phone number",
+    "name": "Enter your name",
+    "select": "Upload Resume",
+    "vac": "Vacancy",
+    "submit": "Send Application 🚀",
+    "send": "Sending"
+  },
+  "success": {
+    "contactmessage": "Your message has been sent to the SIFATDEV team!",
+    "toast": "Your information has been successfully received. We will contact you shortly."
+  },
+  "notification": {
+    "contactwarning": {
+      "fullname": "Name must be at least 3 characters long",
+      "phonenumber": "Phone number entered incorrectly",
+      "message": "Message must be at least 5 characters long"
+    }
+  },
+	"common":{
+		"back":"Back"
 	},
-	"slide": {
-		"title": "a team of developers keeping pace with time",
-		"subtitle": "SIFATDEV - ",
-		"description": "We develop technology and open the way to the future.",
-		"title1": "developers are creative people who create new worlds through code",
-		"description1": "Every line hides a new idea.",
-		"title2": "A strong team overcomes complex challenges and achieves great results",
-		"description2": "Teamwork is the key to growth.",
-		"title3": "the heart of technology — developers who shape the future",
-		"description3": "The starting point of innovation begins with us.",
-		"title4": "every line of code is a step towards the future",
-		"description4": "The future is built through code."
-	},
-	"hero": {
-		"badge": "IT solutions created for your success",
-		"herotitle": "Quality IT",
-		"titlesub": "strategies",
-		"suptitle": "to take your business",
-		"text1": "to new heights",
-		"description": "From strategic IT consulting to flawless project implementation — we provide solutions that increase efficiency.",
-		"contact": "Contact",
-		"about": "Learn More"
-	},
-	"about": {
-		"section_title": "About Us",
-		"title": "About SIFATDEV",
-		"sifatdev": "SIFATDEV",
-		"feature": "dreams",
-		"code": "into code",
-		"intro": "Sifat Educational Center project",
-		"world": "a space that turns into reality",
-		"title1": "Today our company offers its IT solutions",
-		"title2": "in 9 main directions",
-		"description": "SIFATDEV is a platform that develops innovative projects for young developers and teams. Our goal is to create socially useful projects using modern technologies.",
-		"title3": "Currently, more than 50 employees work in the company",
-		"stats": {
-			"projects": "Projects",
-			"participants": "Participants",
-			"mentors": "Mentors",
-			"experience": "Experience"
-		},
-		"features": {
-			"innovation": "Innovative Solutions",
-			"teamwork": "Collaboration & Teamwork",
-			"education": "Education & Mentorship",
-			"social": "Social Impact"
-		},
-		"cta": {
-			"more_info": "Get More Information",
-			"join_team": "Join the Team"
-		}
-	},
-	"blog": {
-		"section_title": "Our Blogs",
-		"section_sub": "Latest ",
-		"section_subtitle": "Read Our Blogs",
-		"section_description": "Through our blogs, explore expert opinions, useful tips, and the latest trends in the field.",
-		"view_all": "View All Blogs →",
-		"views_count": "views",
-		"read_more": "Read More →",
-		"footer": "– a team with its own values and ideas"
-	},
-	"contact": {
-		"form": {
-			"title": "How can we help you?",
-			"fullname_label": "Full Name",
-			"phone_label": "Phone Number",
-			"message_label": "Your Message",
-			"message_placeholder": "Enter your message...",
-			"submit": "Submit",
-			"submitting": "Submitting..."
-		},
-		"info": {
-			"title": "Contact",
-			"sub": "Start the conversation – ",
-			"subtitle": "Reach out anytime",
-			"description": "The SIFATDEV team is ready to listen! Whether you have questions, suggestions, or just want to say hello — feel free to contact us.",
-			"address_title": "Address",
-			"address_value": "Youth Technopark of Navoi region",
-			"email_title": "Email",
-			"phone_title": "Phone",
-			"phone": "Tel"
-		}
-	},
-	"services": {
-		"section_title": "Our Services",
-		"section_t": "What solution do you need?",
-		"main_title": "Grow your business with modern IT solutions",
-		"subtitle_innovative": "Innovative IT Services",
-		"subtitle_success": "Customized for Your Success",
-		"read_more": "Read More"
-	},
-	"teams": {
-		"teamtitle": "Our",
-		"teamsub": "Team",
-		"desc": "Meet the SIFATDEV Team"
-	},
-	"success": {
-		"contactmessage": "Your message has been sent to the SIFATDEV team!"
-	},
-	"notification": {
-		"contactwarning": {
-			"fullname": "Name must be at least 3 characters long",
-			"phonenumber": "Invalid phone number",
-			"message": "Message must be at least 5 characters long"
-		}
-	},
-	"portfolio": {
-		"title": "Our Projects"
-	},
-	"notfound": {
-		"blog": "No blogs found",
-		"title": "404",
-		"subtitle": "Page not found",
-		"description": "Sorry, the page you are looking for does not exist or may have been deleted.",
-		"btn_course": "Get Course",
-		"btn_home": "Back to Home"
-	},
-	"error": {
-		"error": "Error",
-		"contacterror": "An error occurred, please try again!"
-	},
-	"footer": {
-		"title": "SIFATDEV — innovative IT solutions and software development",
-		"activetitle": "your reliable partner in implementation."
-	}
+  "notfound": {
+    "blog": "Blogs not found",
+    "title": "404",
+    "subtitle": "Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist or may have been deleted.",
+    "btn_course": "Get Course",
+    "btn_home": "Return to Homepage"
+  },
+  "error": {
+    "error": "Error",
+    "contacterror": "An error occurred, please try again!"
+  },
+  "footer": {
+    "title": "SIFATDEV — your reliable partner in innovative IT solutions and",
+    "activetitle": "software development."
+  }
 }
