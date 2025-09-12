@@ -1,18 +1,23 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { verifyJwt } from '@/lib/jwt'
 import dbConnect from '@/lib/db'
 import Blog from '@/models/blog.model'
 
-export async function GET(_: Request, context: { params: { slug: string } }) {
+export async function GET(
+	_: NextRequest,
+	context: { params: { slug: string } }
+) {
 	const { slug } = context.params
 	await dbConnect()
-	const blog = await Blog.findOne({ slug: slug }).populate('tags', 'name')
+	const blog = await Blog.findOne({ slug }).populate('tags', 'name')
+
 	if (!blog) {
 		return NextResponse.json(
 			{ success: false, error: 'Blog not found' },
 			{ status: 404 }
 		)
 	}
+
 	return NextResponse.json({ success: true, data: blog })
 }
 
