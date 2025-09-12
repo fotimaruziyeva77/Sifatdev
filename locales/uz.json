@@ -20,6 +20,9 @@
 		"title4": "har bir kod satri — kelajak sari tashlangan qadam",
 		"description4": "Kod orqali kelajak yaratiladi."
 	},
+	"common":{
+		"back":"Orqaga"
+	},
 	"hero": {
 		"badge": "Sizning muvaffaqiyatingiz uchun yaratilgan IT yechimlar",
 		"herotitle": "Sifatli IT",
@@ -30,14 +33,14 @@
 		"contact": "Bog‘lanish",
 		"about": "Batafsil"
 	},
-	"days":{
-		"mon":"Dushanba",
-		"tue":"Seshanba",
-		"wed":"Chorshanba",
-		"thu":"Payshanba",
-		"fri":"Juma",
-		"sat":"Shanba",
-		"sun":"Yakshanba"	
+	"days": {
+		"mon": "Dushanba",
+		"tue": "Seshanba",
+		"wed": "Chorshanba",
+		"thu": "Payshanba",
+		"fri": "Juma",
+		"sat": "Shanba",
+		"sun": "Yakshanba"
 	},
 	"about": {
 		"section_title": "Biz haqimizda",
@@ -47,10 +50,10 @@
 		"code": "kodga",
 		"intro": "Sifat O‘quv Markazi loyihasi",
 		"world": "aylantiradigan makon",
-		"title1": "Hozirgi kunda kompaniyamiz ozining IT-yechimlarini",
-		"title2": "ta asosiy yonalish boyicha taklif qilmoqda",
+		"title1": "Hozirgi kunda kompaniyamiz o'zining IT-yechimlarini",
+		"title2": "ta asosiy yo'nalish bo'yicha taklif qilmoqda",
 		"description": "SIFATDEV — yosh dasturchilar va jamoalar uchun innovatsion loyihalarni ishlab chiqadigan platforma. Bizning maqsadimiz zamonaviy texnologiyalar yordamida ijtimoiy foydali loyihalar yaratishdir.",
-		"title3": "Ayni paytda kompaniyada 50 dan ortiq xodim ishlaydi",
+		"title3": "Hozirgi kunda kompaniyada bir qancha malakali xodimlar faoliyat yuritmoqda.",
 		"stats": {
 			"projects": "Loyiha",
 			"participants": "Ishtirokchi",
@@ -68,8 +71,9 @@
 			"join_team": "Jamoaga qo‘shilish"
 		}
 	},
-	"portfolio":{
-		"title":"Bizning Loyihalarimiz"
+	"portfolio": {
+		"title": "Bizning Loyihalarimiz",
+		"all": "Barchasi"
 	},
 	"blog": {
 		"section_title": "Bizning bloglar",
@@ -111,22 +115,34 @@
 		"subtitle_success": "Sizning muvaffaqiyatingiz uchun moslashtirilgan",
 		"read_more": "Batafsil o‘qish"
 	},
+	"servicesdetails": {
+		"tit": "SIZNING RAQAMLI HAMKORINGIZ",
+		"des": "Ushbu birlamchi malumotlarni to‘ldirganingizdan so‘ng bizning mas’ul xodimlarimiz siz bilan aloqaga chiqishadi.",
+		"res1": "Kompaniya nomini kiriting",
+		"res2": "F.I.SH",
+		"res3": "Telefon raqamingiz",
+		"res4": "Loyiha tavsifi",
+		"send": "Yuborilmoqda...",
+		"submit": "Yuborish"
+	},
 	"teams": {
 		"teamtitle": "Bizning",
 		"teamsub": "Jamoa",
 		"desc": "SIFATDEV jamoasi bilan tanishing"
 	},
-	"vacancy":{
-		"resume":"Rezyume yuborish",
-		"fullname":"F.I.SH",
-		"phone":"Telefon raqamingiz",
-		"name":"Ismingizni kiriting",
-		"select":"Rezyumeni yuklash",
-		"email":"Email",
-		"submit":"Ariza yuborish "
+	"vacancy": {
+		"resume": "Rezyume yuborish",
+		"fullname": "F.I.SH",
+		"phone": "Telefon raqamingiz",
+		"name": "Ismingizni kiriting",
+		"select": "Rezyumeni yuklash",
+		"vac": "Vakansiya",
+		"submit": "Ariza yuborish  🚀 ",
+		"send": "Yborilmoqda"
 	},
 	"success": {
-		"contactmessage": "Xabaringiz SIFATDEV jamoasiga yuborildi!"
+		"contactmessage": "Xabaringiz SIFATDEV jamoasiga yuborildi!",
+		"toast": "Sizning ma’lumotlaringiz muvaffaqiyatli tarzda qabul qilindi. Tez orada siz bilan bog‘lanamiz."
 	},
 	"notification": {
 		"contactwarning": {

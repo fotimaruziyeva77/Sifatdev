@@ -133,8 +133,8 @@ function Page() {
 					</div>
 				</div>
 			</div>
-			<section className='bg-[#0B192C] text-white py-16'>
-				<div className='container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 items-center gap-12'>
+			<section className='bg-[#0B192C] text-white py-10'>
+				<div className='w-full  mx-auto px-24 lg:px-24  grid grid-cols-1 lg:grid-cols-2 items-center gap-5'>
 					{/* LEFT SIDE - IMAGE */}
 					<motion.div
 						initial={{ opacity: 0, x: -50 }}
@@ -156,7 +156,7 @@ function Page() {
 							<Image
 								src='/assets/about.png'
 								alt='SifatDev jamoasi'
-								width={550}
+								width={600}
 								height={200}
 								className='rounded-2xl shadow-lg object-cover'
 							/>

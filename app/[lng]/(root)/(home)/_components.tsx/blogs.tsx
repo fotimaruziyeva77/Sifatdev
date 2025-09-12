@@ -1,28 +1,26 @@
 'use client'
 
-import { Blogs } from '@/constants'
-import useTranslate from '@/hooks/use-translate'
-import { API_SERVICE } from '@/services/api-service'
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+import Link from 'next/link'
+import Image from 'next/image'
 import axios from 'axios'
 import { CalendarCheck, Eye, MessageCircleMore } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import useTranslate from '@/hooks/use-translate'
+import { BlogTypes } from '@/interfaces'
 
 export default function BlogSection() {
-	const [blogs, setBlogs] = useState<Blogs[]>([])
+	const [blogs, setBlogs] = useState<BlogTypes[]>([])
 	const { lng } = useParams()
 	const t = useTranslate()
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await axios.get(API_SERVICE.blog,{
-						headers: {
-					'Accept-Language': lng,
-				},
+				const res = await axios.get('/api/blogs', {
+					headers: { 'Accept-Language': lng },
 				})
-				setBlogs(res.data.results)
+				setBlogs(res.data.data)
 			} catch (err) {
 				console.error(err)
 			}
@@ -30,10 +28,10 @@ export default function BlogSection() {
 		fetchData()
 	}, [lng])
 
-	if (!blogs || blogs.length === 0) return null
+	if (!blogs.length) return null
 
 	const latestBlog = blogs[0]
-	const otherBlogs = blogs.slice(1)
+	const otherBlogs = blogs.slice(1, 4) // faqat keyingi 3 blog
 
 	return (
 		<div
@@ -42,20 +40,18 @@ export default function BlogSection() {
 		>
 			<div className='container mx-auto px-6 lg:px-12'>
 				<div className='grid grid-cols-1 xl:grid-cols-2 gap-12'>
-					{/* Left – eng so‘nggi blog */}
+					
 					<div className='animate-fadeInLeft'>
-						<div className='mb-6'>
-							<span className='text-blue-400 font-medium text-sm uppercase tracking-wide'>
-								{t('blog.section_title')}
-							</span>
-							<h2 className='text-3xl md:text-4xl font-bold leading-snug mt-3'>
-								{t('blog.section_sub')}
-								<span className='text-blue-400'>
-									{' '}
-									{t('blog.section_subtitle')}
-								</span>
-							</h2>
-						</div>
+				<div className='flex items-center gap-2 mb-8'>
+						<span className='h-[2px] w-6 bg-blue-400'></span>
+						<span
+							className='from-blue-400 via-cyan-200 to-blue-400 
+						bg-clip-text  text-white animate-gradient z-10 uppercase tracking-wide text-sm'
+						>
+							{t('blog.section_title')}
+						</span>
+						<span className='h-[2px] w-6 bg-blue-400'></span>
+					</div>
 						<p className='text-gray-300 mb-6'>
 							{t('blog.section_description')}
 						</p>
@@ -66,94 +62,107 @@ export default function BlogSection() {
 							{t('blog.view_all')}
 						</Link>
 
-						<div className='mt-12'>
-							<div className='bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition'>
-								<div className='relative'>
-									<Link href={`/${lng}/blog/${latestBlog.slug}`}>
-										<Image
-											src={latestBlog.face_image}
-											alt={latestBlog.title}
-											width={600}
-											height={350}
-											className='rounded-xl object-cover'
-										/>
-									</Link>
-								</div>
-								<div className='mt-4'>
-									<div className='flex items-center gap-2 text-xs text-gray-300 mb-2'>
-										<div className='flex items-center gap-1 ml-4'>
-											<CalendarCheck className='w-4 h-4' />
-											<span>{latestBlog.date}</span>
-										</div>
-										<div className='flex items-center gap-1 ml-4'>
-											<Eye className='w-4 h-4' />
-											<span>
-												{latestBlog.views_count} {t('blog.views_count')}
-											</span>
-										</div>
-									</div>
+						<div className='mt-12 bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition'>
+							<Link
+								href={`/${lng}/blog/${latestBlog.slug}`}
+								className='relative block'
+							>
+								<Image
+									src={latestBlog.image}
+									alt={latestBlog.title}
+									width={800}
+									height={350}
+									className='rounded-xl object-cover'
+								/>
+							</Link>
+							<div className='mt-6 flex justify-between'>
+								<Link href={`/${lng}/blog/${latestBlog.slug}`}>
 									<h3 className='text-xl font-semibold mt-3 hover:text-blue-400 transition'>
-										<Link href={`/blog/${latestBlog.slug}`}>
-											{latestBlog.title}
-										</Link>
+										{latestBlog.title}
 									</h3>
-									<Link href={`/blog/${latestBlog.slug}`}>
-										<div
-											className='text-gray-400 mt-2 line-clamp-3 hover:text-blue-400 transition leading-5'
-											dangerouslySetInnerHTML={{
-												__html: latestBlog.description.replace(
-													/<img[^>]*>/g,
-													''
-												),
-											}}
-										/>
-									</Link>
-
-									<Link
-										href={`/blog/${latestBlog.slug}`}
-										className='inline-block mt-10 text-blue-400 hover:underline'
-									>
-										{t('blog.read_more')}
-									</Link>
+								</Link>
+								<div className='flex items-center gap-4 text-xs text-gray-300 mt-2 mb-4'>
+									<div className='flex items-center gap-1'>
+										<CalendarCheck className='w-4 h-4' />
+										<span>
+											{latestBlog.createdAt
+												.slice(0, 10)
+												.split('-')
+												.reverse()
+												.join('.')}
+										</span>
+									</div>
+									<div className='flex items-center gap-1'>
+										<Eye className='w-4 h-4' />
+										<span>
+											{latestBlog.viewCount} {t('blog.views_count')}
+										</span>
+									</div>
 								</div>
 							</div>
+
+							<p
+								className='text-gray-400 mt-2 line-clamp-3 hover:text-blue-400 transition leading-5'
+								dangerouslySetInnerHTML={{
+									__html: latestBlog.description.replace(/<img[^>]*>/g, ''),
+								}}
+							/>
+							<Link
+								href={`/${lng}/blog/${latestBlog.slug}`}
+								className='inline-block mt-4 text-blue-400 hover:underline'
+							>
+								{t('blog.read_more')}
+							</Link>
 						</div>
 					</div>
+
+					{/* Right – boshqa bloglar */}
 					<div className='flex flex-col gap-7 animate-fadeInRight'>
-						{otherBlogs.slice(0, 3).map(blog => (
+						{otherBlogs.map(blog => (
 							<div
-								key={blog.id}
+								key={blog._id}
 								className='flex bg-white/5 border border-white/10 rounded-2xl p-4 hover:bg-white/10 transition'
 							>
-								<Link href={blog.slug}>
+								<Link
+									href={`/${lng}/blog/${blog.slug}`}
+									className='block flex-shrink-0'
+								>
 									<Image
-										src={blog.face_image}
+										src={blog.image}
 										alt={blog.title}
-										width={205}
-										height={160}
+										width={250}
+										height={135}
 										className='rounded-xl object-cover w-[250px] h-[135px]'
 									/>
 								</Link>
-								<div className='ml-8 flex flex-col '>
+								<div className='ml-6 flex flex-col justify-between'>
 									<div>
-										<div className='flex items-center gap-10 text-xs text-gray-300 mb-2'>
+										<div className='flex items-center gap-4 text-xs text-gray-300 mb-1'>
 											<div className='flex items-center gap-1'>
 												<CalendarCheck className='w-4 h-4' />
-												<span>{blog.date}</span>
+												<span>
+													{blog.createdAt
+														.slice(0, 10)
+														.split('-')
+														.reverse()
+														.join('.')}
+												</span>
 											</div>
-											<div className='flex items-center gap-1 ml-4'>
+											<div className='flex items-center gap-1'>
 												<MessageCircleMore className='w-4 h-4' />
 												<span>
-													{blog.views_count} {t('blog.views_count')}
+													{blog.viewCount} {t('blog.views_count')}
 												</span>
 											</div>
 										</div>
 										<h3 className='text-lg font-semibold hover:text-blue-400 transition'>
-											<Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
+											<Link href={`/${lng}/blog/${blog.slug}`}>
+												{blog.title}
+											</Link>
 										</h3>
 									</div>
 									<Link
-										href={`/blog/${blog.slug}`}
+										href={`/${lng}/blog/${blog.slug}`}
 										className='text-blue-400 hover:underline text-sm mt-2'
 									>
 										{t('blog.read_more')}
