@@ -17,16 +17,13 @@ export async function POST(req: Request) {
 		const bytes = await file.arrayBuffer()
 		const buffer = Buffer.from(bytes)
 
-		// save file to public/uploads folder
 		const fileName = Date.now() + '-' + file.name
 		const filePath = path.join('public', 'uploads', fileName)
 		await writeFile(filePath, buffer)
 
-		// get full domain from request
-		const { origin } = new URL(req.url)
+		const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || new URL(req.url).origin
 
-		// create full url for file
-		const fileUrl = `${origin}/uploads/${fileName}`
+		const fileUrl = `${baseUrl}/uploads/${fileName}`
 
 		return NextResponse.json({ success: true, url: fileUrl })
 	} catch (err) {
