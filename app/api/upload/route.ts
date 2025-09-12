@@ -19,12 +19,7 @@ export async function POST(req: Request) {
 
 		// save file to public/uploads folder
 		const fileName = Date.now() + '-' + file.name
-		const filePath = path.join(
-			'https://sifatdev.uz',
-			'public',
-			'uploads',
-			fileName
-		)
+		const filePath = path.join('public', 'uploads', fileName)
 		await writeFile(filePath, buffer)
 
 		// get full domain from request
