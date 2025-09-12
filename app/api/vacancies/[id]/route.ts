@@ -3,10 +3,15 @@ import dbConnect from '@/lib/db'
 import Vacancy from '@/models/vacancy.model'
 
 // GET /api/vacancies/:id
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(
+	_: Request,
+	context: { params: Promise<{ id: string }> }
+) {
 	try {
 		await dbConnect()
-		const vacancy = await Vacancy.findById(params.id)
+		const { id } = await context.params
+
+		const vacancy = await Vacancy.findById(id)
 		if (!vacancy) {
 			return NextResponse.json(
 				{ success: false, error: 'Vacancy not found' },
@@ -25,15 +30,14 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
 // PUT /api/vacancies/:id
 export async function PUT(
 	req: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
 	try {
 		await dbConnect()
+		const { id } = await context.params
 		const body = await req.json()
 
-		const vacancy = await Vacancy.findByIdAndUpdate(params.id, body, {
-			new: true,
-		})
+		const vacancy = await Vacancy.findByIdAndUpdate(id, body, { new: true })
 		if (!vacancy) {
 			return NextResponse.json(
 				{ success: false, error: 'Vacancy not found' },
@@ -52,11 +56,13 @@ export async function PUT(
 // DELETE /api/vacancies/:id
 export async function DELETE(
 	_: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
 	try {
 		await dbConnect()
-		const vacancy = await Vacancy.findByIdAndDelete(params.id)
+		const { id } = await context.params
+
+		const vacancy = await Vacancy.findByIdAndDelete(id)
 		if (!vacancy) {
 			return NextResponse.json(
 				{ success: false, error: 'Vacancy not found' },

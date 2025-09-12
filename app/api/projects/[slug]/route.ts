@@ -2,26 +2,27 @@ import dbConnect from '@/lib/db'
 import { verifyJwt } from '@/lib/jwt'
 import Project from '@/models/project.model'
 import { NextResponse } from 'next/server'
-import Category from '@/models/category.model'
-import Technology from '@/models/technology.model'
 
 // GET single project by slug
 export async function GET(
 	_: Request,
-	{ params }: { params: { slug: string } }
+	context: { params: Promise<{ slug: string }> }
 ) {
 	try {
+		const { slug } = await context.params
 		await dbConnect()
-		const project = await Project.findOne({ slug: params.slug })
+
+		const project = await Project.findOne({ slug })
 			.populate('category', 'title')
 			.populate('technologies', 'name')
 			.lean()
 
-		if (!project)
+		if (!project) {
 			return NextResponse.json(
 				{ success: false, error: 'Not found' },
 				{ status: 404 }
 			)
+		}
 		return NextResponse.json({ success: true, data: project })
 	} catch (err: any) {
 		return NextResponse.json(
@@ -34,10 +35,12 @@ export async function GET(
 // UPDATE (PUT)
 export async function PUT(
 	req: Request,
-	{ params }: { params: { slug: string } }
+	context: { params: Promise<{ slug: string }> }
 ) {
 	try {
+		const { slug } = await context.params
 		await dbConnect()
+
 		const user = await verifyJwt(req)
 		if (!user) {
 			return NextResponse.json(
@@ -47,19 +50,18 @@ export async function PUT(
 		}
 
 		const body = await req.json()
-		const updated = await Project.findOneAndUpdate(
-			{ slug: params.slug },
-			body,
-			{ new: true }
-		)
+		const updated = await Project.findOneAndUpdate({ slug }, body, {
+			new: true,
+		})
 			.populate('category', 'title')
 			.populate('technologies', 'name')
 
-		if (!updated)
+		if (!updated) {
 			return NextResponse.json(
 				{ success: false, error: 'Not found' },
 				{ status: 404 }
 			)
+		}
 		return NextResponse.json({ success: true, data: updated })
 	} catch (err: any) {
 		return NextResponse.json(
@@ -72,10 +74,12 @@ export async function PUT(
 // PATCH
 export async function PATCH(
 	req: Request,
-	{ params }: { params: { slug: string } }
+	context: { params: Promise<{ slug: string }> }
 ) {
 	try {
+		const { slug } = await context.params
 		await dbConnect()
+
 		const user = await verifyJwt(req)
 		if (!user) {
 			return NextResponse.json(
@@ -86,18 +90,19 @@ export async function PATCH(
 
 		const body = await req.json()
 		const updated = await Project.findOneAndUpdate(
-			{ slug: params.slug },
+			{ slug },
 			{ $set: body },
 			{ new: true }
 		)
 			.populate('category', 'title')
 			.populate('technologies', 'name')
 
-		if (!updated)
+		if (!updated) {
 			return NextResponse.json(
 				{ success: false, error: 'Not found' },
 				{ status: 404 }
 			)
+		}
 		return NextResponse.json({ success: true, data: updated })
 	} catch (err: any) {
 		return NextResponse.json(
@@ -109,12 +114,14 @@ export async function PATCH(
 
 // DELETE
 export async function DELETE(
-	_: Request,
-	{ params }: { params: { slug: string } }
+	req: Request,
+	context: { params: Promise<{ slug: string }> }
 ) {
 	try {
+		const { slug } = await context.params
 		await dbConnect()
-		const user = await verifyJwt(_)
+
+		const user = await verifyJwt(req)
 		if (!user) {
 			return NextResponse.json(
 				{ success: false, error: 'Unauthorized' },
@@ -122,13 +129,17 @@ export async function DELETE(
 			)
 		}
 
-		const deleted = await Project.findOneAndDelete({ slug: params.slug })
-		if (!deleted)
+		const deleted = await Project.findOneAndDelete({ slug })
+		if (!deleted) {
 			return NextResponse.json(
 				{ success: false, error: 'Not found' },
 				{ status: 404 }
 			)
-		return NextResponse.json({ success: true, message: 'Deleted successfully' })
+		}
+		return NextResponse.json({
+			success: true,
+			message: 'Deleted successfully',
+		})
 	} catch (err: any) {
 		return NextResponse.json(
 			{ success: false, error: err.message },

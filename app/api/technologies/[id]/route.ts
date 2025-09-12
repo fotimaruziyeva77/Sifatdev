@@ -4,15 +4,21 @@ import Technology from '@/models/technology.model'
 import { NextResponse } from 'next/server'
 
 // GET single technology
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(
+	_: Request,
+	context: { params: Promise<{ id: string }> }
+) {
 	try {
 		await dbConnect()
-		const tech = await Technology.findById(params.id).lean()
+		const { id } = await context.params
+
+		const tech = await Technology.findById(id).lean()
 		if (!tech)
 			return NextResponse.json(
 				{ success: false, error: 'Not found' },
 				{ status: 404 }
 			)
+
 		return NextResponse.json({ success: true, data: tech })
 	} catch (err: any) {
 		return NextResponse.json(
@@ -25,20 +31,21 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
 // UPDATE (PUT)
 export async function PUT(
 	req: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
 	try {
 		await dbConnect()
+		const { id } = await context.params
+
 		const user = await verifyJwt(req)
-		if (!user) {
+		if (!user)
 			return NextResponse.json(
 				{ success: false, error: 'Unauthorized' },
 				{ status: 401 }
 			)
-		}
 
 		const body = await req.json()
-		const updated = await Technology.findByIdAndUpdate(params.id, body, {
+		const updated = await Technology.findByIdAndUpdate(id, body, {
 			new: true,
 		})
 		if (!updated)
@@ -46,6 +53,7 @@ export async function PUT(
 				{ success: false, error: 'Not found' },
 				{ status: 404 }
 			)
+
 		return NextResponse.json({ success: true, data: updated })
 	} catch (err: any) {
 		return NextResponse.json(
@@ -58,21 +66,22 @@ export async function PUT(
 // PATCH
 export async function PATCH(
 	req: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
 	try {
 		await dbConnect()
+		const { id } = await context.params
+
 		const user = await verifyJwt(req)
-		if (!user) {
+		if (!user)
 			return NextResponse.json(
 				{ success: false, error: 'Unauthorized' },
 				{ status: 401 }
 			)
-		}
 
 		const body = await req.json()
 		const updated = await Technology.findByIdAndUpdate(
-			params.id,
+			id,
 			{ $set: body },
 			{ new: true }
 		)
@@ -81,6 +90,7 @@ export async function PATCH(
 				{ success: false, error: 'Not found' },
 				{ status: 404 }
 			)
+
 		return NextResponse.json({ success: true, data: updated })
 	} catch (err: any) {
 		return NextResponse.json(
@@ -93,25 +103,30 @@ export async function PATCH(
 // DELETE
 export async function DELETE(
 	_: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
 	try {
 		await dbConnect()
+		const { id } = await context.params
+
 		const user = await verifyJwt(_)
-		if (!user) {
+		if (!user)
 			return NextResponse.json(
 				{ success: false, error: 'Unauthorized' },
 				{ status: 401 }
 			)
-		}
 
-		const deleted = await Technology.findByIdAndDelete(params.id)
+		const deleted = await Technology.findByIdAndDelete(id)
 		if (!deleted)
 			return NextResponse.json(
 				{ success: false, error: 'Not found' },
 				{ status: 404 }
 			)
-		return NextResponse.json({ success: true, message: 'Deleted successfully' })
+
+		return NextResponse.json({
+			success: true,
+			message: 'Deleted successfully',
+		})
 	} catch (err: any) {
 		return NextResponse.json(
 			{ success: false, error: err.message },

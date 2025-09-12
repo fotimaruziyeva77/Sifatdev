@@ -4,123 +4,139 @@ import Skills from '@/models/skills.model'
 import { NextResponse } from 'next/server'
 
 // GET by ID
-export async function GET(_: Request, { params }: { params: { id: string } }) {
-	await dbConnect()
+export async function GET(
+	req: Request,
+	context: { params: Promise<{ id: string }> }
+) {
 	try {
-		const skills = await Skills.findById(params.id)
-		if (!skills)
+		await dbConnect()
+		const { id } = await context.params
+
+		const skills = await Skills.findById(id).lean()
+		if (!skills) {
 			return NextResponse.json(
-				{ success: false, error: 'Tag not found' },
+				{ success: false, error: 'Skills not found' },
 				{ status: 404 }
 			)
+		}
 
-		return NextResponse.json({
-			success: true,
-			data: skills,
-		})
-	} catch {
+		return NextResponse.json({ success: true, data: skills })
+	} catch (err: any) {
 		return NextResponse.json(
-			{ success: false, error: 'Server error' },
+			{ success: false, error: err.message },
 			{ status: 500 }
 		)
 	}
 }
 
-//PUT
+// PUT (update full)
 export async function PUT(
 	req: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
-	await dbConnect()
-	const user = await verifyJwt(req)
-	if (!user)
-		return NextResponse.json(
-			{ success: false, error: 'Unauthorized' },
-			{ status: 401 }
-		)
 	try {
+		await dbConnect()
+		const user = await verifyJwt(req)
+		if (!user) {
+			return NextResponse.json(
+				{ success: false, error: 'Unauthorized' },
+				{ status: 401 }
+			)
+		}
+
+		const { id } = await context.params
 		const body = await req.json()
-		const skills = await Skills.findByIdAndUpdate(params.id, body, {
+		const skills = await Skills.findByIdAndUpdate(id, body, {
 			new: true,
-		})
-		if (!skills)
+		}).lean()
+
+		if (!skills) {
 			return NextResponse.json(
 				{ success: false, error: 'Skills not found' },
 				{ status: 404 }
 			)
+		}
 
 		return NextResponse.json({ success: true, data: skills })
-	} catch {
+	} catch (err: any) {
 		return NextResponse.json(
-			{ success: false, error: 'Server error' },
+			{ success: false, error: err.message },
 			{ status: 500 }
 		)
 	}
 }
 
-//PATCH
+// PATCH (update partial)
 export async function PATCH(
 	req: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
-	await dbConnect()
-	const user = await verifyJwt(req)
-	if (!user)
-		return NextResponse.json(
-			{ success: false, error: 'Unauthorized' },
-			{ status: 401 }
-		)
-
 	try {
+		await dbConnect()
+		const user = await verifyJwt(req)
+		if (!user) {
+			return NextResponse.json(
+				{ success: false, error: 'Unauthorized' },
+				{ status: 401 }
+			)
+		}
+
+		const { id } = await context.params
 		const body = await req.json()
 		const skills = await Skills.findByIdAndUpdate(
-			params.id,
+			id,
 			{ $set: body },
 			{ new: true }
-		)
-		if (!skills)
+		).lean()
+
+		if (!skills) {
 			return NextResponse.json(
 				{ success: false, error: 'Skills not found' },
 				{ status: 404 }
 			)
+		}
 
 		return NextResponse.json({ success: true, data: skills })
-	} catch {
+	} catch (err: any) {
 		return NextResponse.json(
-			{ success: false, error: 'Server error' },
+			{ success: false, error: err.message },
 			{ status: 500 }
 		)
 	}
 }
 
-//DELETE
+// DELETE
 export async function DELETE(
-	_: Request,
-	{ params }: { params: { id: string } }
+	req: Request,
+	context: { params: Promise<{ id: string }> }
 ) {
-	await dbConnect()
-	const user = await verifyJwt(_)
-	if (!user)
-		return NextResponse.json(
-			{ success: false, error: 'Unauthorized' },
-			{ status: 401 }
-		)
-
 	try {
-		const skills = await Skills.findByIdAndDelete(params.id)
-		if (!skills)
+		await dbConnect()
+		const user = await verifyJwt(req)
+		if (!user) {
+			return NextResponse.json(
+				{ success: false, error: 'Unauthorized' },
+				{ status: 401 }
+			)
+		}
+
+		const { id } = await context.params
+		const skills = await Skills.findByIdAndDelete(id).lean()
+
+		if (!skills) {
 			return NextResponse.json(
 				{ success: false, error: 'Skills not found' },
 				{ status: 404 }
 			)
+		}
 
 		return NextResponse.json({
 			success: true,
-			message: 'Skills deleted success',
+			message: 'Skills deleted successfully',
 		})
-	} catch {
+	} catch (err: any) {
 		return NextResponse.json(
-			{ success: false, error: 'Server error' },
+			{ success: false, error: err.message },
 			{ status: 500 }
 		)
 	}

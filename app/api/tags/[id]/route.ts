@@ -3,10 +3,16 @@ import { verifyJwt } from '@/lib/jwt'
 import dbConnect from '@/lib/db'
 import Tag from '@/models/tag.model'
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
-	await dbConnect()
+// GET by ID
+export async function GET(
+	_: Request,
+	context: { params: Promise<{ id: string }> }
+) {
 	try {
-		const tag = await Tag.findById(params.id)
+		await dbConnect()
+		const { id } = await context.params
+
+		const tag = await Tag.findById(id).lean()
 		if (!tag)
 			return NextResponse.json(
 				{ success: false, error: 'Tag not found' },
@@ -14,30 +20,32 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
 			)
 
 		return NextResponse.json({ success: true, data: tag })
-	} catch {
+	} catch (err: any) {
 		return NextResponse.json(
-			{ success: false, error: 'Server error' },
+			{ success: false, error: err.message },
 			{ status: 500 }
 		)
 	}
 }
 
-// PUT
+// PUT (replace)
 export async function PUT(
 	req: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
-	await dbConnect()
-	const user = await verifyJwt(req)
-	if (!user)
-		return NextResponse.json(
-			{ success: false, error: 'Unauthorized' },
-			{ status: 401 }
-		)
-
 	try {
+		await dbConnect()
+		const { id } = await context.params
+
+		const user = await verifyJwt(req)
+		if (!user)
+			return NextResponse.json(
+				{ success: false, error: 'Unauthorized' },
+				{ status: 401 }
+			)
+
 		const body = await req.json()
-		const tag = await Tag.findByIdAndUpdate(params.id, body, { new: true })
+		const tag = await Tag.findByIdAndUpdate(id, body, { new: true })
 		if (!tag)
 			return NextResponse.json(
 				{ success: false, error: 'Tag not found' },
@@ -45,34 +53,32 @@ export async function PUT(
 			)
 
 		return NextResponse.json({ success: true, data: tag })
-	} catch {
+	} catch (err: any) {
 		return NextResponse.json(
-			{ success: false, error: 'Server error' },
+			{ success: false, error: err.message },
 			{ status: 500 }
 		)
 	}
 }
 
-// Patch
+// PATCH (update)
 export async function PATCH(
 	req: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
-	await dbConnect()
-	const user = await verifyJwt(req)
-	if (!user)
-		return NextResponse.json(
-			{ success: false, error: 'Unauthorized' },
-			{ status: 401 }
-		)
-
 	try {
+		await dbConnect()
+		const { id } = await context.params
+
+		const user = await verifyJwt(req)
+		if (!user)
+			return NextResponse.json(
+				{ success: false, error: 'Unauthorized' },
+				{ status: 401 }
+			)
+
 		const body = await req.json()
-		const tag = await Tag.findByIdAndUpdate(
-			params.id,
-			{ $set: body },
-			{ new: true }
-		)
+		const tag = await Tag.findByIdAndUpdate(id, { $set: body }, { new: true })
 		if (!tag)
 			return NextResponse.json(
 				{ success: false, error: 'Tag not found' },
@@ -80,29 +86,31 @@ export async function PATCH(
 			)
 
 		return NextResponse.json({ success: true, data: tag })
-	} catch {
+	} catch (err: any) {
 		return NextResponse.json(
-			{ success: false, error: 'Server error' },
+			{ success: false, error: err.message },
 			{ status: 500 }
 		)
 	}
 }
 
-// Delete
+// DELETE
 export async function DELETE(
 	_: Request,
-	{ params }: { params: { id: string } }
+	context: { params: Promise<{ id: string }> }
 ) {
-	await dbConnect()
-	const user = await verifyJwt(_)
-	if (!user)
-		return NextResponse.json(
-			{ success: false, error: 'Unauthorized' },
-			{ status: 401 }
-		)
-
 	try {
-		const tag = await Tag.findByIdAndDelete(params.id)
+		await dbConnect()
+		const { id } = await context.params
+
+		const user = await verifyJwt(_)
+		if (!user)
+			return NextResponse.json(
+				{ success: false, error: 'Unauthorized' },
+				{ status: 401 }
+			)
+
+		const tag = await Tag.findByIdAndDelete(id)
 		if (!tag)
 			return NextResponse.json(
 				{ success: false, error: 'Tag not found' },
@@ -110,9 +118,9 @@ export async function DELETE(
 			)
 
 		return NextResponse.json({ success: true, message: 'Tag deleted' })
-	} catch {
+	} catch (err: any) {
 		return NextResponse.json(
-			{ success: false, error: 'Server error' },
+			{ success: false, error: err.message },
 			{ status: 500 }
 		)
 	}
