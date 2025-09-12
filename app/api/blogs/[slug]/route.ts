@@ -3,11 +3,8 @@ import { verifyJwt } from '@/lib/jwt'
 import dbConnect from '@/lib/db'
 import Blog from '@/models/blog.model'
 
-export async function GET(
-	_: Request,
-	{ params }: { params: { slug: string } }
-) {
-	const { slug } = params
+export async function GET(_: Request, context: { params: { slug: string } }) {
+	const { slug } = context.params
 	await dbConnect()
 	const blog = await Blog.findOne({ slug: slug }).populate('tags', 'name')
 	if (!blog) {
@@ -20,11 +17,8 @@ export async function GET(
 }
 
 // Update (PUT)
-export async function PUT(
-	req: Request,
-	{ params }: { params: { slug: string } }
-) {
-	const { slug } = params
+export async function PUT(req: Request, context: { params: { slug: string } }) {
+	const { slug } = context.params
 	await dbConnect()
 	const user = await verifyJwt(req)
 	if (!user)
@@ -56,9 +50,9 @@ export async function PUT(
 // (PATCH)
 export async function PATCH(
 	req: Request,
-	{ params }: { params: { slug: string } }
+	context: { params: { slug: string } }
 ) {
-	const { slug } = params
+	const { slug } = context.params
 	await dbConnect()
 	const user = await verifyJwt(req)
 	if (!user)
@@ -92,9 +86,9 @@ export async function PATCH(
 //  Delete blog
 export async function DELETE(
 	_: Request,
-	{ params }: { params: { slug: string } }
+	context: { params: { slug: string } }
 ) {
-	const { slug } = params
+	const { slug } = context.params
 	await dbConnect()
 	const user = await verifyJwt(_)
 	if (!user)
