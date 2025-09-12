@@ -7,11 +7,9 @@ export async function GET(
 	_: Request,
 	{ params }: { params: { slug: string } }
 ) {
+	const { slug } = params
 	await dbConnect()
-	const blog = await Blog.findOne({ slug: params.slug }).populate(
-		'tags',
-		'name'
-	)
+	const blog = await Blog.findOne({ slug: slug }).populate('tags', 'name')
 	if (!blog) {
 		return NextResponse.json(
 			{ success: false, error: 'Blog not found' },
@@ -26,6 +24,7 @@ export async function PUT(
 	req: Request,
 	{ params }: { params: { slug: string } }
 ) {
+	const { slug } = params
 	await dbConnect()
 	const user = await verifyJwt(req)
 	if (!user)
@@ -36,7 +35,7 @@ export async function PUT(
 
 	try {
 		const body = await req.json()
-		const blog = await Blog.findOneAndUpdate({ slug: params.slug }, body, {
+		const blog = await Blog.findOneAndUpdate({ slug: slug }, body, {
 			new: true,
 		})
 		if (!blog)
@@ -59,6 +58,7 @@ export async function PATCH(
 	req: Request,
 	{ params }: { params: { slug: string } }
 ) {
+	const { slug } = params
 	await dbConnect()
 	const user = await verifyJwt(req)
 	if (!user)
@@ -70,7 +70,7 @@ export async function PATCH(
 	try {
 		const body = await req.json()
 		const blog = await Blog.findOneAndUpdate(
-			{ slug: params.slug },
+			{ slug: slug },
 			{ $set: body },
 			{ new: true }
 		)
@@ -94,6 +94,7 @@ export async function DELETE(
 	_: Request,
 	{ params }: { params: { slug: string } }
 ) {
+	const { slug } = params
 	await dbConnect()
 	const user = await verifyJwt(_)
 	if (!user)
@@ -103,7 +104,7 @@ export async function DELETE(
 		)
 
 	try {
-		const blog = await Blog.findOneAndDelete({ slug: params.slug })
+		const blog = await Blog.findOneAndDelete({ slug: slug })
 		if (!blog)
 			return NextResponse.json(
 				{ success: false, error: 'Blog not found' },

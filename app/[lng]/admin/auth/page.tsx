@@ -30,25 +30,25 @@ function Page() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-const validation = contactSchema.safeParse({ email, password })
+		const validation = contactSchema.safeParse({ email, password })
 
-if (!validation.success) {
-	const fieldErrors: { email?: string; password?: string } = {}
+		if (!validation.success) {
+			const fieldErrors: { email?: string; password?: string } = {}
 
-	validation.error.issues.forEach(err => {
-		if (err.path[0] === 'email') fieldErrors.email = err.message
-		if (err.path[0] === 'password') fieldErrors.password = err.message
-	})
+			validation.error.issues.forEach(err => {
+				if (err.path[0] === 'email') fieldErrors.email = err.message
+				if (err.path[0] === 'password') fieldErrors.password = err.message
+			})
 
-	setErrors(fieldErrors)
-	return
-}
+			setErrors(fieldErrors)
+			return
+		}
 		setErrors({})
 		setLoading(true)
 		try {
 			await axios.post('/api/auth', { email, password }).then(() => {
 				toast.success('Success login!', {
-					position: 'top-right',
+					position: 'top-center',
 					richColors: true,
 				})
 				router.push(`/${lng}/admin/`)
@@ -57,7 +57,7 @@ if (!validation.success) {
 			const message = err.response?.data?.error || 'Error login!'
 
 			toast.error(message, {
-				position: 'top-right',
+				position: 'top-center',
 				richColors: true,
 			})
 		} finally {
